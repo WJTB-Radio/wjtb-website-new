@@ -1,6 +1,6 @@
 "use client";
 
-import { MutableRefObject, Ref, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../utils/delay_correction";
 import styles from "./audio_stream_player.module.scss";
 import { getSnowflake } from "../utils/snowflake";

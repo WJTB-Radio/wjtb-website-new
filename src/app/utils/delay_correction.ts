@@ -1,4 +1,4 @@
-export const delay_seconds = 100.0;//5.0;
+export const delay_seconds = 5.0;
 // delay correction time warps audio to target a specific stream delay
 // playback speed = b*(-ax/sqrt(1+(ax)^2))+1
 // where b = delay_correction_max, a = delay_correction_aggressiveness, x is how many seconds we have to correct
