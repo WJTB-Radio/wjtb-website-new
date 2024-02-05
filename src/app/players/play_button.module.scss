@@ -1,0 +1,112 @@
+/* play button */
+
+.play_button, .pause_button {
+	--transition-time: 0.15s;
+	--transition-easing-func: ease-out;
+	--button-color: var(--text-color);
+	--button-color-hover: var(--text-highlight-color);
+	--button-color-active: var(--text-highlight-color);
+
+	--button-width: 10rem;
+	--button-height: 10rem;
+
+	font-size: 0;
+	min-width: var(--button-width);
+	min-height: var(--button-height);
+	padding: 0;
+	margin: 0;
+	position: relative;
+	display: inline-block;
+	background-color: transparent;
+	border: transparent;
+}
+
+.play_button::before, .pause_button::before {
+	content: '';
+	pointer-events: none;
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	transform: scale(1.0, 0.5);
+	transform-origin: 25% 0%;
+	border: var(--button-width) solid transparent;
+	transition: border-left-color var(--transition-time) var(--transition-easing-func);
+}
+
+.pause_button::before {
+	border-left-color: transparent;
+}
+
+.play_button::before {
+	border-left-color: var(--button-color);
+}
+
+.play_button:hover::before, .play_button:focus-visible::before {
+	border-left-color: var(--button-color-hover);
+}
+
+.play_button:active::before {
+	border-left-color: var(--button-color-active);
+}
+
+/* pause button */
+
+/* left bar */
+
+.pause_icon::before {
+	content: '';
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: calc(var(--button-width) / 3);
+	height: 100%;
+	background-color: transparent;
+	transition: background-color var(--transition-time) var(--transition-easing-func);
+}
+
+.pause_button .pause_icon::before {
+	background-color: var(--button-color);
+}
+
+.pause_button:hover .pause_icon::before,
+.pause_button:focus-visible .pause_icon::before {
+	background-color: var(--button-color-hover);
+}
+
+.pause_button:active .pause_icon::before {
+	background-color: var(--button-color-active);
+}
+
+.play_button .pause_icon::before {
+	background-color: transparent;
+}
+
+/* right bar */
+
+.pause_icon::after {
+	content: '';
+	position: absolute;
+	top: 0%;
+	right: 100%;
+	left: calc(100% - calc(var(--button-width) / 3));
+	width: calc(var(--button-width) / 3);
+	height: 100%;
+	transition: background-color var(--transition-time) var(--transition-easing-func);
+}
+
+.pause_button .pause_icon::after {
+	background-color: var(--button-color);
+}
+
+.pause_button:hover .pause_icon::after,
+.pause_button:focus-visible .pause_icon::after {
+	background-color: var(--button-color-hover);
+}
+
+.pause_button:active .pause_icon::after {
+	background-color: var(--button-color-active);
+}
+
+.play_button .pause_icon::after {
+	background-color: transparent;
+}

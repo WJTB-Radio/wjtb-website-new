@@ -1,0 +1,85 @@
+@use './play_button.module.scss';
+
+.player {
+	position: relative;
+	text-align: center;
+}
+
+.video {
+	display: inline-block;
+	width: calc(min(100%, 150rem));
+	pointer-events: none;
+}
+
+.play_button, .pause_button {
+	--button-width: calc(min(10rem, 25vw));
+	--button-height: var(--button-width);
+
+	position: absolute;
+	top: calc(50% - var(--button-height) / 2);
+	left: calc(50% - var(--button-width) / 2);
+	opacity: 1;
+	transition: opacity 0.15s ease-out;
+}
+
+.play_button.hidden, .pause_button.hidden {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.video_shadow {
+	position: absolute;
+	pointer-events: none;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0.0, 0.0, 0.0, 0.5);
+	transition: background-color 0.15s ease-out;
+}
+
+.video_shadow.hidden {
+	background-color: transparent;
+}
+
+.fullscreen_button {
+	--button-color: var(--text-color);
+	--button-color-hover: var(--text-highlight-color);
+	--button-color-active: var(--text-highlight-color);
+
+	position: absolute;
+	right: 1rem;
+	bottom: 1rem;
+	width: calc(min(10rem, 15vw));
+	height: calc(min(10rem, 15vw));
+
+	border: transparent;
+	font-size: 0;
+	transition: opacity 0.15s ease-out, background-color 0.15s ease-out;
+
+	background-color: var(--button-color);
+	mask-size: contain;
+	mask-repeat: no-repeat;
+}
+
+.fullscreen_button:hover,
+.fullscreen_button:focus-visible {
+	background-color: var(--button-color-hover);
+}
+
+.fullscreen_button:active {
+	background-color: var(--button-color-active);
+}
+
+.fullscreen_button.enabled {
+	mask-image: url('no-fullscreen.svg');
+}
+
+.fullscreen_button.disabled {
+	mask-image: url('fullscreen.svg');
+}
+
+.fullscreen_button.hidden {
+	opacity: 0;
+	pointer-events: none;
+}

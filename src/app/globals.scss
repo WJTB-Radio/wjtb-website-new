@@ -1,0 +1,22 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+:root {
+	--bg-color: #0d0d0d;
+	--bg2-color: #181818;
+	--bg3-color: #242424;
+	--text-color: #cfcfcf;
+	--text-highlight-color: #ffffff;
+	--text-shadow-color: #696969;
+	--text-light-color: #888888;
+	--accent-color: #ce2328;
+	--accent-shadow-color: #721114;
+	--accent2-color: #eded50;
+	--iframe-bg-color: #eeeeee;
+}
+
+body {
+	background-color: var(--bg-color);
+}
