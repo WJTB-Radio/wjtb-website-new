@@ -4,6 +4,7 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../utils/delay_correction";
 import styles from "./video_stream_player.module.scss";
 import { getSnowflake } from "../utils/snowflake";
+import Volume from "./volume";
 
 // snowflake ensures we do not cache a previously served stream
 const snowflake = getSnowflake();
@@ -13,7 +14,7 @@ export default function VideoStreamPlayer() {
 	const [playing, setPlaying] = useState(false);
 	const [hovering, setHovering] = useState(false);
 	const [fullscreen, setFullscreen] = useState(false);
-	const touch = useRef(false);
+	const [touch, setTouch] = useState(false);
 	const hoverTimeout = useRef(-1);
 	const player = useRef<HTMLDivElement | null>(null);
 
@@ -38,7 +39,7 @@ export default function VideoStreamPlayer() {
 		const timeout = window.setTimeout(() => {
 			setHovering(false);
 			hoverTimeout.current = -1;
-		}, 1000);
+		}, 3000);
 		hoverTimeout.current = timeout;
 	}
 
@@ -60,7 +61,7 @@ export default function VideoStreamPlayer() {
 	}
 
 	function togglePlaying() {
-		if(video.current == null || touch.current) {
+		if(video.current == null || touch) {
 			return;
 		}
 		if(playing) {
@@ -71,18 +72,14 @@ export default function VideoStreamPlayer() {
 	}
 
 	function onMouseMove(event: React.MouseEvent) {
-		if(touch.current) {
+		if(touch) {
 			return;
 		}
-		touch.current = false;
 		interact();
 	}
 
 	function onTouchStart(event: React.TouchEvent) {
-		if(event.target != player.current) {
-			return;
-		}
-		touch.current = event.touches.length > 0;
+		setTouch(event.touches.length > 0);
 		if(!hovering) {
 			startHoverTimer();
 		}
@@ -91,8 +88,8 @@ export default function VideoStreamPlayer() {
 
 	function onTouchEnd(event: React.TouchEvent) {
 		window.setTimeout(() => {
-			touch.current = event.touches.length > 0;
-		}, 5);
+			setTouch(event.touches.length > 0);
+		}, 500);
 	}
 
 	function onMouseLeave() {
@@ -100,7 +97,7 @@ export default function VideoStreamPlayer() {
 	}
 
 	function toggleFullscreen() {
-		if(player.current == null || touch.current) {
+		if(player.current == null || touch) {
 			return;
 		}
 		interact();
@@ -131,6 +128,22 @@ export default function VideoStreamPlayer() {
 		};
 	});
 
+	function onVolumeChange(volume: number) {
+		if(video.current == null) {
+			return;
+		}
+		video.current.volume = volume;
+		interact();
+	}
+
+	function onMuteChange(muted: boolean) {
+		if(video.current == null) {
+			return;
+		}
+		video.current.muted = muted;
+		interact();
+	}
+
 	return (
 		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} ref={player}>
 			<video className={styles.video} src={`https://upload.wikimedia.org/wikipedia/commons/d/d5/Affectionate_lions.webm?${snowflake}`}
@@ -140,6 +153,9 @@ export default function VideoStreamPlayer() {
 				{playing?"Pause Video":"Play Video"}
 				<div className={styles.pause_icon}></div>
 			</button>
+			<div className={styles.volume}>
+				<Volume hidden={!hovering} touch={touch} muteChangeEvent={onMuteChange} volumeChangeEvent={onVolumeChange}/>
+			</div>
 			<button onClick={toggleFullscreen} onFocus={interact} className={`${styles.fullscreen_button} ${fullscreen?styles.enabled:styles.disabled} ${!hovering && styles.hidden}`}>
 				{fullscreen?"Disable Fullscreen Video":"Enable Fullscreen Video"}
 			</button>

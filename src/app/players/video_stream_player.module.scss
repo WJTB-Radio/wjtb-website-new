@@ -7,7 +7,7 @@
 
 .video {
 	display: inline-block;
-	width: calc(min(100%, 150rem));
+	width: calc(min(100vh / var(--aspect-ratio, .5625), 100vw));
 	pointer-events: none;
 }
 
@@ -72,14 +72,22 @@
 }
 
 .fullscreen_button.enabled {
-	mask-image: url('no-fullscreen.svg');
+	mask-image: url('svg/no-fullscreen.svg');
 }
 
 .fullscreen_button.disabled {
-	mask-image: url('fullscreen.svg');
+	mask-image: url('svg/fullscreen.svg');
 }
 
 .fullscreen_button.hidden {
 	opacity: 0;
 	pointer-events: none;
+}
+
+.volume {
+	position: absolute;
+	left: 1rem;
+	bottom: 1rem;
+	width: calc(min(10rem, 15vw));
+	height: calc(min(10rem, 15vw));
 }
