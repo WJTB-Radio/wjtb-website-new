@@ -3,16 +3,13 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../utils/delay_correction";
 import styles from "./video_stream_player.module.scss";
-import { getSnowflake } from "../utils/snowflake";
 import Volume from "./volume";
-
-// snowflake ensures we do not cache a previously served stream
-const snowflake = getSnowflake();
+import Hls from "hls.js";
 
 type TouchRef = {identifier: number, startX: number, startY: number};
 
 export default function VideoStreamPlayer() {
-	const video: MutableRefObject<HTMLVideoElement> | MutableRefObject<null> = useRef(null);
+	const video = useRef<HTMLVideoElement | null>(null);
 	const [playing, setPlaying] = useState(false);
 	const [hovering, setHovering] = useState(false);
 	const [fullscreen, setFullscreen] = useState(false);
@@ -178,9 +175,31 @@ export default function VideoStreamPlayer() {
 		interact();
 	}
 
+	const videoSrc = "http://127.0.0.1:8888/test/stream.m3u8";
+
+	useEffect(() => {
+		if(video.current == null) {
+			return;
+		}
+		if (Hls.isSupported()) {
+			var hls = new Hls();
+			hls.loadSource(videoSrc);
+			hls.attachMedia(video.current);
+			hls.on(Hls.Events.MANIFEST_PARSED, function() {
+				if(video.current == null) {
+					return;
+				}
+				video.current.muted = true;
+				video.current.play();
+			});
+		} else if (video.current.canPlayType('application/vnd.apple.mpegurl')) {
+			video.current.src = videoSrc;
+		}
+	}, []);
+
 	return (
 		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onTouchMove={onTouchMove} ref={player}>
-			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video} src={`http://localhost:8888/test?${snowflake}`}
+			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video}
 			ref={video} onPause={onVideoPause} onPlaying={onVideoPlaying}></video>
 			<div className={`${styles.video_shadow} ${!hovering && styles.hidden}`}></div>
 			<button onClick={togglePlaying} onFocus={interact} className={`${playing?styles.pause_button:styles.play_button} ${!hovering && styles.hidden}`}>
