@@ -54,7 +54,6 @@ export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEven
 		if(!button.current.contains(event.target)) {
 			return;
 		}
-		console.log("click");
 		onMouseEnter();
 		onMouseLeave();
 		muteChangeEvent(!muted);

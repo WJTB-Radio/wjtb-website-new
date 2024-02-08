@@ -9,12 +9,15 @@ import Volume from "./volume";
 // snowflake ensures we do not cache a previously served stream
 const snowflake = getSnowflake();
 
+type TouchRef = {identifier: number, startX: number, startY: number};
+
 export default function VideoStreamPlayer() {
 	const video: MutableRefObject<HTMLVideoElement> | MutableRefObject<null> = useRef(null);
 	const [playing, setPlaying] = useState(false);
 	const [hovering, setHovering] = useState(false);
 	const [fullscreen, setFullscreen] = useState(false);
 	const [touch, setTouch] = useState(false);
+	const touches = useRef<Array<TouchRef>>([]);
 	const hoverTimeout = useRef(-1);
 	const touchTimeout = useRef(-1);
 	const player = useRef<HTMLDivElement | null>(null);
@@ -62,7 +65,7 @@ export default function VideoStreamPlayer() {
 	}
 
 	function togglePlaying() {
-		if(video.current == null || touch) {
+		if(video.current == null) {
 			return;
 		}
 		if(playing) {
@@ -80,17 +83,18 @@ export default function VideoStreamPlayer() {
 	}
 
 	function onTouchStart(event: React.TouchEvent) {
+		for(let i = 0; i < event.changedTouches.length; i++) {
+			const t = event.changedTouches[i]
+			touches.current.push({
+				identifier: t.identifier,
+				startX: t.clientX,
+				startY: t.clientY,
+			});
+		}
 		if(touchTimeout.current != -1) {
 			window.clearTimeout(touchTimeout.current);
 		}
 		setTouch(true);
-		if(event.target != player.current) {
-			return;
-		}
-		if(!hovering) {
-			startHoverTimer();
-		}
-		setHovering(!hovering);
 	}
 
 	function onTouchEnd(event: React.TouchEvent) {
@@ -103,6 +107,23 @@ export default function VideoStreamPlayer() {
 		touchTimeout.current = window.setTimeout(() => {
 			setTouch(false);
 		}, 500);
+		window.setTimeout(() => {
+			if(!hovering) {
+				startHoverTimer();
+			}
+			setHovering(!hovering);	
+		}, 1);
+	}
+
+	function onTouchMove(event: React.TouchEvent) {
+		for(let i = 0; i < event.changedTouches.length; i++) {
+			const t = event.changedTouches[i]
+			touches.current.push({
+				identifier: t.identifier,
+				startX: t.clientX,
+				startY: t.clientY,
+			});
+		}
 	}
 
 	function onMouseLeave() {
@@ -110,7 +131,7 @@ export default function VideoStreamPlayer() {
 	}
 
 	function toggleFullscreen() {
-		if(player.current == null || touch) {
+		if(player.current == null) {
 			return;
 		}
 		interact();
@@ -158,8 +179,8 @@ export default function VideoStreamPlayer() {
 	}
 
 	return (
-		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} ref={player}>
-			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video} src={`https://upload.wikimedia.org/wikipedia/commons/d/d5/Affectionate_lions.webm?${snowflake}`}
+		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onTouchMove={onTouchMove} ref={player}>
+			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video} src={`http://localhost:8888/test?${snowflake}`}
 			ref={video} onPause={onVideoPause} onPlaying={onVideoPlaying}></video>
 			<div className={`${styles.video_shadow} ${!hovering && styles.hidden}`}></div>
 			<button onClick={togglePlaying} onFocus={interact} className={`${playing?styles.pause_button:styles.play_button} ${!hovering && styles.hidden}`}>
@@ -171,6 +192,7 @@ export default function VideoStreamPlayer() {
 			</div>
 			<button onClick={toggleFullscreen} onFocus={interact} className={`${styles.fullscreen_button} ${fullscreen?styles.enabled:styles.disabled} ${!hovering && styles.hidden}`}>
 				{fullscreen?"Disable Fullscreen Video":"Enable Fullscreen Video"}
+				<div className={styles.fullscreen_icon}></div>
 			</button>
 		</div>
 	);

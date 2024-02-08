@@ -55,27 +55,35 @@
 
 	border: transparent;
 	font-size: 0;
-	transition: opacity 0.15s ease-out, background-color 0.15s ease-out;
+	background-color: transparent;
+}
 
+.fullscreen_icon {
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100%;
 	background-color: var(--button-color);
+	transition: opacity 0.15s ease-out, background-color 0.15s ease-out;
 	mask-size: contain;
 	mask-repeat: no-repeat;
 }
 
-.fullscreen_button:hover,
-.fullscreen_button:focus-visible {
+.fullscreen_button:hover .fullscreen_icon,
+.fullscreen_button:focus-visible .fullscreen_icon {
 	background-color: var(--button-color-hover);
 }
 
-.fullscreen_button:active {
+.fullscreen_button:active .fullscreen_icon {
 	background-color: var(--button-color-active);
 }
 
-.fullscreen_button.enabled {
+.fullscreen_button.enabled .fullscreen_icon {
 	mask-image: url('svg/no-fullscreen.svg');
 }
 
-.fullscreen_button.disabled {
+.fullscreen_button.disabled .fullscreen_icon {
 	mask-image: url('svg/fullscreen.svg');
 }
 
