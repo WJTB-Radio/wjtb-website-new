@@ -8,7 +8,7 @@ import Hls from "hls.js";
 
 type TouchRef = {identifier: number, startX: number, startY: number};
 
-export default function VideoStreamPlayer() {
+export default function VideoStreamPlayer({videoErrorEvent}: {videoErrorEvent: () => void}) {
 	const video = useRef<HTMLVideoElement | null>(null);
 	const [playing, setPlaying] = useState(false);
 	const [hovering, setHovering] = useState(false);
@@ -185,7 +185,10 @@ export default function VideoStreamPlayer() {
 			var hls = new Hls();
 			hls.loadSource(videoSrc);
 			hls.attachMedia(video.current);
-			hls.on(Hls.Events.MANIFEST_PARSED, function() {
+			hls.on(Hls.Events.ERROR, () => {
+				onVideoError();
+			});
+			hls.on(Hls.Events.MANIFEST_PARSED, () => {
 				if(video.current == null) {
 					return;
 				}
@@ -197,9 +200,13 @@ export default function VideoStreamPlayer() {
 		}
 	}, []);
 
+	function onVideoError() {
+		videoErrorEvent();
+	}
+
 	return (
 		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onTouchMove={onTouchMove} ref={player}>
-			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video}
+			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video} onError={onVideoError}
 			ref={video} onPause={onVideoPause} onPlaying={onVideoPlaying}></video>
 			<div className={`${styles.video_shadow} ${!hovering && styles.hidden}`}></div>
 			<button onClick={togglePlaying} onFocus={interact} className={`${playing?styles.pause_button:styles.play_button} ${!hovering && styles.hidden}`}>

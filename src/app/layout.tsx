@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.scss";
+import Players from "./players/players";
 
 export const metadata: Metadata = {
   title: "WJTB Radio",
@@ -11,9 +12,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body>
+				<Players />
+				{children}
+			</body>
+		</html>
+	);
 }
