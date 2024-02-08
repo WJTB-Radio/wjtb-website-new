@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="27.722904mm"
+   height="25.267117mm"
+   viewBox="0 0 27.722904 25.267117"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <g
+     id="layer1"
+     transform="translate(-133.40833,-23.085193)">
+    <g
+       id="mute"
+       transform="translate(0,-37.041668)">
+      <path
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 148.69583,65.822916 8.40165,13.875001"
+         id="path1782" />
+      <path
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 157.09748,65.822916 -8.40165,13.875001"
+         id="path1784" />
+    </g>
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 134.40833,32.411457 4.49792,-0.21455 6.61458,-6.400034 v 19.843755 l -6.61458,-6.400035 -4.49792,-0.21455 v -6.614586"
+       id="speaker" />
+  </g>
+</svg>

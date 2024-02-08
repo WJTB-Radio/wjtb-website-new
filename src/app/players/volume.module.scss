@@ -1,0 +1,207 @@
+.container {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	transition: opacity 0.15s ease-out;
+	pointer-events: all;
+	font-size: 0;
+}
+
+.container.hidden {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.volume_button {
+	position: relative;
+	background-color: transparent;
+	border: transparent;
+	width: 100%;
+	height: 100%;
+	pointer-events: all;
+	font-size: 0;
+}
+
+.hidden .volume_button {
+	pointer-events: none;
+}
+
+.volume_icon {
+	--button-color: var(--text-color);
+	--button-color-hover: var(--text-highlight-color);
+	--button-color-active: var(--text-highlight-color);
+
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--button-color);
+
+	transition: background-color 0.15s ease-out;
+}
+
+.muted .volume_icon {
+	mask-image: url("svg/muted.svg");
+}
+
+.volume0 .volume_icon {
+	mask-image: url("svg/volume0.svg");
+}
+
+.volume1 .volume_icon {
+	mask-image: url("svg/volume1.svg");
+}
+
+.volume2 .volume_icon {
+	mask-image: url("svg/volume2.svg");
+}
+
+.volume3 .volume_icon {
+	mask-image: url("svg/volume3.svg");
+}
+
+.volume_button:hover>.volume_icon {
+	background-color: var(--button-color-hover);
+}
+
+.volume_button:active>.volume_icon {
+	background-color: var(--button-color-active);
+}
+
+.slider {
+	--thumb-width: calc(min(2.3rem, 8vw));
+	width: 150%;
+
+	position: absolute;
+	--h: calc(min(2rem, 5vh));
+	height: var(--h);
+	top: calc(50% - var(--h)/2);
+	left: 105%;
+	transform-origin: 0% 0%;
+	transition: transform 0.15s ease-out;
+}
+
+.slider:hover {
+	--h: calc(min(2.3rem, 5.1vh));
+}
+
+.hidden .slider {
+	pointer-events: none;
+}
+
+.slider.hidden {
+	transform: scale(0.0, 1.0);
+	pointer-events: none;
+}
+
+/* a lot of repetition is nessecary here unfortunately */
+/* borrowed from here: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
+
+.slider {
+	-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+	background: transparent; /* Otherwise white in Chrome */
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+}
+
+.slider::-ms-track {
+	width: 100%;
+	cursor: pointer;
+	/* Hides the slider so custom styles can be added */
+	background: transparent; 
+	border-color: transparent;
+	color: transparent;
+}
+
+  /* Special styling for WebKit/Blink */
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	border: 0.5rem solid var(--text-color);
+	height: var(--thumb-width);
+	width: var(--thumb-width);
+	border-radius: 10rem;
+	background: var(--text-color);
+	cursor: pointer;
+	margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+/* All the same stuff for Firefox */
+.slider::-moz-range-thumb {
+	border: 0.5rem solid var(--text-color);
+	height: var(--thumb-width);
+	width: var(--thumb-width);
+	border-radius: 10rem;
+	background: var(--text-color);
+	cursor: pointer;
+}
+  
+/* All the same stuff for IE */
+.slider::-ms-thumb {
+	border: 0.5rem solid var(--text-color);
+	height: var(--thumb-width);
+	width: var(--thumb-width);
+	border-radius: 10rem;
+	background: var(--text-color);
+	cursor: pointer;
+}
+
+.slider::-webkit-slider-runnable-track {
+	width: 100%;
+	height: var(--h);
+	transition: height 0.1s ease-out;
+	cursor: pointer;
+	background: var(--text-light-color);
+	border-radius: 10rem;
+}
+
+.slider:focus::-webkit-slider-runnable-track {
+	background: var(--text-light-color);
+}
+
+.slider::-moz-range-track {
+	width: 100%;
+	height: var(--h);
+	transition: height 0.1s ease-out;
+	cursor: pointer;
+	background: var(--text-light-color);
+	border-radius: 10rem;
+}
+  
+.slider::-ms-track {
+	width: 100%;
+	height: var(--h);
+	transition: height 0.1s ease-out;
+	cursor: pointer;
+	background: var(--text-light-color);
+	border-color: transparent;
+	border-width: 0 0;
+	color: transparent;
+}
+  
+.slider::-ms-fill-lower {
+	background: var(--text-light-color);
+	border: transparent;
+	border-radius: 10rem;
+	box-shadow: none;
+}
+
+.slider:focus::-ms-fill-lower {
+	background: var(--text-light-color);
+}
+
+.slider::-ms-fill-upper {
+	background: var(--text-light-color);
+	border: transparent;
+	border-radius: 10rem;
+	box-shadow: none;
+}
+
+.slider:focus::-ms-fill-upper {
+	background: var(--text-light-color);
+}

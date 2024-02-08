@@ -16,6 +16,7 @@ export default function VideoStreamPlayer() {
 	const [fullscreen, setFullscreen] = useState(false);
 	const [touch, setTouch] = useState(false);
 	const hoverTimeout = useRef(-1);
+	const touchTimeout = useRef(-1);
 	const player = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
@@ -79,7 +80,13 @@ export default function VideoStreamPlayer() {
 	}
 
 	function onTouchStart(event: React.TouchEvent) {
-		setTouch(event.touches.length > 0);
+		if(touchTimeout.current != -1) {
+			window.clearTimeout(touchTimeout.current);
+		}
+		setTouch(true);
+		if(event.target != player.current) {
+			return;
+		}
 		if(!hovering) {
 			startHoverTimer();
 		}
@@ -87,8 +94,14 @@ export default function VideoStreamPlayer() {
 	}
 
 	function onTouchEnd(event: React.TouchEvent) {
-		window.setTimeout(() => {
-			setTouch(event.touches.length > 0);
+		if(event.touches.length > 0) {
+			return;
+		}
+		if(touchTimeout.current != -1) {
+			window.clearTimeout(touchTimeout.current);
+		}
+		touchTimeout.current = window.setTimeout(() => {
+			setTouch(false);
 		}, 500);
 	}
 
@@ -146,7 +159,7 @@ export default function VideoStreamPlayer() {
 
 	return (
 		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} ref={player}>
-			<video className={styles.video} src={`https://upload.wikimedia.org/wikipedia/commons/d/d5/Affectionate_lions.webm?${snowflake}`}
+			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video} src={`https://upload.wikimedia.org/wikipedia/commons/d/d5/Affectionate_lions.webm?${snowflake}`}
 			ref={video} onPause={onVideoPause} onPlaying={onVideoPlaying}></video>
 			<div className={`${styles.video_shadow} ${!hovering && styles.hidden}`}></div>
 			<button onClick={togglePlaying} onFocus={interact} className={`${playing?styles.pause_button:styles.play_button} ${!hovering && styles.hidden}`}>

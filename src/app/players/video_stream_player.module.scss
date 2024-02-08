@@ -12,7 +12,7 @@
 }
 
 .play_button, .pause_button {
-	--button-width: calc(min(10rem, 25vw));
+	--button-width: calc(min(10rem, 15vw));
 	--button-height: var(--button-width);
 
 	position: absolute;
@@ -90,4 +90,5 @@
 	bottom: 1rem;
 	width: calc(min(10rem, 15vw));
 	height: calc(min(10rem, 15vw));
+	pointer-events: none;
 }
