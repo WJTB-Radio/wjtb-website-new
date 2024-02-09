@@ -1,22 +1,13 @@
 @use './play_button.module.scss';
 
 .player {
-	--player-width: 60%;
-
 	position: relative;
 	text-align: center;
-	width: calc(min(100vh / var(--aspect-ratio, .5625), var(--player-width)));
-}
-
-@media (max-width: 1000px) {
-	.player {
-		--player-width: 100%;
-	}
 }
 
 .video {
 	display: inline-block;
-	width: calc(min(100vh / var(--aspect-ratio, .5625), 100%));
+	width: 100%;
 	pointer-events: none;
 }
 

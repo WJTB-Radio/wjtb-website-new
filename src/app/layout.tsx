@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.scss";
 import Players from "./players/players";
+import Schedule from "./schedule";
+import styles from "./layout.module.scss";
 
 export const metadata: Metadata = {
   title: "WJTB Radio",
@@ -15,7 +17,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<Players />
+				<div className={styles.players}>
+					<Players />
+					<Schedule />
+				</div>
 				{children}
 			</body>
 		</html>

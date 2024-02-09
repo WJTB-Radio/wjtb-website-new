@@ -2,3 +2,15 @@
 	display: none;
 	pointer-events: none;
 }
+
+.players {
+	display: inline-block;
+	position: relative;
+	max-width: calc(min(100vh / var(--aspect-ratio, 0.5625), var(--player-width)));
+}
+
+@media (max-width: 1000px) {
+	.players {
+		--player-width: 100%;
+	}
+}

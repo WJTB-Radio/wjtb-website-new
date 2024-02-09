@@ -1,0 +1,28 @@
+.container {
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.table {
+	padding-left: 1rem;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.day {
+	border-bottom: 0.1rem solid white;
+	height: 2em;
+}
+
+.show {
+	border-bottom: 0.1rem solid white;
+	height: 2em;
+}
+
+.show:hover {
+	background-color: var(--bg2-color);
+}
+
+.day>* {
+	text-align: left;
+}

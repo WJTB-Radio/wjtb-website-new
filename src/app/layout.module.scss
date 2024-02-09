@@ -1,0 +1,13 @@
+.players {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	--player-width: 60vw;
+	--aspect-ratio: calc(9/16);
+	height: calc(min(100vh / var(--aspect-ratio, 0.5625), var(--player-width)) * var(--aspect-ratio, 0.5625));
+}
+
+.players>* {
+	flex-grow: 1;
+}
+

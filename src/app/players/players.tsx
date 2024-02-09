@@ -11,7 +11,7 @@ export default function Players() {
 		setVideoEnabled(false);
 	}
 	return (
-		<div>
+		<div className={styles.players}>
 			<div className={`${styles.video_player} ${!videoEnabled && styles.hidden}`}>
 				<VideoStreamPlayer videoErrorEvent={onVideoError}/>
 			</div>
