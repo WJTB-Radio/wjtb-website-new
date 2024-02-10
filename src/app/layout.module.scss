@@ -4,7 +4,7 @@
 	flex-direction: row;
 	--player-width: 60vw;
 	--aspect-ratio: calc(1/2);
-	height: calc(var(--aspect-ratio) * var(--player-width));
+	height: min(calc(var(--aspect-ratio) * var(--player-width)), 100svh);
 }
 
 .players>* {
