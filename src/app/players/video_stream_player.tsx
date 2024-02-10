@@ -5,22 +5,26 @@ import { applyDelayCorrection, delay_correction_interval, delay_seconds, telepor
 import styles from "./video_stream_player.module.scss";
 import Volume from "./volume";
 import Hls from "hls.js";
-
-type TouchRef = {identifier: number, startX: number, startY: number};
+import { TouchRef, onTouchEnd, onTouchMove, onTouchStart } from "../utils/touch_detection";
 
 export type VideoStreamPlayerHandle = {
 	reloadVideo: () => void;
 };
 
-const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, {videoErrorEvent: () => void}>(({videoErrorEvent}, ref) => {
+type Props = {
+	videoErrorEvent: () => void;
+	hidden: boolean;
+};
+
+const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(({videoErrorEvent, hidden}, ref) => {
 	const video = useRef<HTMLVideoElement | null>(null);
 	const [playing, setPlaying] = useState(false);
 	const [hovering, setHovering] = useState(false);
 	const [fullscreen, setFullscreen] = useState(false);
 	const [touch, setTouch] = useState(false);
 	const touches = useRef<Array<TouchRef>>([]);
-	const hoverTimeout = useRef(-1);
 	const touchTimeout = useRef(-1);
+	const hoverTimeout = useRef(-1);
 	const player = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
@@ -83,48 +87,11 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, {videoErrorEvent: 
 		interact();
 	}
 
-	function onTouchStart(event: React.TouchEvent) {
-		for(let i = 0; i < event.changedTouches.length; i++) {
-			const t = event.changedTouches[i]
-			touches.current.push({
-				identifier: t.identifier,
-				startX: t.clientX,
-				startY: t.clientY,
-			});
+	function onTap() {
+		if(!hovering) {
+			startHoverTimer();
 		}
-		if(touchTimeout.current != -1) {
-			window.clearTimeout(touchTimeout.current);
-		}
-		setTouch(true);
-	}
-
-	function onTouchEnd(event: React.TouchEvent) {
-		if(event.touches.length > 0) {
-			return;
-		}
-		if(touchTimeout.current != -1) {
-			window.clearTimeout(touchTimeout.current);
-		}
-		touchTimeout.current = window.setTimeout(() => {
-			setTouch(false);
-		}, 500);
-		window.setTimeout(() => {
-			if(!hovering) {
-				startHoverTimer();
-			}
-			setHovering(!hovering);	
-		}, 1);
-	}
-
-	function onTouchMove(event: React.TouchEvent) {
-		for(let i = 0; i < event.changedTouches.length; i++) {
-			const t = event.changedTouches[i]
-			touches.current.push({
-				identifier: t.identifier,
-				startX: t.clientX,
-				startY: t.clientY,
-			});
-		}
+		setHovering(!hovering);	
 	}
 
 	function onMouseLeave() {
@@ -189,6 +156,15 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, {videoErrorEvent: 
 		loadVideo();
 	}, []);
 
+	useEffect(() => {
+		if(hidden) {
+			setPlaying(false);
+			if(video.current != null) {
+				video.current.pause();
+			}
+		}
+	}, [hidden]);
+
 
 	function loadVideo() {
 		if(video.current == null) {
@@ -225,7 +201,10 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, {videoErrorEvent: 
 	}, []);
 
 	return (
-		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onTouchMove={onTouchMove} ref={player}>
+		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+					onTouchStart={onTouchStart.bind(null, touches, touchTimeout, setTouch)}
+					onTouchEnd={onTouchEnd.bind(null, touches, touchTimeout, onTap, setTouch)}
+					onTouchMove={onTouchMove.bind(null, touches)} ref={player}>
 			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video} onError={onVideoError}
 			ref={video} onPause={onVideoPause} onPlaying={onVideoPlaying}></video>
 			<div className={`${styles.video_shadow} ${!hovering && styles.hidden}`}></div>

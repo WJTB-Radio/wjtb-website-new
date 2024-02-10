@@ -1,4 +1,11 @@
 .player {
+	position: relative;
 	width: var(--player-width);
 	text-align: center;
+}
+
+.volume_container {
+	position: relative;
+	height: 5rem;
+	width: 10%;
 }

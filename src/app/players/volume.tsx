@@ -1,11 +1,23 @@
 "use client";
 
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import styles from "./volume.module.scss"
 
-export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEvent, media}:
-			{hidden: boolean, touch: boolean, media: MutableRefObject<HTMLVideoElement | null>,
-			volumeChangeEvent: (volume: number) => void, muteChangeEvent: (muted: boolean) => void}) {
+export type VolumeHandle = {
+	setVolume: (volume: number) => void;
+	setMuted: (muted: boolean) => void;
+};
+
+type Props = {
+	hidden: boolean;
+	touch: boolean;
+	media: MutableRefObject<HTMLMediaElement | null>;
+	volumeChangeEvent: (volume: number) => void;
+	muteChangeEvent: (muted: boolean) => void;
+};
+
+const Volume = forwardRef<VolumeHandle, Props> (
+			({hidden, touch, volumeChangeEvent, muteChangeEvent, media}, ref) => {
 	const [sliderShown, setSliderShown] = useState(false);
 	const [muted, setMuted] = useState(true);
 	const [volume, setVolume] = useState(1.0);
@@ -65,12 +77,10 @@ export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEven
 		if(media.current == null) {
 			return;
 		}
-		console.log("effect");
 		function volumeChangeEvent() {
 			if(media.current == null) {
 				return;
 			}
-			console.log("changed");
 			setMuted(media.current.muted);
 			setVolume(media.current.volume);
 			if(slider.current != null) {
@@ -86,6 +96,20 @@ export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEven
 			media.current.removeEventListener("volumechange", volumeChangeEvent);
 		}
 	}, [media]);
+
+	useImperativeHandle(ref, () => {
+		return {
+			setVolume(volume: number): void {
+				setVolume(volume);
+				if(slider.current != null) {
+					slider.current.value = ""+volume*100;
+				}
+			},
+			setMuted(muted: boolean): void {
+				setMuted(muted);
+			},
+		};
+	}, []);
 
 	return (
 		<div className={`${styles.container} ${hidden && styles.hidden}`}
@@ -104,4 +128,6 @@ export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEven
 			</label>
 		</div>
 	);
-}
+});
+
+export default Volume;
