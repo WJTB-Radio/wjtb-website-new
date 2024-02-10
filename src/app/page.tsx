@@ -1,6 +1,8 @@
+import styles from "./page.module.scss";
+
 export default function Home() {
 	return (
-		<div>
+		<div className={styles.main_content}>
 			<h1>Streaming online since the 1990s!</h1>
 			<p>WJTB is NJIT's official college radio station.</p>
 			<h1>Get heard</h1>

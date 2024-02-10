@@ -73,11 +73,11 @@
 }
 
 .slider {
-	--thumb-width: calc(min(2.3rem, 8vw));
+	--thumb-width: calc(min(1rem, 4vw));
 	width: 150%;
 
 	position: absolute;
-	--h: calc(min(2rem, 5vh));
+	--h: calc(min(1rem, 2vh));
 	height: var(--h);
 	top: calc(50% - var(--h)/2);
 	left: 105%;
@@ -86,7 +86,7 @@
 }
 
 .slider:hover {
-	--h: calc(min(2.3rem, 5.1vh));
+	--h: calc(min(1.2rem, 2.1vh));
 }
 
 .hidden .slider {

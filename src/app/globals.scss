@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive&family=Oswald:wght@500&family=Permanent+Marker&family=Roboto:wght@300&family=Rock+Salt&family=RocknRoll+One&family=Special+Elite&display=swap');
+@import './fonts/fortzilla/stylesheet.css';
+@import './fonts/pixel/stylesheet.css';
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -20,4 +24,37 @@
 body {
 	color: var(--text-color);
 	background-color: var(--bg-color);
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.5rem;
+	line-height: 1.8;
+}
+
+p {
+	margin: 2rem 0;
+}
+
+a {
+	color: var(--accent2-color);
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+	transform: scale(1.0);
+	transition: transform 0.1s ease-in-out;
+}
+
+a:hover {
+  transform: scale(1.05);
+}
+
+a:active {
+  transform: scale(1.0);
+}
+
+h1 {
+	font-family: 'Fortzilla', sans-serif;
+	color: var(--accent-color);
+	font-family: 'Fortzilla', sans-serif;
+	font-size: 3rem;
+	text-shadow: 0.07em 0.07em var(--accent-shadow-color);
+	padding: 0.5rem 0rem 0rem;
 }

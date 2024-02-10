@@ -24,15 +24,14 @@ export default function Schedule() {
 	}, []);
 
 	function fetchedDay(idx: number, data: DaySchedule) {
-		console.log(data);
 		data.shows = [
 			{
 				"name":"Music Time!",
 				"desc":"Music Time! is a show where DJ Music Man plays some music!<br>This is a new line!",
 				"hosts":"DJ Music Man",
 				"poster":"https://website-we-are-hotlinking.com/poster5.jpg",
-				"start_time":50400, // in seconds from the start of the day
-				"end_time":54000,
+				"start_time":61200, // in seconds from the start of the day
+				"end_time":64800,
 				"is_running":1, // 1 means true
 			},
 			{
@@ -45,16 +44,11 @@ export default function Schedule() {
 				"is_running":0, // 0 means false
 			}
 		];
-		for(let i = 0; i < 3; i++) {
-			data.shows = data.shows.concat(data.shows);
-		}
 		if(data.day == getNYCWeekdayString()) {
 			const time = getNYCTime();
 			data.shows = data.shows.filter((show) => show.end_time > time);
 		}
 		scheduleData.current[idx] = data;
-		console.log(scheduleData.current);
-		console.log("computing");
 		computeSchedule();
 	}
 
@@ -69,22 +63,28 @@ export default function Schedule() {
 				continue;
 			}
 			computed.push(
-				<tr className={styles.day}>
-					<th>{formatDay(daySchedule.day)}</th>
-				</tr>
+				<tbody>
+					<tr className={styles.day}>
+						<th>{formatDay(daySchedule.day)}</th>
+					</tr>
+				</tbody>
 			);
+			const currentDay = getNYCWeekdayString() == daySchedule.day;
 			computed = computed.concat(daySchedule.shows.map(show =>
-				<tr className={`${(show.start_time <= time && show.end_time < time) && styles.running} ${styles.show}`}>
-					<td>
-						{formatTimes(show.start_time, show.end_time)}
-					</td>
-					<td>
-						{show.name}
-					</td>
-				</tr>
+				<tbody key={show.name} className={`${styles.show_container} 
+						${(show.start_time <= time && show.end_time > time && currentDay) && styles.playing}
+						${!show.is_running && styles.cancelled}`}>
+					<tr className={`${styles.show}`}>
+						<td>
+							{formatTimes(show.start_time, show.end_time)}
+						</td>
+						<td>
+							{show.name}
+						</td>
+					</tr>
+				</tbody>
 			));
 		}
-		console.log(computed);
 		setSchedule(computed);
 	}
 
