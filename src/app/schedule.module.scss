@@ -54,8 +54,8 @@
 	background-color: green;
 }
 
-.show::before {
-	background-color: red !important;
+.show:hover {
+	background-color: var(--bg3-color);
 }
 
 .show_container {

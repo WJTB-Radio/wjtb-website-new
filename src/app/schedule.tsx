@@ -72,7 +72,7 @@ export default function Schedule() {
 			const currentDay = getNYCWeekdayString() == daySchedule.day;
 			computed = computed.concat(daySchedule.shows.map(show =>
 				<tbody key={show.name} className={`${styles.show_container} 
-						${(show.start_time <= time && show.end_time > time && currentDay) && styles.playing}
+						${(show.start_time <= time && show.end_time > time && currentDay && show.is_running) && styles.playing}
 						${!show.is_running && styles.cancelled}`}>
 					<tr className={`${styles.show}`}>
 						<td>
