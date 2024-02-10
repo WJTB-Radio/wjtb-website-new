@@ -3,14 +3,15 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import styles from "./volume.module.scss"
 
-export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEvent}:
-			{hidden: boolean, touch: boolean,
+export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEvent, media}:
+			{hidden: boolean, touch: boolean, media: MutableRefObject<HTMLVideoElement | null>,
 			volumeChangeEvent: (volume: number) => void, muteChangeEvent: (muted: boolean) => void}) {
 	const [sliderShown, setSliderShown] = useState(false);
 	const [muted, setMuted] = useState(true);
 	const [volume, setVolume] = useState(1.0);
 	const sliderTimer = useRef(-1);
-	const button: MutableRefObject<null | HTMLButtonElement> = useRef(null);
+	const button = useRef<null | HTMLButtonElement>(null);
+	const slider = useRef<null | HTMLInputElement>(null);
 
 	function onMouseEnter() {
 		volumeChangeEvent(volume);
@@ -60,6 +61,32 @@ export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEven
 		setMuted(!muted);
 	}
 
+	useEffect(() => {
+		if(media.current == null) {
+			return;
+		}
+		console.log("effect");
+		function volumeChangeEvent() {
+			if(media.current == null) {
+				return;
+			}
+			console.log("changed");
+			setMuted(media.current.muted);
+			setVolume(media.current.volume);
+			if(slider.current != null) {
+				slider.current.value = ""+media.current.volume*100;
+			}
+		}
+
+		media.current.addEventListener("volumechange", volumeChangeEvent);
+		return () => {
+			if(media.current == null) {
+				return;
+			}
+			media.current.removeEventListener("volumechange", volumeChangeEvent);
+		}
+	}, [media]);
+
 	return (
 		<div className={`${styles.container} ${hidden && styles.hidden}`}
 				onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
@@ -72,7 +99,8 @@ export default function Volume({hidden, touch, volumeChangeEvent, muteChangeEven
 			<label>
 				Volume
 				<input type="range" name="volume" min={0} max={100} defaultValue={100} onChange={onVolumeChange} onFocus={onMouseEnter} onBlur={onMouseLeave}
-					className={`${(!sliderShown || touch) && styles.hidden} ${styles.slider}`}/>
+					className={`${(!sliderShown || touch) && styles.hidden} ${styles.slider}`}
+					ref={slider}/>
 			</label>
 		</div>
 	);

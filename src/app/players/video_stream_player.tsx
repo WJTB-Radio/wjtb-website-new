@@ -1,14 +1,18 @@
 "use client";
 
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../utils/delay_correction";
+import { MutableRefObject, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { applyDelayCorrection, delay_correction_interval, delay_seconds, teleportDelayCorrection} from "../utils/delay_correction";
 import styles from "./video_stream_player.module.scss";
 import Volume from "./volume";
 import Hls from "hls.js";
 
 type TouchRef = {identifier: number, startX: number, startY: number};
 
-export default function VideoStreamPlayer({videoErrorEvent}: {videoErrorEvent: () => void}) {
+export type VideoStreamPlayerHandle = {
+	reloadVideo: () => void;
+};
+
+const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, {videoErrorEvent: () => void}>(({videoErrorEvent}, ref) => {
 	const video = useRef<HTMLVideoElement | null>(null);
 	const [playing, setPlaying] = useState(false);
 	const [hovering, setHovering] = useState(false);
@@ -177,15 +181,25 @@ export default function VideoStreamPlayer({videoErrorEvent}: {videoErrorEvent: (
 
 	const videoSrc = "http://127.0.0.1:8888/test/stream.m3u8";
 
+	function onVideoError() {
+		videoErrorEvent();
+	}
+
 	useEffect(() => {
+		loadVideo();
+	}, []);
+
+
+	function loadVideo() {
 		if(video.current == null) {
 			return;
 		}
 		if (Hls.isSupported()) {
-			var hls = new Hls();
+			let hls = new Hls();
 			hls.loadSource(videoSrc);
 			hls.attachMedia(video.current);
 			hls.on(Hls.Events.ERROR, () => {
+				hls.detachMedia();
 				onVideoError();
 			});
 			hls.on(Hls.Events.MANIFEST_PARSED, () => {
@@ -197,12 +211,18 @@ export default function VideoStreamPlayer({videoErrorEvent}: {videoErrorEvent: (
 			});
 		} else if (video.current.canPlayType('application/vnd.apple.mpegurl')) {
 			video.current.src = videoSrc;
+		} else {
+			videoErrorEvent();
 		}
-	}, []);
-
-	function onVideoError() {
-		videoErrorEvent();
 	}
+
+	useImperativeHandle(ref, () => {
+		return {
+			reloadVideo() {
+				loadVideo();
+			},
+		};
+	}, []);
 
 	return (
 		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onTouchMove={onTouchMove} ref={player}>
@@ -214,7 +234,7 @@ export default function VideoStreamPlayer({videoErrorEvent}: {videoErrorEvent: (
 				<div className={styles.pause_icon}></div>
 			</button>
 			<div className={styles.volume}>
-				<Volume hidden={!hovering} touch={touch} muteChangeEvent={onMuteChange} volumeChangeEvent={onVolumeChange}/>
+				<Volume hidden={!hovering} touch={touch} muteChangeEvent={onMuteChange} volumeChangeEvent={onVolumeChange} media={video}/>
 			</div>
 			<button onClick={toggleFullscreen} onFocus={interact} className={`${styles.fullscreen_button} ${fullscreen?styles.enabled:styles.disabled} ${!hovering && styles.hidden}`}>
 				{fullscreen?"Disable Fullscreen Video":"Enable Fullscreen Video"}
@@ -222,4 +242,6 @@ export default function VideoStreamPlayer({videoErrorEvent}: {videoErrorEvent: (
 			</button>
 		</div>
 	);
-}
+});
+
+export default VideoStreamPlayer;
