@@ -75,7 +75,7 @@ export default function Schedule() {
 						${(show.start_time <= time && show.end_time > time && currentDay && show.is_running) && styles.playing}
 						${!show.is_running && styles.cancelled}`}>
 					<tr className={`${styles.show}`}>
-						<td>
+						<td className={styles.times}>
 							{formatTimes(show.start_time, show.end_time)}
 						</td>
 						<td>

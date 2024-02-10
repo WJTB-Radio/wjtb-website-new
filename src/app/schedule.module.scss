@@ -1,12 +1,16 @@
 .container {
+	position: relative;
 	height: 100%;
 	overflow-y: scroll;
 	overflow-x: hidden;
+	width: 100%;
 }
 
 @media (min-width: 1000px) {
 	.container {
 		height: 100%;
+		max-width: calc(100vw - var(--player-width));
+		width: calc(100vw - var(--player-width));
 	}
 }
 
@@ -98,7 +102,7 @@
 	}
 }
 
-.cancelled .show :nth-child(1) {
+.cancelled .show .times {
 	text-decoration: line-through;
 }
 
