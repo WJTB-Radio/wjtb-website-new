@@ -1,11 +1,26 @@
+@use './play_button.module.scss';
+
 .player {
 	position: relative;
-	width: var(--player-width);
 	text-align: center;
+	margin: auto;
+	width: 50%;
 }
 
 .volume_container {
 	position: relative;
 	height: 5rem;
-	width: 10%;
+	width: 5rem;
+}
+
+.volume_container>* {
+	--slider-width: 200% !important;
+}
+
+.play_button,
+.pause_button {
+	--button-width: 5rem;
+	--button-height: 5rem;
+	position: relative;
+	display: block;
 }

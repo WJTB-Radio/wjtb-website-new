@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import styles from "./players.module.scss";
+import globalStyles from "../global.module.scss";
 import VideoStreamPlayer, { VideoStreamPlayerHandle } from "./video_stream_player";
 import AudioStreamPlayer from "./audio_stream_player";
 
@@ -29,8 +30,8 @@ export default function Players() {
 			<div className={`${styles.audio_player} ${videoEnabled && styles.hidden}`}>
 				<p>Video couldn't load. Here is a fallback audio stream.</p>
 				<AudioStreamPlayer hidden={videoEnabled}/>
-				<button onClick={reloadVideo}>
-					Try reloading video
+				<button onClick={reloadVideo} className={globalStyles.styled_button}>
+					Try Reloading Video
 				</button>
 			</div>
 		</div>

@@ -94,7 +94,7 @@ export default function Schedule() {
 	}
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} tabIndex={-1}>
 			<table className={styles.table}>
 				{schedule}
 			</table>

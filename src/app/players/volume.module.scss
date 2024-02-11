@@ -1,4 +1,6 @@
 .container {
+	--slider-width: 150%;
+
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -74,7 +76,7 @@
 
 .slider {
 	--thumb-width: calc(min(1rem, 4vw));
-	width: 150%;
+	width: var(--slider-width);
 
 	position: absolute;
 	--h: calc(min(1rem, 2vh));

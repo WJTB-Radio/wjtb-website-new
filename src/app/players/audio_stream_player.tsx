@@ -4,7 +4,7 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../utils/delay_correction";
 import styles from "./audio_stream_player.module.scss";
 import { getSnowflake } from "../utils/snowflake";
-import Volume from "./volume";
+import Volume, { VolumeHandle } from "./volume";
 import { TouchRef, onTouchEnd, onTouchMove, onTouchStart } from "../utils/touch_detection";
 
 // snowflake ensures we do not cache a previously served stream
@@ -13,6 +13,7 @@ const snowflake = getSnowflake();
 export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 	const audio = useRef<HTMLAudioElement | null>(null);
 	const [playing, setPlaying] = useState(false);
+	const volume = useRef<VolumeHandle | null> (null);
 
 	const [touch, setTouch] = useState(false);
 	const touches = useRef<Array<TouchRef>>([]);
@@ -76,6 +77,14 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 		}
 	}, [hidden]);
 
+	useEffect(() => {
+		if(volume.current == null) {
+			return;
+		}
+		volume.current.setMuted(false);
+		volume.current.setVolume(1.0);
+	}, []);
+
 	return (
 		<div className={styles.player}
 					onTouchStart={onTouchStart.bind(null, touches, touchTimeout, setTouch)}
@@ -88,7 +97,7 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 				<div className={styles.pause_icon}></div>
 			</button>
 			<div className={styles.volume_container}>
-				<Volume hidden={false} touch={touch} media={audio} volumeChangeEvent={onVolumeChange} muteChangeEvent={onMuteChange}/>
+				<Volume ref={volume} hidden={false} touch={touch} media={audio} volumeChangeEvent={onVolumeChange} muteChangeEvent={onMuteChange}/>
 			</div>
 		</div>
 	);

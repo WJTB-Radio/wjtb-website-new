@@ -1,0 +1,47 @@
+.styled_button {
+	background-color: var(--bg-color);
+	border-radius: 1.0em;
+	font-size: 2rem;
+	padding: 0.3em 1em 0.3em 1em;
+	text-decoration: none;
+	cursor:pointer;
+	font-family: Fortzilla;
+	color: var(--accent-color);
+	border: solid var(--text-color) 0.1em;
+	text-shadow: var(--accent-shadow-color) 0.07em 0.07em;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	margin: 20px 5px;
+	box-shadow: 0 0em 0em 0em var(--text-color);
+	transition: all 0.1s ease-out;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.styled_button:focus-visible {
+	transform: translateY(-0.25em);
+	background-color: var(--accent-color);
+	color: var(--bg2-color);
+	box-shadow: 0 0.25em 0.0em 0.0em var(--text-color);
+}
+
+@media (hover: hover) {
+	.styled_button:hover {
+		transform: translateY(-0.25em);
+		background-color: var(--accent-color);
+		color: var(--bg2-color);
+		box-shadow: 0 0.25em 0.0em 0.0em var(--text-color);
+	}
+}
+
+.styled_button:active {
+	transform: none;
+	box-shadow: 0 0em 0em 0em var(--text-color);
+	background-color: var(--accent-color);
+	color: var(--bg2-color);
+}
