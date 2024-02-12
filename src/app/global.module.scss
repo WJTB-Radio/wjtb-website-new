@@ -69,3 +69,22 @@
 	border-left-style: solid;
 	border-bottom-style: none;
 }
+
+.title {
+	position: relative;
+	margin-top: 2rem;
+	text-align: center;
+	padding-bottom: 0.5rem;
+	border-bottom: var(--accent-color) solid 0.25rem;
+}
+
+.title:after {
+	pointer-events: none;
+	content: '';
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: calc(100% + 0.5rem);
+	border-bottom: var(--accent-shadow-color) solid 0.25rem;
+}

@@ -8,6 +8,7 @@ export default function Navigation() {
 			<Link href={"/request"}>Request Us</Link>
 			<Link href={"/join"}>Become a DJ</Link>
 			<Link href={"/variety"}>Variety Hour</Link>
+			<Link href={"/gallery"}>Gallery</Link>
 			<Link href={"/staff"}>Staff</Link>
 		</nav>
 	);

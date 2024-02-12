@@ -1,0 +1,45 @@
+@use "./global.module.scss";
+
+.carousel {
+	margin: auto;
+	margin-top: 1rem;
+	min-width: 25rem;
+	padding: 1rem;
+	border: var(--accent-color) solid 0.25rem;
+}
+
+
+@media (max-width: 1000px) {
+	.carousel {
+		min-width: unset;
+		width: 100%;
+		max-width: 20rem;
+		padding: 0.5rem;
+	}
+}
+
+.carousel_content {
+	align-items: center;
+}
+
+.item {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.image {
+	object-fit: contain;
+}
+
+.date {
+	font-family: 'Pixel', sans-serif;
+	text-shadow: 0.07em 0.07em var(--text-shadow-color);
+	font-size: 1.3rem;
+	text-align: center;
+	margin: 0;
+}
+
+.caption {
+	text-align: center;
+	margin: 0;
+}
