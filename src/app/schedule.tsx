@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { DayOfWeek, formatDay, formatTimes, getNYCTime, getNYCWeekday, getNYCWeekdayString, getWeekdayString } from "./utils/time";
 import styles from "./schedule.module.scss";
+import useSWR from "swr";
 
 type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, is_running: number};
 type DaySchedule = {day: DayOfWeek, shows: Array<Show>};
@@ -12,6 +13,35 @@ export default function Schedule() {
 	const scheduleData = useRef<Array<DaySchedule | null>>([]);
 
 	useEffect(() => {
+		function fetchedDay(idx: number, data: DaySchedule) {
+			data.shows = [
+				{
+					"name":"Music Time!",
+					"desc":"Music Time! is a show where DJ Music Man plays some music!<br>This is a new line!",
+					"hosts":"DJ Music Man",
+					"poster":"https://website-we-are-hotlinking.com/poster5.jpg",
+					"start_time":61200, // in seconds from the start of the day
+					"end_time":64800,
+					"is_running":1, // 1 means true
+				},
+				{
+					"name":"Talking Time!",
+					"desc":"Talking Time! is a show where Jose and Maria talk about their feelings!<br>This is a new line!",
+					"hosts":"Jose and Maria",
+					"poster":"https://website-we-are-hotlinking.com/poster8.jpg",
+					"start_time":54000, // in seconds from the start of the day
+					"end_time":57600,
+					"is_running":0, // 0 means false
+				}
+			];
+			if(data.day == getNYCWeekdayString()) {
+				const time = getNYCTime();
+				data.shows = data.shows.filter((show) => show.end_time > time);
+			}
+			scheduleData.current[idx] = data;
+			computeSchedule();
+		}
+
 		const currentDay = getNYCWeekday();
 		scheduleData.current = [];
 		for(let i = 0; i < 5; i++) {
@@ -22,35 +52,6 @@ export default function Schedule() {
 			}, fetchFail);
 		}
 	}, []);
-
-	function fetchedDay(idx: number, data: DaySchedule) {
-		data.shows = [
-			{
-				"name":"Music Time!",
-				"desc":"Music Time! is a show where DJ Music Man plays some music!<br>This is a new line!",
-				"hosts":"DJ Music Man",
-				"poster":"https://website-we-are-hotlinking.com/poster5.jpg",
-				"start_time":61200, // in seconds from the start of the day
-				"end_time":64800,
-				"is_running":1, // 1 means true
-			},
-			{
-				"name":"Talking Time!",
-				"desc":"Talking Time! is a show where Jose and Maria talk about their feelings!<br>This is a new line!",
-				"hosts":"Jose and Maria",
-				"poster":"https://website-we-are-hotlinking.com/poster8.jpg",
-				"start_time":54000, // in seconds from the start of the day
-				"end_time":57600,
-				"is_running":0, // 0 means false
-			}
-		];
-		if(data.day == getNYCWeekdayString()) {
-			const time = getNYCTime();
-			data.shows = data.shows.filter((show) => show.end_time > time);
-		}
-		scheduleData.current[idx] = data;
-		computeSchedule();
-	}
 
 	function computeSchedule() {
 		const time = getNYCTime();
@@ -69,9 +70,10 @@ export default function Schedule() {
 					</tr>
 				</tbody>
 			);
-			const currentDay = getNYCWeekdayString() == daySchedule.day;
+			const dayString = daySchedule.day;
+			const currentDay = getNYCWeekdayString() == dayString;
 			computed = computed.concat(daySchedule.shows.map(show =>
-				<tbody key={show.name} className={`${styles.show_container} 
+				<tbody key={show.name+dayString} className={`${styles.show_container} 
 						${(show.start_time <= time && show.end_time > time && currentDay && show.is_running) && styles.playing}
 						${!show.is_running && styles.cancelled}`}>
 					<tr className={`${styles.show}`}>

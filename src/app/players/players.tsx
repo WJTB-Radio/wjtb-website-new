@@ -28,7 +28,7 @@ export default function Players() {
 				<VideoStreamPlayer videoErrorEvent={onVideoError} ref={videoPlayer} hidden={!videoEnabled}/>
 			</div>
 			<div className={`${styles.audio_player} ${videoEnabled && styles.hidden}`}>
-				<p>Video couldn't load. Here is a fallback audio stream.</p>
+				<p>Video couldn&apos;t load. Here is a fallback audio stream.</p>
 				<AudioStreamPlayer hidden={videoEnabled}/>
 				<button onClick={reloadVideo} className={globalStyles.styled_button}>
 					Try Reloading Video

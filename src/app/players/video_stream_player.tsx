@@ -1,6 +1,6 @@
 "use client";
 
-import { MutableRefObject, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { MutableRefObject, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { applyDelayCorrection, delay_correction_interval, delay_seconds, teleportDelayCorrection} from "../utils/delay_correction";
 import styles from "./video_stream_player.module.scss";
 import Volume from "./volume";
@@ -16,7 +16,7 @@ type Props = {
 	hidden: boolean;
 };
 
-const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(({videoErrorEvent, hidden}, ref) => {
+const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(function VideoStreamPlayer({videoErrorEvent, hidden}, ref) {
 	const video = useRef<HTMLVideoElement | null>(null);
 	const [playing, setPlaying] = useState(false);
 	const [hovering, setHovering] = useState(false);
@@ -114,6 +114,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(({videoErro
 		if(player.current == null) {
 			return;
 		}
+		const p = player.current;
 		function onFullscreenChanged() {
 			if(document.fullscreenElement == null) {
 				setFullscreen(false);
@@ -121,12 +122,9 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(({videoErro
 				setFullscreen(true);
 			}
 		}
-		player.current.addEventListener("fullscreenchange", onFullscreenChanged);
+		p.addEventListener("fullscreenchange", onFullscreenChanged);
 		return () => {
-			if(player.current == null) {
-				return;
-			}
-			player.current.removeEventListener("fullscreenchange", onFullscreenChanged);
+			p.removeEventListener("fullscreenchange", onFullscreenChanged);
 		};
 	});
 
@@ -148,25 +146,11 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(({videoErro
 
 	const videoSrc = "http://127.0.0.1:8888/test/stream.m3u8";
 
-	function onVideoError() {
+	const onVideoError = useCallback(() => {
 		videoErrorEvent();
-	}
+	}, [videoErrorEvent]);
 
-	useEffect(() => {
-		loadVideo();
-	}, []);
-
-	useEffect(() => {
-		if(hidden) {
-			setPlaying(false);
-			if(video.current != null) {
-				video.current.pause();
-			}
-		}
-	}, [hidden]);
-
-
-	function loadVideo() {
+	const loadVideo = useCallback(() => {
 		if(video.current == null) {
 			return;
 		}
@@ -190,7 +174,21 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(({videoErro
 		} else {
 			videoErrorEvent();
 		}
-	}
+	}, [onVideoError, videoErrorEvent]);
+
+	useEffect(() => {
+		loadVideo();
+	}, [loadVideo]);
+
+	useEffect(() => {
+		if(hidden) {
+			setPlaying(false);
+			if(video.current != null) {
+				video.current.pause();
+			}
+		}
+	}, [hidden]);
+
 
 	useImperativeHandle(ref, () => {
 		return {
@@ -198,15 +196,15 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(({videoErro
 				loadVideo();
 			},
 		};
-	}, []);
+	}, [loadVideo]);
 
 	return (
 		<div className={styles.player} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
-					onTouchStart={onTouchStart.bind(null, touches, touchTimeout, setTouch)}
-					onTouchEnd={onTouchEnd.bind(null, touches, touchTimeout, onTap, setTouch)}
-					onTouchMove={onTouchMove.bind(null, touches)} ref={player}>
+			onTouchStart={onTouchStart.bind(null, touches, touchTimeout, setTouch)}
+			onTouchEnd={onTouchEnd.bind(null, touches, touchTimeout, onTap, setTouch, player)}
+			onTouchMove={onTouchMove.bind(null, touches)} ref={player}>
 			<video tabIndex={-1} title="WJTB Radio video stream." className={styles.video} onError={onVideoError}
-			ref={video} onPause={onVideoPause} onPlaying={onVideoPlaying}></video>
+				ref={video} onPause={onVideoPause} onPlaying={onVideoPlaying}></video>
 			<div className={`${styles.video_shadow} ${!hovering && styles.hidden}`}></div>
 			<button onClick={togglePlaying} onFocus={interact} className={`${playing?styles.pause_button:styles.play_button} ${!hovering && styles.hidden}`}>
 				{playing?"Pause Video":"Play Video"}

@@ -31,6 +31,7 @@ body {
 
 p {
 	margin: 2rem 0;
+	max-width: 70ch;
 }
 
 a {
@@ -42,8 +43,14 @@ a {
 	transition: transform 0.1s ease-in-out;
 }
 
-a:hover {
-  transform: scale(1.05);
+a:focus-visible {
+	transform: scale(1.05);
+}
+
+@media (hover: hover) {
+	a:hover {
+		transform: scale(1.05);
+	}
 }
 
 a:active {
@@ -58,4 +65,22 @@ h1 {
 	text-shadow: 0.07em 0.07em var(--accent-shadow-color);
 	padding: 0.5rem 0rem 0rem;
 	line-height: 1.1;
+}
+
+ol {
+	counter-reset: li;
+	padding: 0.5rem 2rem;
+}
+
+ol li {
+	color: var(--text-color);
+	font-size: 1.5rem;
+	list-style-type: none;
+}
+
+ol li::before {
+	content: counter(li)".";
+	margin-right: 0.8rem;
+	counter-increment: li;
+	color: var(--text-light-color);
 }

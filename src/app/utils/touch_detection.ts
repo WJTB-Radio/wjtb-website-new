@@ -9,9 +9,9 @@ function vectorDistance(aX: number, aY: number, bX: number, bY: number): number 
 }
 
 export function onTouchStart(
-			touches: MutableRefObject<TouchRef[]>,
-			touchTimeout: MutableRefObject<number>,
-			setTouch: (t: boolean) => void, event: React.TouchEvent) {
+	touches: MutableRefObject<TouchRef[]>,
+	touchTimeout: MutableRefObject<number>,
+	setTouch: (t: boolean) => void, event: React.TouchEvent) {
 	for(let i = 0; i < event.changedTouches.length; i++) {
 		const t = event.changedTouches[i]
 		touches.current.push({
@@ -28,18 +28,21 @@ export function onTouchStart(
 }
 
 export function onTouchEnd(touches: MutableRefObject<TouchRef[]>,
-			touchTimeout: MutableRefObject<number>, onTap: () => void,
-			setTouch: (t: boolean) => void,
-			event: React.TouchEvent) {
+	touchTimeout: MutableRefObject<number>, onTap: () => void,
+	setTouch: (t: boolean) => void,
+	tapTarget: MutableRefObject<HTMLElement | null> | null,
+	event: React.TouchEvent) {
 	// check if this was a drag or a tap
 	let foundTouch = false;
+	let shouldTap = false;
 	for(let i = 0; i < event.changedTouches.length; i++) {
 		const touch = event.changedTouches[i];
 		for(let j = 0; j < touches.current.length; j++) {
 			const other = touches.current[j];
 			if(touch.identifier == other.identifier) {
-				if(other.accumulatedDist < 100) {
+				if(other.accumulatedDist < 10) {
 					foundTouch = true;
+					shouldTap = tapTarget == null || tapTarget.current == null || touch.target == tapTarget.current;
 				}
 			}
 		}
@@ -54,7 +57,9 @@ export function onTouchEnd(touches: MutableRefObject<TouchRef[]>,
 	touchTimeout.current = window.setTimeout(() => {
 		setTouch(false);
 	}, 500);
-	window.setTimeout(onTap, 0);
+	if(shouldTap) {
+		window.setTimeout(onTap, 0);
+	}
 }
 
 export function onTouchMove(touches: MutableRefObject<TouchRef[]>, event: React.TouchEvent) {

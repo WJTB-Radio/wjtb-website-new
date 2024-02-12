@@ -16,8 +16,7 @@ type Props = {
 	muteChangeEvent: (muted: boolean) => void;
 };
 
-const Volume = forwardRef<VolumeHandle, Props> (
-			({hidden, touch, volumeChangeEvent, muteChangeEvent, media}, ref) => {
+const Volume = forwardRef<VolumeHandle, Props> (function Volume({hidden, touch, volumeChangeEvent, muteChangeEvent, media}, ref) {
 	const [sliderShown, setSliderShown] = useState(false);
 	const [muted, setMuted] = useState(true);
 	const [volume, setVolume] = useState(1.0);
@@ -77,23 +76,18 @@ const Volume = forwardRef<VolumeHandle, Props> (
 		if(media.current == null) {
 			return;
 		}
+		const m = media.current;
 		function volumeChangeEvent() {
-			if(media.current == null) {
-				return;
-			}
-			setMuted(media.current.muted);
-			setVolume(media.current.volume);
+			setMuted(m.muted);
+			setVolume(m.volume);
 			if(slider.current != null) {
-				slider.current.value = ""+media.current.volume*100;
+				slider.current.value = ""+m.volume*100;
 			}
 		}
 
-		media.current.addEventListener("volumechange", volumeChangeEvent);
+		m.addEventListener("volumechange", volumeChangeEvent);
 		return () => {
-			if(media.current == null) {
-				return;
-			}
-			media.current.removeEventListener("volumechange", volumeChangeEvent);
+			m.removeEventListener("volumechange", volumeChangeEvent);
 		}
 	}, [media]);
 
@@ -113,21 +107,22 @@ const Volume = forwardRef<VolumeHandle, Props> (
 
 	return (
 		<div className={`${styles.container} ${hidden && styles.hidden}`}
-				onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+			onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			<button ref={button} className={`${styles.volume_button}
-					${muted?styles.muted:(volume > 0.25?(volume > 0.5?(volume > 0.75?styles.volume3:styles.volume2):styles.volume1):styles.volume0)}`}
-					onClick={onButtonClick} onFocus={onMouseEnter} onBlur={onMouseLeave}>
+						${muted?styles.muted:(volume > 0.25?(volume > 0.5?(volume > 0.75?styles.volume3:styles.volume2):styles.volume1):styles.volume0)}`}
+			onClick={onButtonClick} onFocus={onMouseEnter} onBlur={onMouseLeave}>
 				<div className={styles.volume_icon}></div>
 				{muted?'Unmute video':'Mute video'}
 			</button>
 			<label>
-				Volume
+					Volume
 				<input type="range" name="volume" min={0} max={100} defaultValue={100} onChange={onVolumeChange} onFocus={onMouseEnter} onBlur={onMouseLeave}
 					className={`${(!sliderShown || touch) && styles.hidden} ${styles.slider}`}
 					ref={slider}/>
 			</label>
 		</div>
 	);
-});
+}
+);
 
 export default Volume;

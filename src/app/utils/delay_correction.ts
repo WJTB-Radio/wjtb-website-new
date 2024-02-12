@@ -2,9 +2,9 @@ export const delay_seconds = 10.0;
 // delay correction time warps audio to target a specific stream delay
 // playback speed = b*(-ax/sqrt(1+(ax)^2))+1
 // where b = delay_correction_max, a = delay_correction_aggressiveness, x is how many seconds we have to correct
-const delay_correction_agressiveness = 0.1;
-const delay_correction_max = 0.2; // must be <= 1.0
-export const delay_correction_interval = 100; // in ms
+const delay_correction_agressiveness = 0.025;
+const delay_correction_max = 0.1; // must be <= 1.0
+export const delay_correction_interval = 10; // in ms
 
 export function applyDelayCorrection(media: HTMLMediaElement | null) {
 	if(media == null) {

@@ -1,10 +1,11 @@
-import styles from "./page.module.scss";
+import Link from "next/link";
+import styles from "./global.module.scss";
 
 export default function Home() {
 	return (
 		<div className={styles.main_content}>
 			<h1>Streaming online since the 1990s!</h1>
-			<p>WJTB is NJIT's official college radio station.</p>
+			<p>WJTB is NJIT&apos;s official college radio station.</p>
 			<h1>Get heard</h1>
 			<p>
 				Want to get involved? Connect with us on <a href="https://wjtb.njit.edu/discord" target="_blank" rel="noreferrer noopener">Discord</a>
@@ -17,13 +18,13 @@ export default function Home() {
 			</p>
 			<h1>Want to book our team?</h1>
 			<p>
-				We're happy to provide sound for your live event if we're not already booked.
+				We&apos;re happy to provide sound for your live event if we&apos;re not already booked.
 			</p>
 			<p>
-				Fill out this form to submit your request!
+				Fill out <Link href={"/request"}>this form</Link> to submit your request!
 			</p>
 			<p>
-				We'll get back to you to confirm once we see your request. Please give us 24-48 hours to process your request. All events are contingent on being approved and accepted - so we'll be in touch! If you don't hear back within 2 business days, please email us or yell at us on discord.
+				We&apos;ll get back to you to confirm once we see your request. Please give us 24-48 hours to process your request. All events are contingent on being approved and accepted - so we&apos;ll be in touch! If you don&apos;t hear back within 2 business days, please email us or yell at us on discord.
 			</p>
 		</div>
 	);

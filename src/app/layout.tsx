@@ -3,14 +3,15 @@ import "./globals.scss";
 import Players from "./players/players";
 import Schedule from "./schedule";
 import styles from "./layout.module.scss";
+import Navigation from "./navigation";
 
 export const metadata: Metadata = {
-  title: "WJTB Radio",
-  description: "NJIT's official college radio station.",
+	title: "WJTB Radio",
+	description: "NJIT's official college radio station.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -21,6 +22,7 @@ export default function RootLayout({
 					<Players />
 					<Schedule />
 				</div>
+				<Navigation />
 				{children}
 			</body>
 		</html>

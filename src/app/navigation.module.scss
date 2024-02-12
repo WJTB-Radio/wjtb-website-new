@@ -1,0 +1,35 @@
+.nav {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.nav>* {
+	position: relative;
+	background-color: var(--bg-color);
+	padding: 0rem 1rem;
+	color: var(--text-color);
+}
+
+.nav>*:focus-visible {
+	z-index: 1;
+	background-color: var(--bg3-color);
+}
+
+@media (hover: hover) {
+	.nav>*:hover {
+		z-index: 1;
+		background-color: var(--bg3-color);
+	}
+}
+
+.nav>*:active {
+	background-color: var(--bg-color);
+}
+
+@media (max-width: 1000px) {
+	.nav>* {
+		font-size: 2rem;
+	}
+}
