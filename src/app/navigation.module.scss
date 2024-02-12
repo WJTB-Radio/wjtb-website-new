@@ -12,6 +12,10 @@
 	color: var(--text-color);
 }
 
+.selected {
+	background-color: var(--bg3-color);
+}
+
 .nav>*:focus-visible {
 	z-index: 1;
 	background-color: var(--bg3-color);
