@@ -70,6 +70,14 @@
 	border-bottom-style: none;
 }
 
+@media (max-width: 1000px) {
+	.main_content {
+		border: none;
+		border-top: var(--accent-color) solid 0.25rem;
+		border-radius: 0;
+	}
+}
+
 .title {
 	position: relative;
 	margin-top: 2rem;
