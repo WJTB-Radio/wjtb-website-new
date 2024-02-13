@@ -1,7 +1,7 @@
 "use client";
 
-import { MutableRefObject, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { applyDelayCorrection, delay_correction_interval, delay_seconds, teleportDelayCorrection} from "../../utils/delay_correction";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../../utils/delay_correction";
 import styles from "./video_stream_player.module.scss";
 import Volume from "./volume";
 import Hls from "hls.js";

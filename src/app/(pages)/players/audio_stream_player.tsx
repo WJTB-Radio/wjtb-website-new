@@ -1,6 +1,6 @@
 "use client";
 
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../../utils/delay_correction";
 import styles from "./audio_stream_player.module.scss";
 import { getSnowflake } from "../../utils/snowflake";
@@ -39,6 +39,7 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 		if(audio.current == null) {
 			return;
 		}
+		console.log("teleport");
 		teleportDelayCorrection(audio.current);
 		setPlaying(true);
 	}
@@ -48,7 +49,6 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 			return;
 		}
 		if(playing) {
-			snowflake.current = getSnowflake();
 			audio.current.pause();
 		} else {
 			audio.current.play();
