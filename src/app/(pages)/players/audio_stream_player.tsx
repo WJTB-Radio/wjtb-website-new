@@ -1,11 +1,11 @@
 "use client";
 
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../utils/delay_correction";
+import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../../utils/delay_correction";
 import styles from "./audio_stream_player.module.scss";
-import { getSnowflake } from "../utils/snowflake";
+import { getSnowflake } from "../../utils/snowflake";
 import Volume, { VolumeHandle } from "./volume";
-import { TouchRef, onTouchEnd, onTouchMove, onTouchStart } from "../utils/touch_detection";
+import { TouchRef, onTouchEnd, onTouchMove, onTouchStart } from "../../utils/touch_detection";
 
 export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 	// snowflake ensures we do not cache a previously served stream

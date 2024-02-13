@@ -1,7 +1,7 @@
 "use client";
 
 import useSWR from "swr";
-import { jsonFetcher } from "../utils/fetchers";
+import { jsonFetcher } from "../../utils/fetchers";
 import StaticGallery, { Photo, endpoint, renderGallery } from "./static";
 
 export default function Gallery() {

@@ -16,7 +16,7 @@ export function renderGallery(photos: Photo[]) {
 			<div className={styles.gallery}>
 				{photos.map((photo, index) => (
 					<div className={styles.item} key={index}>
-						<img className={styles.image} src={photo.image}></img>
+						<img className={styles.image} src={photo.image} alt={photo.caption != ""?photo.caption:"Photo has no caption."}></img>
 						<p className={styles.caption}>{photo.caption}</p>
 						<p className={styles.date}>{photo.date_taken}</p>
 					</div>

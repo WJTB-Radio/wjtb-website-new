@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useReducer, useRef, useState } from "react";
-import { DayOfWeek, formatDay, formatTimes, getNYCTime, getNYCWeekday, getNYCWeekdayString, getWeekdayString } from "./utils/time";
+import { DayOfWeek, formatDay, formatTimes, getNYCTime, getNYCWeekday, getNYCWeekdayString, getWeekdayString } from "../utils/time";
 import styles from "./schedule.module.scss";
 import useSWR from "swr";
-import { jsonFetcher } from "./utils/fetchers";
+import { jsonFetcher } from "../utils/fetchers";
 
 type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, is_running: number};
 type DaySchedule = {day: DayOfWeek, shows: Array<Show>};

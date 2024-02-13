@@ -32,7 +32,7 @@ export function renderHome(photos: Photo[]) {
 					{photos.map((photo, index) => (
 						<CarouselItem key={index}>
 							<div className={styles.item}>
-								<img className={styles.image} src={photo.image}></img>
+								<img className={styles.image} src={photo.image} alt={photo.caption != ""?photo.caption:"Photo has no caption."}></img>
 								<p className={styles.caption}>{photo.caption}</p>
 								<p className={styles.date}>{photo.date_taken}</p>
 							</div>
@@ -51,7 +51,7 @@ export function renderHome(photos: Photo[]) {
 			</p>
 			<h1>Want a show?</h1>
 			<p>
-				We would love to have you on! All DJs must be active members of the club, get trained, and follow our rules of broadcast.
+				We would love to have you on! All DJs must be active members of the club, get trained, and follow our rules of broadcast. <Link href="/join">Learn more</Link>
 			</p>
 			<h1>Want to book our team?</h1>
 			<p>

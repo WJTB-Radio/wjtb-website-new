@@ -1,7 +1,7 @@
 "use client";
 
 import useSWR from "swr";
-import { jsonFetcher } from "../utils/fetchers";
+import { jsonFetcher } from "../../utils/fetchers";
 import StaticStaff, { renderStaff, Staff, endpoint } from "./static";
 
 export default function Staff() {
