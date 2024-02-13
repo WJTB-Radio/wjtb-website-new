@@ -39,7 +39,6 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 		if(audio.current == null) {
 			return;
 		}
-		console.log("teleport");
 		teleportDelayCorrection(audio.current);
 		setPlaying(true);
 	}
