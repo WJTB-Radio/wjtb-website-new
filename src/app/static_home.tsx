@@ -42,7 +42,7 @@ export function renderHome(photos: Photo[]) {
 				<CarouselPrevious />
 				<CarouselNext />
 			</Carousel>
-			<Link href="/gallery" style={{'display':'block','text-align':'center'} as React.CSSProperties}>See more pictures</Link>
+			<Link href="/gallery" style={{'display':'block','textAlign':'center'} as React.CSSProperties}>See more pictures</Link>
 			<h1>Get heard</h1>
 			<p>
 				Want to get involved? Connect with us on <a href="https://wjtb.njit.edu/discord" target="_blank" rel="noreferrer noopener">Discord</a>

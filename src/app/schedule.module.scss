@@ -43,42 +43,48 @@
 	left: 0%;
 	width: 100%;
 	height: 100%;
-	z-index: -1;
-	background-color: var(--bg2-color);
+	z-index: -2;
+	background-color: var(--bg-color);
 }
 
 .show::before {
 	content: '';
 	position: absolute;
+	pointer-events: none;
 	top: 0%;
 	left: 0%;
 	width: 100%;
 	height: 100%;
-	z-index: -1;
-	background-color: green;
+	z-index: -2;
+	background-color: var(--bg2-color);
 }
 
-.show:hover {
+.show:hover::before {
 	background-color: var(--bg3-color);
+}
+
+.playing .show::before {
+	z-index: -1;
 }
 
 .show_container {
 	display: table-row-group;
 	position: relative;
-	background-color: var(--bg2-color);
 	pointer-events: all;
+	z-index: 1;
 }
 
 .show_container.playing {
-	z-index: 5;
+	z-index: 2;
 }
 
-.show_container.playing::before{
+.show_container.playing::before {
 	--margin-size: 10px;
 	content: '';
+	pointer-events: none;
 	position: absolute;
 	background: linear-gradient(45deg ,#e50000 ,#ff8d00 ,#ffee00 ,#028121,
-	#004cff ,#770088);
+	#004cff ,#770088, #e50000);
 	background-size: 400%;
 	filter: blur(10px);
 	opacity: 0.7;
@@ -87,23 +93,29 @@
 	width: calc(100% + var(--margin-size)*2);
 	left: calc(-1 * var(--margin-size));
 	z-index: -1;
-	animation: playing-glow-animation 60s linear infinite;
 }
 
-@keyframes playing-glow-animation{
-	0%{
-		background-position: 0 0;
+@media (prefers-reduced-motion: no-preference) {
+	.show_container.playing::before {
+		animation: playing-glow-animation 20s linear infinite;
 	}
-	50%{
-		background-position: 400% 0;
-	}
-	100%{
-		background-position: 0 0;
+	@keyframes playing-glow-animation{
+		0%{
+			background-position: 0 0;
+		}
+		100%{
+			background-position: 400% 0;
+		}
 	}
 }
+  
 
 .cancelled .show .times {
 	text-decoration: line-through;
+}
+
+.times {
+	min-width: 17ch;
 }
 
 .day>* {
