@@ -1,3 +1,5 @@
+@use "../global.module.scss";
+
 .players {
 	position: relative;
 	width: var(--player-width);
@@ -8,10 +10,11 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	height: 100%;
 }
 
 .audio_player p {
-	margin-top: 0.5rem;
+	margin-top: 2rem;
 }
 
 .video_player {
@@ -21,4 +24,8 @@
 .hidden {
 	display: none;
 	pointer-events: none;
+}
+
+.reload_button {
+	margin-top: 2rem;
 }

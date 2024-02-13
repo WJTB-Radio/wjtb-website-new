@@ -2,9 +2,11 @@
 
 .player {
 	position: relative;
-	text-align: center;
 	margin: auto;
-	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 5rem;
 }
 
 .volume_container {
@@ -19,8 +21,7 @@
 
 .play_button,
 .pause_button {
-	--button-width: 5rem;
-	--button-height: 5rem;
+	--button-width: 4rem;
+	--button-height: 4rem;
 	position: relative;
-	display: block;
 }
