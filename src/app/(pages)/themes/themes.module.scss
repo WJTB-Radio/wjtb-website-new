@@ -1,16 +1,28 @@
 @use "../global.module.scss";
 
 .container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+	padding: 4rem;
+}
+
+@media (max-width: 100rem) {
+	.container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 50rem) {
+	.container {
+		grid-template-columns: repeat(1, 1fr);
+	}
 }
 
 .theme {
 	background-color: var(--bg2-color);
 	margin: auto;
 	color: var(--text-color);
-	width: 25%;
 	min-width: 20rem;
 	padding: 1rem;
 	border: 0.25rem solid var(--accent-color);

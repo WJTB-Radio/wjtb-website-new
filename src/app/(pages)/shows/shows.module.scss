@@ -79,7 +79,7 @@
 	width: 150%;
 	left: -25%;
 	transform: scale(0.5) translate(0%, 25%) rotateY(90deg) rotateX(90deg) perspective(100px);
-	background-color: var(--bg3-color);
+	background-color: var(--bg2-color);
 	padding: 0.5rem;
 	border: 0.25rem solid var(--accent-color);
 	border-radius: 0.5rem;
@@ -113,6 +113,7 @@
 
 	.show {
 		position: relative;
+		margin-bottom: 2rem;
 	}
 
 	.hover_card {
@@ -176,7 +177,6 @@
 .hover_card>h2 {
 	font-size: 2rem;
 	text-align: left;
-	background-color: var(--bg3-color);
 	padding: 1rem;
 }
 
@@ -210,8 +210,4 @@
 	height: 0;
 	z-index: -1;
 	border-bottom: 0.25rem dotted var(--text-light-color);
-}
-
-.desc {
-	display: block;
 }
