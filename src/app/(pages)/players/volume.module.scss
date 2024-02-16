@@ -66,8 +66,10 @@
 	mask-image: url("svg/volume3.svg");
 }
 
-.volume_button:hover>.volume_icon {
-	background-color: var(--button-color-hover);
+@media(hover: hover) {
+	.volume_button:hover>.volume_icon {
+		background-color: var(--button-color-hover);
+	}
 }
 
 .volume_button:active>.volume_icon {
@@ -87,8 +89,10 @@
 	transition: transform 0.15s ease-out;
 }
 
-.slider:hover {
-	--h: calc(min(1.2rem, 2.1vh));
+@media(hover: hover) {
+	.slider:hover {
+		--h: calc(min(1.2rem, 2.1vh));
+	}
 }
 
 .hidden .slider {
@@ -98,6 +102,13 @@
 .slider.hidden {
 	transform: scale(0.0, 1.0);
 	pointer-events: none;
+}
+
+@media(hover: none) {
+	.slider {
+		transform: scale(0.0, 1.0);
+		pointer-events: none;
+	}
 }
 
 /* a lot of repetition is nessecary here unfortunately */

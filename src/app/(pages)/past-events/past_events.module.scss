@@ -1,0 +1,48 @@
+@use "../global.module.scss";
+
+.name {
+	font-family: 'Pixel', sans-serif;
+	text-shadow: 0.07em 0.07em var(--text-shadow-color);
+	font-size: 3rem;
+	text-align: center;
+}
+
+.date {
+	font-family: 'Pixel', sans-serif;
+	text-shadow: 0.07em 0.07em var(--text-shadow-color);
+}
+
+.carousel {
+	margin: auto;
+	min-width: 50%;
+}
+
+.carousel :first-child>* {
+	position: relative;
+	flex: 0 0 33.33%;
+}
+
+.image {
+	width: calc(100%);
+	height: calc(100%);
+	object-fit: contain;
+}
+
+@media (max-width: 1000px) {
+	.carousel :first-child>* {
+		flex: 0 0 100%;
+	}
+	.carousel {
+		min-width: unset;
+		max-width: 70%;
+	}
+}
+
+.date {
+	margin: auto;
+	text-align: center;
+}
+
+.desc {
+	margin: auto;
+}

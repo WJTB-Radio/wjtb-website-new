@@ -1,0 +1,43 @@
+.spinner {
+	position: relative;
+	height: 10rem;
+	width: 10rem;
+	margin-top: 10rem;
+	overflow: hidden;
+}
+
+.spinner:after {
+	content: '';
+	position: absolute;
+	width: 10rem;
+	height: 10rem;
+	left: calc(50% - 5rem);
+	top: calc(50% - 5rem);
+	mask-image: url('/img/wjtb.svg');
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	background-color: var(--text-color);
+}
+
+@media(prefers-reduced-motion: no-preference) {
+	.spinner {
+		animation: 1s linear 0s infinite spin;
+	}
+
+	@keyframes spin {
+		from {
+			transform: perspective(250px) rotateY(-90deg);
+		}
+		to {
+			transform: perspective(250px) rotateY(90deg);
+		}
+	}
+}
+
+.loading {
+	position: relative;
+	font-size: 0;
+	min-height: 200px;
+	display: flex;
+	justify-content: center;
+}

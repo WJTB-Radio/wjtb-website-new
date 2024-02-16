@@ -9,7 +9,7 @@ export default function Variety() {
 			<p>A variety hour is a timeslot that anyone can reserve.</p>
 			<p>In order to host a show, you need to <Link href="/join">be a member</Link>.</p>
 			<p>You also need to be trained before you go on air. Training takes about 10 minutes. If you are not trained, your show will be canceled.</p>
-			<p>Once you&apos;re ready, you can head over to <a href="https://calendly.com/wjtbradio/variety-hour-host" target="_blank">this link</a> to book a time! If you see it, you can book it. </p>
+			<p>Once you&apos;re ready, you can head over to <a href="https://calendly.com/wjtbradio/variety-hour" target="_blank">this link</a> to book a time! If you see it, you can book it. </p>
 		</div>
 	);
 }

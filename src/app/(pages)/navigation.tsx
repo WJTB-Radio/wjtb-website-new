@@ -2,18 +2,28 @@
 
 import Link from "next/link";
 import styles from "./navigation.module.scss";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
+function NavLink(props: {href: string, currentPath: string, children: React.ReactNode}) {
+	return (
+		<Link href={props.href} className={(props.currentPath == props.href) ? styles.selected: undefined}>
+			{props.children}
+		</Link>
+	);
+}
 
 export default function Navigation() {
 	const path = usePathname();
 	return (
 		<nav className={styles.nav}>
-			<Link href={"/"} className={(path == '/') ? styles.selected: undefined}>Home</Link>
-			<Link href={"/request"} className={(path == '/request/') ? styles.selected: undefined}>Request Us</Link>
-			<Link href={"/join"} className={(path == '/join/') ? styles.selected: undefined}>Become a DJ</Link>
-			<Link href={"/variety"} className={(path == '/variety/') ? styles.selected: undefined}>Variety Hours</Link>
-			<Link href={"/gallery"} className={(path == '/gallery/') ? styles.selected: undefined}>Gallery</Link>
-			<Link href={"/staff"} className={(path == '/staff/') ? styles.selected: undefined}>Staff</Link>
+			<NavLink href={"/"} currentPath={path}>Home</NavLink>
+			<NavLink href={"/request/"} currentPath={path}>Request Us</NavLink>
+			<NavLink href={"/shows/"} currentPath={path}>Shows</NavLink>
+			<NavLink href={"/join/"} currentPath={path}>Become a DJ</NavLink>
+			<NavLink href={"/variety/"} currentPath={path}>Variety Hours</NavLink>
+			<NavLink href={"/past-events/"} currentPath={path}>Past Events</NavLink>
+			<NavLink href={"/gallery/"} currentPath={path}>Gallery</NavLink>
+			<NavLink href={"/staff/"} currentPath={path}>Staff</NavLink>
 		</nav>
 	);
 }

@@ -23,15 +23,21 @@ export default function Players() {
 
 	return (
 		<div className={styles.players}>
+			{/*
 			<div className={`${styles.video_player} ${!videoEnabled && styles.hidden}`}>
 				<VideoStreamPlayer videoErrorEvent={onVideoError} ref={videoPlayer} hidden={!videoEnabled}/>
 			</div>
+			
 			<div className={`${styles.audio_player} ${videoEnabled && styles.hidden}`}>
 				<p>Video couldn&apos;t load. Here is a fallback audio stream.</p>
 				<AudioStreamPlayer hidden={videoEnabled}/>
 				<button onClick={reloadVideo} className={`${styles.styled_button} ${styles.reload_button}`}>
 					Try Reloading Video
 				</button>
+			</div> */}
+			
+			<div className={`${styles.audio_player}`}>
+				<AudioStreamPlayer hidden={false}/>
 			</div>
 		</div>
 	);

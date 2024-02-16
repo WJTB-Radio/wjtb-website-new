@@ -1,0 +1,213 @@
+@use "../global.module.scss";
+
+.container {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.calendar {
+	width: 90%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.shows_container {
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	height: 100rem;
+}
+
+.shows, .days {
+	width: 93%;
+}
+
+.day {
+	width: calc(100% / 5);
+	display: inline-block;
+	margin-top: 1rem;
+}
+
+.day_shows {
+	width: calc(100% / 5);
+	display: inline-block;
+	position: relative;
+	height: 100%;
+}
+
+.day h1 {
+	text-align: center;
+	margin-bottom: 0.5rem;
+}
+
+.show {
+	--margin: 0.25rem;
+	position: absolute;
+	top: calc(var(--start-time) + var(--margin));
+	height: calc(var(--end-time) - var(--start-time) - var(--margin));
+	left: calc(0% + var(--margin));
+	width: calc(100% - var(--margin));
+	border: 0.25rem solid var(--accent-color);
+	border-radius: 1rem;
+	background-color: var(--bg2-color);
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	transition: background-color 0.15s ease-out;
+}
+
+.show h2 {
+	line-height: 1;
+	font-size: 1.25rem;
+	font-family: 'Pixel', sans-serif;
+	text-shadow: 0.07em 0.07em var(--text-shadow-color);
+	text-align: center;
+}
+
+.show:hover>h2 {
+	display: none;
+}
+
+.hover_card {
+	position: absolute;
+	width: 150%;
+	left: -25%;
+	transform: scale(0.5) translate(0%, 25%) rotateY(90deg) rotateX(90deg) perspective(100px);
+	background-color: var(--bg3-color);
+	padding: 0.5rem;
+	border: 0.25rem solid var(--accent-color);
+	border-radius: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	z-index: 2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.hover_card {
+		transition: transform 0.15s ease-out;
+	}
+}
+
+.show:hover .hover_card {
+	transform: scale(1) translate(0%, calc(50% - 6rem)) rotateY(0deg) rotateX(0deg) perspective(100px);
+	z-index: 1;
+}
+
+.day_buttons {
+	display: none;
+}
+
+@media (hover: none), (max-width: 1000px) {
+	.day_buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.show {
+		position: relative;
+	}
+
+	.hover_card {
+		position: relative;
+		transform: none !important;
+		left: 0%;
+		width: 100%;
+		border: none;
+	}
+
+	.hover_card img {
+		order: -1;
+		width: calc(min(100%, 20rem)) !important;
+	}
+
+	.time_markers {
+		display: none;
+	}
+
+	.day {
+		display: none;
+	}
+
+	.day_shows {
+		width: 100%;
+		display: block;
+		position: relative;
+		height: unset;
+	}
+
+	.show>h2 {
+		display: none;
+	}
+
+	.show {
+		border: none;
+		background-color: var(--bg2-color) !important;
+	}
+
+	.calendar {
+		width: 100%;
+	}
+
+	.shows_container {
+		height: unset;
+	}
+
+	.shows, .days {
+		width: 100%;
+	}
+}
+
+.hover_card p {
+	margin: 0;
+}
+
+.show:hover {
+	background-color: var(--bg3-color);
+}
+
+.hover_card>h2 {
+	font-size: 2rem;
+	text-align: left;
+	background-color: var(--bg3-color);
+	padding: 1rem;
+}
+
+.hover_card img {
+	border-bottom: 0.25rem solid var(--accent-color);
+	width: 50%;
+}
+
+.hosts {
+	font-family: 'Pixel', sans-serif;
+	text-shadow: 0.07em 0.07em var(--text-shadow-color);
+}
+
+.times {
+	font-weight: 200;
+	padding-left: 1rem;
+}
+
+.time_markers {
+	position: absolute;
+	pointer-events: none;
+	top: 0%;
+	height: 100%;
+	width: 100%;
+}
+
+.time_marker {
+	position: absolute;
+	top: var(--time);
+	width: 100%;
+	height: 0;
+	z-index: -1;
+	border-bottom: 0.25rem dotted var(--text-light-color);
+}

@@ -17,6 +17,9 @@
 @media (max-width: 1000px) {
 	.container {
 		max-height: 10em;
+		border-top: 0.25rem solid var(--accent-color);
+		border-bottom: 0.25rem solid var(--accent-color);
+		font-size: 1.25rem;
 	}
 }
 
@@ -59,10 +62,11 @@
 	background-color: var(--bg2-color);
 }
 
-.show:hover::before {
-	background-color: var(--bg3-color);
+@media(hover: hover) {
+	.show:hover::before {
+		background-color: var(--bg3-color);
+	}
 }
-
 .playing .show::before {
 	z-index: -1;
 }

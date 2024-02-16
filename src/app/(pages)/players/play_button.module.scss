@@ -43,8 +43,14 @@
 	border-left-color: var(--button-color);
 }
 
-.play_button:hover::before, .play_button:focus-visible::before {
+.play_button:focus-visible::before {
 	border-left-color: var(--button-color-hover);
+}
+
+@media (hover: hover) {
+	.play_button:hover::before {
+		border-left-color: var(--button-color-hover);
+	}
 }
 
 .play_button:active::before {
@@ -70,7 +76,12 @@
 	background-color: var(--button-color);
 }
 
-.pause_button:hover .pause_icon::before,
+@media (hover: hover) {
+	.pause_button:hover .pause_icon::before {
+		background-color: var(--button-color-hover);
+	}
+}
+
 .pause_button:focus-visible .pause_icon::before {
 	background-color: var(--button-color-hover);
 }
@@ -100,7 +111,12 @@
 	background-color: var(--button-color);
 }
 
-.pause_button:hover .pause_icon::after,
+@media(hover: hover) {
+	.pause_button:hover .pause_icon::after {
+		background-color: var(--button-color-hover);
+	}
+}
+
 .pause_button:focus-visible .pause_icon::after {
 	background-color: var(--button-color-hover);
 }
