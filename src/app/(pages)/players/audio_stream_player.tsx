@@ -49,8 +49,10 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 		}
 		if(playing) {
 			audio.current.pause();
+			onAudioPause(); // needed for chrome
 		} else {
 			audio.current.play();
+			onAudioPlaying(); // needed for chome
 		}
 	}
 

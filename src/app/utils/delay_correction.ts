@@ -8,8 +8,8 @@
 // these values are pretty arbitrary, some fine tuning could help here
 // happy_delay_seconds should be < unhappy_delay_seconds
 const happy_delay_seconds = 10.0;
-const unhappy_delay_seconds = 12.0;
-const correction_speed = 1.1;
+const unhappy_delay_seconds = 20.0;
+const correction_speed = 1.025;
 export const delay_correction_interval = 1000; // in ms
 
 // global state is fine here since we will only ever have one stream active.
@@ -24,16 +24,21 @@ export function applyDelayCorrection(media: HTMLMediaElement | null) {
 		return;
 	}
 	const current_delay = timeRanges.end(timeRanges.length-1) - media.currentTime;
-	if(!happy || current_delay > unhappy_delay_seconds) {
-		happy = false;
-		if(current_delay < happy_delay_seconds) {
-			happy = true;
-		}
-		media.playbackRate = correction_speed;
-	} else {
+	if(!Number.isFinite(current_delay)) {
+		// this always happens on chrome for some reason
+		media.playbackRate = 1.0;
+		return;
+	}
+	if(current_delay < happy_delay_seconds) {
 		happy = true;
 		media.playbackRate = 1.0;
+		return;
 	}
+	happy = false;
+	if(current_delay < happy_delay_seconds) {
+		happy = true;
+	}
+	media.playbackRate = correction_speed;
 }
 
 export function teleportDelayCorrection(media: HTMLMediaElement | null) {
@@ -45,7 +50,10 @@ export function teleportDelayCorrection(media: HTMLMediaElement | null) {
 		return;
 	}
 	const desired = timeRanges.end(timeRanges.length-1) - happy_delay_seconds;
-	if(desired < timeRanges.start(timeRanges.length-1)) {
+	if(desired == null || Number.isNaN(desired) || !Number.isFinite(desired)) {
+		return;
+	}
+	if(desired < media.currentTime) {
 		// regular buffer correction should handle this case
 		return;
 	}

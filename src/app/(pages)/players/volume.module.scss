@@ -136,12 +136,12 @@
 .slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	border: 0.5rem solid var(--text-color);
-	height: var(--thumb-width);
-	width: var(--thumb-width);
+	height: calc(var(--thumb-width) * 2);
+	width: calc(var(--thumb-width) * 2);
+	translate: 0 -25%;
 	border-radius: 10rem;
 	background: var(--text-color);
 	cursor: pointer;
-	margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
 }
 
 /* All the same stuff for Firefox */
