@@ -24,6 +24,8 @@ export default function Navigation() {
 			<NavLink href={"/past-events/"} currentPath={path}>Past Events</NavLink>
 			<NavLink href={"/gallery/"} currentPath={path}>Gallery</NavLink>
 			<NavLink href={"/staff/"} currentPath={path}>Staff</NavLink>
+			<NavLink href={"/contact/"} currentPath={path}>Contact Us</NavLink>
+			<NavLink href={"/themes/"} currentPath={path}>Themes</NavLink>
 		</nav>
 	);
 }

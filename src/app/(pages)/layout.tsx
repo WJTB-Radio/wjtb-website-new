@@ -4,6 +4,7 @@ import Players from "./players/players";
 import Schedule from "./schedule";
 import styles from "./layout.module.scss";
 import Navigation from "./navigation";
+import RememberTheme from "./remember_theme";
 
 export const metadata: Metadata = {
 	title: "WJTB Radio",
@@ -18,6 +19,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
+				<RememberTheme />
 				<div className={styles.players}>
 					<Players />
 					<Schedule />

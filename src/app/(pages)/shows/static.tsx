@@ -17,10 +17,10 @@ export default async function StaticShows() {
 		};
 		days.push(day);
 	}
-	return renderShows(days);
+	return renderShows(days, []);
 }
 
-export function renderShows(days: Day[]) {
+export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElement | null>[]) {
 	let min_time = 60*60*24;
 	let max_time = 0;
 	days.forEach((day) => {
@@ -41,11 +41,6 @@ export function renderShows(days: Day[]) {
 	const marker_times: number[] = [];
 	for(let i = min_time; i <= max_time; i += 60*60) {
 		marker_times.push(i);
-	}
-
-	let dayStarts: MutableRefObject<HTMLDivElement | null>[] = [];
-	for(let i = 0; i < 5; i++) {
-		dayStarts.push(useRef<HTMLDivElement>(null));
 	}
 
 	function scrollToDay(d: number) {
@@ -71,10 +66,10 @@ export function renderShows(days: Day[]) {
 				</div>
 				<div className={styles.day_buttons}>
 					{Array.apply(null, Array(5)).map((_, i) =>
-					<button className={styles.styled_button} onClick={scrollToDay.bind(null, i)}>
-						{getWeekdayString(i)}
-					</button>
-				)}
+						<button className={styles.styled_button} onClick={scrollToDay.bind(null, i)} key={i+"daybutton"}>
+							{getWeekdayString(i)}
+						</button>
+					)}
 				</div>
 				<div className={styles.shows_container}>
 					<div className={styles.shows}>

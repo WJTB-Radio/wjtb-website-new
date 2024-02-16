@@ -1,0 +1,25 @@
+@use "../global.module.scss";
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.theme {
+	background-color: var(--bg2-color);
+	margin: auto;
+	color: var(--text-color);
+	width: 25%;
+	min-width: 20rem;
+	padding: 1rem;
+	border: 0.25rem solid var(--accent-color);
+	border-radius: 1rem;
+	margin: 1rem;
+}
+
+.button {
+	@extend .styled_button;
+	display: block;
+	margin: auto;
+}
