@@ -1,18 +1,18 @@
 import styles from "./staff.module.scss";
 
-export type Staff = {name: string, flavor: string, position: string, image: string};
+export type StaffType = {name: string, flavor: string, position: string, image: string};
 
 export const endpoint = "https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/staff.json";
 
 export default async function StaticStaff() {
-	const data: {staff: Staff[]} = await (await fetch(endpoint)).json();
+	const data: {staff: StaffType[]} = await (await fetch(endpoint)).json();
 	let staff = data.staff;
 	// curro shouldn't appear in static version of site
 	staff = staff.filter((s) => !s.name.includes('Gera'));
 	return renderStaff(staff);
 }
 
-export function renderStaff(staff: Staff[]) {
+export function renderStaff(staff: StaffType[]) {
 	return (
 		<div>
 			<h1 className={styles.title}>Staff</h1>

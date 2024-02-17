@@ -4,6 +4,8 @@
 	overflow-y: scroll;
 	overflow-x: hidden;
 	width: 100%;
+	border: 0.25rem solid var(--accent-color);
+	border-left: unset;
 }
 
 @media (min-width: 1000px) {
@@ -17,6 +19,7 @@
 @media (max-width: 1000px) {
 	.container {
 		max-height: 10em;
+		border: unset;
 		border-top: 0.25rem solid var(--accent-color);
 		border-bottom: 0.25rem solid var(--accent-color);
 		font-size: 1.25rem;
@@ -33,6 +36,10 @@
 	position: relative;
 	border-bottom: 0.1rem solid var(--text-highlight-color);
 	height: 2em;
+}
+
+.day>*, .show>* {
+	padding-left: 1rem;
 }
 
 .show {

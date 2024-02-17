@@ -1,6 +1,6 @@
 import { formatTime, formatTimes, getWeekdayString } from "@/app/utils/time";
 import styles from "./shows.module.scss";
-import { MutableRefObject, useRef } from "react";
+import { MutableRefObject } from "react";
 
 export type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, day: number, is_running: number};
 export type Day = {day: number, dayName: string, shows: Show[]};

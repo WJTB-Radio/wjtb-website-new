@@ -3,6 +3,13 @@
 .players {
 	position: relative;
 	width: var(--player-width);
+	border: 0.25rem solid var(--accent-color);
+}
+
+@media (max-width: 1000px) {
+	.players {
+		border: unset;
+	}
 }
 
 .audio_player {
