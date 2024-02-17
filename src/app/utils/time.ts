@@ -39,7 +39,11 @@ export function getNYCTime() {
 
 export function getNYCWeekday() {
 	var nyc = getNYCDate();
-	return nyc.getDay()-1;
+	let d = nyc.getDay()-1;
+	if(d == 5) {
+		d = -2;
+	}
+	return d;
 }
 
 export function getWeekdayString(day: number): DayOfWeek {

@@ -42,7 +42,7 @@ export default function Schedule() {
 				</tbody>
 			);
 		}
-		if(i == 0) {
+		if(i == 0 && currentDay >= 0) {
 			playingShow = data.shows.find((show) => {
 				return show.start_time <= time && show.end_time > time;
 			});
