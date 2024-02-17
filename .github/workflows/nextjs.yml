@@ -61,6 +61,8 @@ jobs:
           #
           # You may remove this line if you want to manage the configuration yourself.
           # static_site_generator: next
+      - name: Configure next.js
+        run: echo 'basePath="/wjtb-website-new"' > .env.local
       - name: Restore cache
         uses: actions/cache@v4
         with:
