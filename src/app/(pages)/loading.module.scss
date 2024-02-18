@@ -23,14 +23,14 @@
 	.spinner {
 		animation: 1s linear 0s infinite spin;
 	}
+}
 
-	@keyframes spin {
-		from {
-			transform: perspective(250px) rotateY(-90deg);
-		}
-		to {
-			transform: perspective(250px) rotateY(90deg);
-		}
+@keyframes spin {
+	from {
+		transform: perspective(250px) rotateY(-90deg);
+	}
+	to {
+		transform: perspective(250px) rotateY(90deg);
 	}
 }
 

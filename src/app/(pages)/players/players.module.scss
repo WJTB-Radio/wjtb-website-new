@@ -35,8 +35,16 @@
 }
 
 .logo {
+	--perspective: 700px;
+	--table-y-offset: 30%;
+	--table-x-offset: 50%;
+	--table-width: 50%;
+	--table-color-1: var(--bg3-color);
+	--table-color-2: var(--accent2-color);
+	--table-pattern-size: 20%;
+	--logo-tilt: 0deg;
+
 	position: relative;
-	background: transparent;
 	width: 100%;
 	height: 75%;
 	max-height: 20rem;
@@ -45,38 +53,74 @@
 	aspect-ratio: 1.5;
 }
 
-.logo:before {
+.logo:after {
 	content: '';
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	mask-image: url("/img/wjtb.svg");
+	mask-image: url("svg/wjtb.svg");
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
 	background-color: var(--text-color);
 	transition: background-color 0.15s ease-out;
-	animation: 3s linear infinite both paused spin;
+	animation: 3s linear infinite both paused spin-logo;
+}
+
+.logo:before {
+	content: '';
+	position: absolute;
+	width: var(--table-width);
+	height: 100%;
+	border-radius: 25%;
+	background-color: var(--table-color-1);
+	background-image: linear-gradient(90deg, transparent 50%,
+		var(--table-color-2) 50%);
+	background-size: var(--table-pattern-size) var(--table-pattern-size);
+	animation: 3s linear infinite both paused spin-table;
+	transform-origin: calc(0.0 - var(--table-width) / 2) 0;
+	opacity: 0;
+	transition: opacity 0.15s ease-out;
 }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-	.logo:active:before {
+	.logo:active:after {
 		background-color: var(--text-highlight-color);
-		animation: 3s linear infinite both running spin;
+		animation: 3s linear infinite both running spin-logo;
+	}
+
+	.logo:active:before {
+		animation: 3s linear infinite both running spin-table;
+		opacity: 1;
 	}
 }
 
-@keyframes spin {
+@keyframes spin-logo {
 	0% {
-		transform: rotateX(10deg) rotateY(0deg) perspective(10px);
+		transform: perspective(var(--perspective)) rotateY(0deg) rotateX(var(--logo-tilt));
 	}
 	10% {
-		transform: rotateX(10deg) rotateY(20deg) perspective(10px);
+		transform: perspective(var(--perspective)) rotateY(20deg) rotateX(var(--logo-tilt));
 	}
 	90% {
-		transform: rotateX(10deg) rotateY(340deg) perspective(10px);
+		transform: perspective(var(--perspective)) rotateY(340deg) rotateX(var(--logo-tilt));
 	}
 	100% {
-		transform: rotateX(10deg) rotateY(360deg) perspective(10px);
+		transform: perspective(var(--perspective)) rotateY(360deg) rotateX(var(--logo-tilt));
+	}
+}
+
+@keyframes spin-table {
+	0% {
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(0deg) rotateX(90deg);
+	}
+	10% {
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(20deg) rotateX(90deg);
+	}
+	90% {
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(340deg) rotateX(90deg);
+	}
+	100% {
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(360deg) rotateX(90deg);
 	}
 }	
