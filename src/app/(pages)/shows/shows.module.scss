@@ -11,6 +11,7 @@
 .calendar {
 	width: 90%;
 	position: relative;
+	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 }
@@ -176,7 +177,7 @@
 		position: sticky;
 		background-color: var(--bg2-color);
 		top: 0.5rem;
-		left: 0.5rem;
+		right: 0.5rem;
 		z-index: 3;
 		margin: 0;
 	}
