@@ -5,6 +5,7 @@ import Schedule from "./schedule";
 import styles from "./layout.module.scss";
 import Navigation from "./navigation";
 import RememberTheme from "./remember_theme";
+import Script from "next/script";
 
 export const metadata: Metadata = {
 	title: "WJTB Radio",
@@ -19,7 +20,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<script src="/js/smoothscroll.min.js"></script>
+				<Script src="/js/smoothscroll.min.js" />
 				<RememberTheme />
 				<div className={styles.players}>
 					<Players />

@@ -32,8 +32,9 @@ export default function Shows() {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		dayStarts.push(useRef<HTMLDivElement>(null));
 	}
+	const top = useRef(null);
 	if(!fetched) {
 		return <StaticShows />;
 	}
-	return renderShows(days, dayStarts);
+	return renderShows(days, dayStarts, top);
 }

@@ -1,7 +1,6 @@
 import { formatTime, formatTimes, getWeekdayString } from "@/app/utils/time";
 import styles from "./shows.module.scss";
 import { MutableRefObject, useEffect, useRef } from "react";
-import { isClient } from "@/app/utils/is_client";
 
 export type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, day: number, is_running: number};
 export type Day = {day: number, dayName: string, shows: Show[]};
@@ -18,10 +17,10 @@ export default async function StaticShows() {
 		};
 		days.push(day);
 	}
-	return renderShows(days, []);
+	return renderShows(days, [], null);
 }
 
-export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElement | null>[]) {
+export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElement | null>[], top: MutableRefObject<HTMLDivElement | null> | null) {
 	let min_time = 60*60*24;
 	let max_time = 0;
 	days.forEach((day) => {
@@ -55,10 +54,6 @@ export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElem
 		(window as any).smoothScroll({toElement: dayStart.current, duration: 300, easing: (window as any).smoothScroll.easing.easeOutBack});
 	}
 
-	let top: null | MutableRefObject<HTMLDivElement | null> = null;
-	if(isClient()){
-		top = useRef(null);
-	}
 	function scrollToTop() {
 		if(top == null || top.current == null) {
 			return;
