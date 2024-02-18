@@ -19,6 +19,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
+				<script src="/js/smoothscroll.min.js"></script>
 				<RememberTheme />
 				<div className={styles.players}>
 					<Players />

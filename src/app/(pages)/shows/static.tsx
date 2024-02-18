@@ -1,6 +1,7 @@
 import { formatTime, formatTimes, getWeekdayString } from "@/app/utils/time";
 import styles from "./shows.module.scss";
-import { MutableRefObject } from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
+import { isClient } from "@/app/utils/is_client";
 
 export type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, day: number, is_running: number};
 export type Day = {day: number, dayName: string, shows: Show[]};
@@ -51,7 +52,18 @@ export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElem
 		if(dayStart.current == null) {
 			return;
 		}
-		dayStart.current.scrollIntoView();
+		(window as any).smoothScroll({toElement: dayStart.current, duration: 300, easing: (window as any).smoothScroll.easing.easeOutBack});
+	}
+
+	let top: null | MutableRefObject<HTMLDivElement | null> = null;
+	if(isClient()){
+		top = useRef(null);
+	}
+	function scrollToTop() {
+		if(top == null || top.current == null) {
+			return;
+		}
+		(window as any).smoothScroll({toElement: top.current, duration: 300, easing: (window as any).smoothScroll.easing.easeOutBack});
 	}
 
 	return (
@@ -64,13 +76,14 @@ export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElem
 						</div>
 					)}
 				</div>
-				<div className={styles.day_buttons}>
+				<div className={styles.day_buttons} ref={top}>
 					{Array.apply(null, Array(5)).map((_, i) =>
 						<button className={styles.styled_button} onClick={scrollToDay.bind(null, i)} key={i+"daybutton"}>
 							{getWeekdayString(i)}
 						</button>
 					)}
 				</div>
+				<button className={styles.scroll_to_top} onClick={scrollToTop}>Scroll to top</button>
 				<div className={styles.shows_container}>
 					<div className={styles.shows}>
 						{days.map((day) =>

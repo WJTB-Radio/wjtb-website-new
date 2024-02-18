@@ -11,7 +11,6 @@
 .calendar {
 	width: 90%;
 	position: relative;
-	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 }
@@ -106,6 +105,11 @@
 	display: none;
 }
 
+.scroll_to_top {
+	@extend .styled_button;
+	display: none;
+}
+
 @media (hover: none), (max-width: 1000px) {
 	.day_buttons {
 		display: flex;
@@ -164,6 +168,17 @@
 
 	.shows, .days {
 		width: 100%;
+	}
+	.scroll_to_top {
+		display: block;
+		font-size: 1.25rem;
+		font-family: unset;
+		position: sticky;
+		background-color: var(--bg2-color);
+		top: 0.5rem;
+		left: 0.5rem;
+		z-index: 3;
+		margin: 0;
 	}
 }
 
