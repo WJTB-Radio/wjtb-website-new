@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
 	let basePath = "/";
 	if(process.env.NEXT_PUBLIC_BASE_PATH != null) {
-		basePath = process.env.NEXT_PUBLIC_BASE_PATH.endsWith("/")?process.env.NEXT_PUBLIC_BASE_PATH:"/";
+		basePath = process.env.NEXT_PUBLIC_BASE_PATH.endsWith("/")?process.env.NEXT_PUBLIC_BASE_PATH:process.env.NEXT_PUBLIC_BASE_PATH+"/";
 	}
 	return (
 		<html lang="en">
