@@ -21,6 +21,7 @@ export const themes: {[id: string]: Theme}  = {
 			"--accent2-color": "#eded50",
 			"--iframe-bg-color": "#eeeeee",
 			"font-family": "system-ui, sans-serif",
+			"font-weight": "300",
 		} as CSSProperties,
 	},
 	"paper": {
@@ -39,6 +40,7 @@ export const themes: {[id: string]: Theme}  = {
 			"--accent2-color": "#236ece",
 			"--iframe-bg-color": "#eeeeee00",
 			"font-family": "'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif",
+			"font-weight": "300",
 		} as CSSProperties,
 	},
 	"trees": {
@@ -57,6 +59,7 @@ export const themes: {[id: string]: Theme}  = {
 			"--accent2-color": "#ffbe59",
 			"--iframe-bg-color": "#eeeeee00",
 			"font-family": "system-ui, sans-serif",
+			"font-weight": "300",
 		} as CSSProperties,
 	},
 	"strawberry": {
@@ -75,6 +78,7 @@ export const themes: {[id: string]: Theme}  = {
 			"--accent2-color": "#d32153",
 			"--iframe-bg-color": "#eeeeee00",
 			"font-family": "system-ui, sans-serif",
+			"font-weight": "300",
 		} as CSSProperties,
 	},
 	"autumn": {
@@ -93,6 +97,7 @@ export const themes: {[id: string]: Theme}  = {
 			"--accent2-color": "#eded50",
 			"--iframe-bg-color": "#efad26",
 			"font-family": "'garamond', serif",
+			"font-weight": "300",
 		} as CSSProperties,
 	},
 	"spooky": {
@@ -111,6 +116,7 @@ export const themes: {[id: string]: Theme}  = {
 			"--accent2-color": "#3bee22",
 			"--iframe-bg-color": "#eeeeee",
 			"font-family": "'modern antiqua', cursive",
+			"font-weight": "300",
 		} as CSSProperties,
 	},
 	"winter": {
@@ -128,8 +134,8 @@ export const themes: {[id: string]: Theme}  = {
 			"--accent-shadow-color": "#5b5730",
 			"--accent2-color": "#ef8af2",
 			"--iframe-bg-color": "#eeeeee",
-			"font-weight": "500",
 			"font-family": "Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif",
+			"font-weight": "500",
 		} as CSSProperties,
 	},
 };
