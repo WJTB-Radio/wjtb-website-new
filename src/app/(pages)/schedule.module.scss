@@ -18,11 +18,14 @@
 
 @media (max-width: 1000px) {
 	.container {
-		max-height: 10em;
+		max-height: 20em;
 		border: unset;
 		border-top: 0.25rem solid var(--accent-color);
 		border-bottom: 0.25rem solid var(--accent-color);
 		font-size: 1.25rem;
+	}
+	.hide_on_mobile {
+		display: none;
 	}
 }
 

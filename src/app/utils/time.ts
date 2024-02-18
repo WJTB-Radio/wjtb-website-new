@@ -47,7 +47,7 @@ export function getNYCWeekday() {
 }
 
 export function getWeekdayString(day: number): DayOfWeek {
-	return ["monday", "tuesday", "wednesday", "thursday", "friday"][day] as DayOfWeek;
+	return ["monday", "tuesday", "wednesday", "thursday", "friday"][Math.abs(day % 5)] as DayOfWeek;
 }
 
 export function getNYCWeekdayString(): DayOfWeek {

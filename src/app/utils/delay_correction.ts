@@ -9,7 +9,7 @@
 // happy_delay_seconds should be < unhappy_delay_seconds
 const happy_delay_seconds = 10.0;
 const unhappy_delay_seconds = 20.0;
-const correction_speed = 1.025;
+const correction_speed = 1.05;
 export const delay_correction_interval = 1000; // in ms
 
 // global state is fine here since we will only ever have one stream active.
@@ -29,16 +29,16 @@ export function applyDelayCorrection(media: HTMLMediaElement | null) {
 		media.playbackRate = 1.0;
 		return;
 	}
-	if(current_delay < happy_delay_seconds) {
+	if(happy || current_delay < happy_delay_seconds) {
 		happy = true;
 		media.playbackRate = 1.0;
 		return;
 	}
-	happy = false;
-	if(current_delay < happy_delay_seconds) {
-		happy = true;
+	if(current_delay > unhappy_delay_seconds) {
+		happy = false;
 	}
 	media.playbackRate = correction_speed;
+	console.log(media.playbackRate);
 }
 
 export function teleportDelayCorrection(media: HTMLMediaElement | null) {
@@ -49,7 +49,7 @@ export function teleportDelayCorrection(media: HTMLMediaElement | null) {
 	if(timeRanges.length == 0) {
 		return;
 	}
-	const desired = timeRanges.end(timeRanges.length-1) - happy_delay_seconds;
+	const desired = timeRanges.end(timeRanges.length-1) - unhappy_delay_seconds;
 	if(desired == null || Number.isNaN(desired) || !Number.isFinite(desired)) {
 		return;
 	}

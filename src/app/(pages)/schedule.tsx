@@ -5,6 +5,7 @@ import { DayOfWeek, formatDay, formatTimes, getNYCTime, getNYCWeekday, getNYCWee
 import styles from "./schedule.module.scss";
 import useSWR from "swr";
 import { jsonFetcher } from "../utils/fetchers";
+import { usePathname } from "next/navigation";
 
 type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, is_running: number};
 type DaySchedule = {day: DayOfWeek, shows: Array<Show>};
@@ -27,6 +28,9 @@ export default function Schedule() {
 				useSWR(`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${getWeekdayString(d)}.json`, jsonFetcher);
 		if(!data || error) {
 			continue;
+		}
+		if(d < 0) {
+			continue; // weekend
 		}
 		if(i == 0) {
 			data = structuredClone(data);
@@ -89,8 +93,11 @@ export default function Schedule() {
 		}
 	});
 
+	const path = usePathname();
+	let hide_on_mobile = !["/", "/shows/"].includes(path);
+
 	return (
-		<div className={styles.container} tabIndex={-1}>
+		<div className={`${styles.container} ${hide_on_mobile?styles.hide_on_mobile:undefined}`} tabIndex={-1}>
 			<table className={styles.table}>
 				{computed}
 			</table>
