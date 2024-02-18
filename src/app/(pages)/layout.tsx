@@ -17,10 +17,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+	let basePath = "/";
+	if(process.env.NEXT_PUBLIC_BASE_PATH != null) {
+		basePath = process.env.NEXT_PUBLIC_BASE_PATH.endsWith("/")?process.env.NEXT_PUBLIC_BASE_PATH:"/";
+	}
 	return (
 		<html lang="en">
 			<body>
-				<Script src={process.env.NEXT_PUBLIC_BASE_PATH+"js/smoothscroll.min.js"} />
+				<Script src={basePath+"js/smoothscroll.min.js"} />
 				<RememberTheme />
 				<div className={styles.players}>
 					<Players />
