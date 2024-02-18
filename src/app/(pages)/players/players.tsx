@@ -37,6 +37,7 @@ export default function Players() {
 			</div> */}
 			
 			<div className={`${styles.audio_player}`}>
+				<div className={styles.logo}></div>
 				<AudioStreamPlayer hidden={false}/>
 			</div>
 		</div>
