@@ -38,6 +38,7 @@
 	--perspective: 700px;
 	--table-y-offset: 30%;
 	--table-x-offset: 50%;
+	--table-rotation: -15deg;
 	--table-width: 50%;
 	--table-color-1: var(--bg3-color);
 	--table-color-2: var(--accent2-color);
@@ -112,15 +113,15 @@
 
 @keyframes spin-table {
 	0% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(0deg) rotateX(90deg);
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(0deg + var(--table-rotation))) rotateX(90deg);
 	}
 	10% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(20deg) rotateX(90deg);
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(20deg + var(--table-rotation))) rotateX(90deg);
 	}
 	90% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(340deg) rotateX(90deg);
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(340deg + var(--table-rotation))) rotateX(90deg);
 	}
 	100% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(360deg) rotateX(90deg);
+		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(360deg + var(--table-rotation))) rotateX(90deg);
 	}
 }	
