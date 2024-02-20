@@ -6,12 +6,6 @@
 	border: 0.25rem solid var(--accent-color);
 }
 
-@media (max-width: 1000px) {
-	.players {
-		border: unset;
-	}
-}
-
 .audio_player {
 	padding: 2rem 2rem;
 	height: 100%;
@@ -52,6 +46,18 @@
 	min-height: 5rem;
 	
 	aspect-ratio: 1.5;
+}
+
+@media (max-width: 1000px) {
+	.players {
+		border: unset;
+	}
+	.audio_player {
+		padding: 0;
+	}
+	.logo {
+		max-height: 10rem;
+	}
 }
 
 .logo:after {
