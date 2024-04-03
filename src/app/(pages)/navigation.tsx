@@ -17,10 +17,6 @@ function NavLink(props: {href: string, currentPath: string, onClick: () => void,
 const defaultWidth = 2000;
 // from https://blog.logrocket.com/developing-responsive-layouts-with-react-hooks/
 const useWidth = () => {
-	if (typeof window === "undefined") {
-		// serverside rendering
-		return {width: defaultWidth};
-	}
 	const [width, setWidth] = useState(defaultWidth);
 
 	useEffect(() => {
