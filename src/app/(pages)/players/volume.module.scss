@@ -122,9 +122,11 @@
 	background: transparent; /* Otherwise white in Chrome */
 }
 
-.slider:hover {
-	--thumb-color: var(--text-highlight-color);
-	--track-color: var(--text-shadow-color);
+@media(hover: hover) {
+	.slider:hover {
+		--thumb-color: var(--text-highlight-color);
+		--track-color: var(--text-shadow-color);
+	}
 }
 
 .slider::-webkit-slider-thumb {

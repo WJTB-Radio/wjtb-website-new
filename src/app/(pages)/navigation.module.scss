@@ -90,8 +90,11 @@
 	transition: color 0.15s ease-out;
 }
 
-.collabsible_button:hover {
-	color: var(--text-highlight-color);
+@media (hover: hover) {
+	.collabsible_button:hover {
+		color: var(--text-highlight-color);
+		border-left-color: var(--text-highlight-color);
+	}
 }
 
 .collabsible_button::before {
@@ -112,8 +115,4 @@
 
 .collabsible_button[data-state='open']::before {
 	rotate: 90deg;
-}
-
-.collabsible_button:hover::before {
-	border-left-color: var(--text-highlight-color);
 }
