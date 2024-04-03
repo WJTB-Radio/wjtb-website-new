@@ -1,3 +1,5 @@
+@use "./global.module.scss";
+
 .spinner {
 	position: relative;
 	height: 10rem;
@@ -35,6 +37,7 @@
 }
 
 .loading {
+	@extend .main_content_minimal;
 	position: relative;
 	font-size: 0;
 	min-height: 200px;

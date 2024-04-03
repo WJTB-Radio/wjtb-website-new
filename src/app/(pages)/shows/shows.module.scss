@@ -1,6 +1,7 @@
 @use "../global.module.scss";
 
 .container {
+	@extend .main_content_minimal;
 	position: relative;
 	display: flex;
 	flex-direction: row;

@@ -19,7 +19,7 @@ export function renderEvents(events: EventType[]) {
 	});
 
 	return (
-		<div>
+		<div className={styles.main_content_minimal}>
 			<h1 className={styles.title}>Past Events</h1>
 			<div className={styles.container}>
 				{events.map((event) =>

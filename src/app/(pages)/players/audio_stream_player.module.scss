@@ -9,6 +9,12 @@
 	column-gap: 5rem;
 }
 
+@media (max-width: 1000px) {
+	.player {
+		margin-bottom: 1rem;
+	}
+}
+
 .volume_container {
 	position: relative;
 	height: 5rem;

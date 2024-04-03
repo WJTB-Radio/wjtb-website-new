@@ -14,7 +14,7 @@ export default async function StaticStaff() {
 
 export function renderStaff(staff: StaffType[]) {
 	return (
-		<div>
+		<div className={styles.main_content_minimal}>
 			<h1 className={styles.title}>Staff</h1>
 			<div className={styles.container}>
 				{staff.map((staff) => 

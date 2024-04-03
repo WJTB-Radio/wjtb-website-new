@@ -132,6 +132,12 @@
 	min-width: 17ch;
 }
 
+@media (max-width: 1000px) {
+	.times {
+		min-width: unset;
+	}
+}
+
 .day>* {
 	text-align: left;
 }

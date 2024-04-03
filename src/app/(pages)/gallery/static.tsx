@@ -11,7 +11,7 @@ export default async function StaticGallery() {
 
 export function renderGallery(photos: Photo[]) {
 	return (
-		<div>
+		<div className={styles.main_content_minimal}>
 			<h1 className={styles.title}>Gallery</h1>
 			<div className={styles.gallery}>
 				{photos.map((photo, index) => (
