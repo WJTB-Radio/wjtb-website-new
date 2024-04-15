@@ -11,6 +11,17 @@
 	height: 100%;
 }
 
+@media (max-width: 1000px) {
+	.audio_player {
+		display: flex;
+	}
+	.audio_player>* {
+		flex: 1;
+		margin: 0.5rem;
+		margin-bottom: 0;
+	}
+}
+
 .audio_player p {
 	margin-top: 2rem;
 }
@@ -44,7 +55,7 @@
 	height: 75%;
 	max-height: 20rem;
 	min-height: 5rem;
-	
+
 	aspect-ratio: 1.5;
 }
 
@@ -57,6 +68,8 @@
 	}
 	.logo {
 		max-height: 10rem;
+		width: 25%;
+		display: inline-block;
 	}
 }
 

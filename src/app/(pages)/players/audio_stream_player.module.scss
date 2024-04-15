@@ -2,6 +2,7 @@
 
 .player {
 	position: relative;
+	display: inline;
 	margin: auto;
 	display: flex;
 	align-items: center;
@@ -11,7 +12,10 @@
 
 @media (max-width: 1000px) {
 	.player {
+		margin: unset;
 		margin-bottom: 1rem;
+		width: 50%;
+		column-gap: 10vw;
 	}
 }
 
