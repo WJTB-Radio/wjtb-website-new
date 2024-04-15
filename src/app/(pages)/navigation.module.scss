@@ -39,6 +39,9 @@
 }
 
 @media (max-width: 1000px) {
+	.nav {
+		margin: 0;
+	}
 	.nav_link {
 		font-size: 1.5rem;
 	}
@@ -84,7 +87,7 @@
 	text-align: left;
 	position: relative;
 	width: 100%;
-	padding-left: calc(var(--button-width) + 2rem);
+	padding-left: 1rem;//calc(var(--button-width) + 2rem);
 	margin-bottom: 0.25rem;
 
 	transition: color 0.15s ease-out;
@@ -102,13 +105,13 @@
 	position: absolute;
 	aspect-ratio: 1;
 	top: calc(50% - var(--button-width));
-	left: 0;
+	left: calc(100% - var(--button-width) - 2rem);
 	border: var(--button-width) solid transparent;
 	border-left-color: var(--text-color);
 	transition: border-left-color 0.15s ease-out, rotate 0.05s ease-out;
 	rotate: 0deg;
 	--overall-scale: 1.5;
-	scale: calc(1.0 * var(--overall-scale)) calc(0.5 * var(--overall-scale));
+	scale: calc(1.0 * var(--overall-scale)) calc(0.33 * var(--overall-scale));
 	translate: var(--button-width) 0.0;
 	transform-origin: 25% 50%;
 }
