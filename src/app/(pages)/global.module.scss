@@ -70,16 +70,20 @@
 	border-bottom-style: none;
 }
 
+.main_content_minimal {
+	background-color: var(--bg-color);
+}
+
 @media (max-width: 1000px) {
 	.main_content {
 		border: none;
-		border-top: var(--accent-color) solid 0.25rem;
 		border-radius: 0;
+		border-top: 0.25rem solid var(--accent-color);
 		padding: 2rem 1rem;
 		margin-top: 0rem;
 	}
 	.main_content_minimal {
-		border-top: var(--accent-color) solid 0.25rem;
+		border-top: 0.25rem solid var(--accent-color);
 	}
 }
 

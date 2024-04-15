@@ -1,6 +1,7 @@
 @use "../global.module.scss";
 
 .container {
+	@extend .main_content_minimal;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 1rem;

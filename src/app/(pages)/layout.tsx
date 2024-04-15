@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.scss";
-import Players from "./players/players";
-import Schedule from "./schedule";
-import styles from "./layout.module.scss";
-import Navigation from "./navigation";
-import RememberTheme from "./remember_theme";
-import Script from "next/script";
+import { ReactNode } from "react";
+import Layout from "./layout_client";
 
 export const metadata: Metadata = {
 	title: "WJTB Radio",
@@ -15,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
 	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: ReactNode
 }>) {
 	let basePath = "/";
 	if(process.env.NEXT_PUBLIC_BASE_PATH != null) {
@@ -24,14 +20,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<Script src={basePath+"js/smoothscroll.min.js"} />
-				<RememberTheme />
-				<div className={styles.players}>
-					<Players />
-					<Schedule />
-				</div>
-				<Navigation />
-				{children}
+				<Layout>
+					{children}
+				</Layout>
 			</body>
 		</html>
 	);

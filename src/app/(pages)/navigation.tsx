@@ -5,6 +5,7 @@ import styles from "./navigation.module.scss";
 import { usePathname } from "next/navigation";
 import { Content, Root, Trigger } from "@radix-ui/react-collapsible";
 import { useCallback, useEffect, useState } from "react";
+import { useWidth } from "../utils/use_width";
 
 function NavLink(props: {href: string, currentPath: string, onClick: () => void, children: React.ReactNode}) {
 	return (
@@ -12,21 +13,6 @@ function NavLink(props: {href: string, currentPath: string, onClick: () => void,
 			{props.children}
 		</Link>
 	);
-}
-
-const defaultWidth = 2000;
-// from https://blog.logrocket.com/developing-responsive-layouts-with-react-hooks/
-const useWidth = () => {
-	const [width, setWidth] = useState(defaultWidth);
-
-	useEffect(() => {
-		const handleWindowResize = () => setWidth(window.innerWidth);
-		window.addEventListener("resize", handleWindowResize);
-		handleWindowResize();
-		return () => window.removeEventListener("resize", handleWindowResize);
-	}, []);
-
-	return { width };
 }
 
 const pathNames: {[id: string]: string} = {
