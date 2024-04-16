@@ -3,7 +3,7 @@ import styles from "./past_events.module.scss";
 import Autoplay from "embla-carousel-autoplay";
 import { addLineBreaks } from "@/app/utils/text";
 
-export type EventType = {name: string, desc: string, date: string, images: string, imagesArr: string[]};
+export type EventType = {name: string, desc: string, date: string, images: string[]};
 
 export const endpoint = "https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/past_events.json";
 
@@ -14,10 +14,6 @@ export default async function StaticEvent() {
 }
 
 export function renderEvents(events: EventType[]) {
-	events.forEach((event) => {
-		event.imagesArr = event.images.split(" ");
-	});
-
 	return (
 		<div className={styles.main_content_minimal}>
 			<h1 className={styles.title}>Past Events</h1>
@@ -42,7 +38,7 @@ export function renderEvents(events: EventType[]) {
 								}),
 							]}>
 							<CarouselContent className={styles.carousel_content}>
-								{event.imagesArr.map((image, index) => (
+								{event.images.map((image, index) => (
 									<CarouselItem key={index}>
 										<img className={styles.image} src={image} alt=""></img>
 									</CarouselItem>
