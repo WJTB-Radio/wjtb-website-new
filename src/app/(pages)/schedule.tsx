@@ -6,6 +6,7 @@ import styles from "./schedule.module.scss";
 import useSWR from "swr";
 import { jsonFetcher } from "../utils/fetchers";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, is_running: number};
 type DaySchedule = {day: DayOfWeek, shows: Array<Show>};
@@ -98,9 +99,16 @@ export default function Schedule() {
 
 	return (
 		<div className={`${styles.container} ${hide_on_mobile?styles.hide_on_mobile:undefined}`} tabIndex={-1}>
-			<table className={styles.table}>
-				{computed}
-			</table>
+			{computed.length == 0 ?
+				<div className={styles.no_shows}>
+					<p>There aren't any radio shows scheduled right now. Stay tuned for our show schedule.</p>
+					<p>If you would like to host a show, you can <Link href="/join">become a member</Link>.</p>
+				</div>
+			:
+				<table className={styles.table}>
+					{computed}
+				</table>
+			}
 		</div>
 	);
 }

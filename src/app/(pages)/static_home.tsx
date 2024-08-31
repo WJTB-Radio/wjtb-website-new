@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "./home.module.scss";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import Loading, { Spinner } from "./loading";
 
 export type Photo = {image: string, date_taken: string, caption: string};
 

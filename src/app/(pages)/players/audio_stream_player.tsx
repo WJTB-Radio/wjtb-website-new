@@ -92,7 +92,7 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 			onTouchStart={onTouchStart.bind(null, touches, touchTimeout, setTouch)}
 			onTouchEnd={onTouchEnd.bind(null, touches, touchTimeout, () => {}, setTouch, null)}
 			onTouchMove={onTouchMove.bind(null, touches)}>
-			<audio src={`https://stream.njit.edu:8000/stream1.mp3?${snowflake.current}`}
+			<audio src={`https://stream.njit.edu:8000/stream1.mp3`}
 				ref={audio} onPause={onAudioPause} onPlaying={onAudioPlaying}></audio>
 			<button onClick={togglePlaying} className={playing?styles.pause_button:styles.play_button}>
 				{playing?"Pause":"Play"}

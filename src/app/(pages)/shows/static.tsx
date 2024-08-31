@@ -2,6 +2,7 @@ import { formatTime, formatTimes, getWeekdayString } from "@/app/utils/time";
 import styles from "./shows.module.scss";
 import { MutableRefObject, useEffect, useRef } from "react";
 import Script from "next/script";
+import Link from "next/link";
 
 export type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, day: number, is_running: number};
 export type Day = {day: number, dayName: string, shows: Show[]};
@@ -24,6 +25,7 @@ export default async function StaticShows() {
 export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElement | null>[], top: MutableRefObject<HTMLDivElement | null> | null) {
 	let min_time = 60*60*24;
 	let max_time = 0;
+	let show_count = 0;
 	days.forEach((day) => {
 		day.shows.forEach((show) => {
 			if(show.start_time < min_time) {
@@ -32,6 +34,7 @@ export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElem
 			if(show.end_time > max_time) {
 				max_time = show.end_time;
 			}
+			show_count++;
 		})
 	});
 
@@ -60,6 +63,13 @@ export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElem
 			return;
 		}
 		(window as any).smoothScroll({toElement: top.current, duration: 300, easing: (window as any).smoothScroll.easing.easeOutBack});
+	}
+
+	if(show_count <= 0) {
+		return <div className={styles.main_content}>
+			<h1>There aren't any shows scheduled right now.</h1>
+			<p>If you would like to host a show, you can <Link href="/join">become a member</Link>.</p>
+		</div>
 	}
 
 	return (

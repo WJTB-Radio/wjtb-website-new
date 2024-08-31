@@ -108,6 +108,15 @@
 	z-index: -1;
 }
 
+.no_shows {
+	padding: 1rem;
+}
+
+.no_shows p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
 	.show_container.playing::before {
 		animation: playing-glow-animation 20s linear infinite;

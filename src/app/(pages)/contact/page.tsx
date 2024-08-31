@@ -5,7 +5,7 @@ export default function Join() {
 		<div className={styles.main_content}>
 			<h1>For members and fans</h1>
 			<p>
-				The best way to connect with us is through <a href="https://wjtb.njit.edu/discord" target="_blank">Discord</a> or through <a href="https://www.tiktok.com/@wjtbradio" target="_blank">TikTok</a>, <a href="https://www.instagram.com/wjtb_radio/"target="_blank">Instagram</a>, and <a href="https://www.twitch.tv/wjtb" target="_blank">Twitch</a>.
+				The best way to connect with us is through <a href="https://wjtb.njit.edu/discord" target="_blank">Discord</a>, <a href="https://www.instagram.com/wjtb_radio/"target="_blank">Instagram</a>, <a href="https://www.tiktok.com/@wjtbradio" target="_blank">TikTok</a>, or <a href="https://www.twitch.tv/wjtb" target="_blank">Twitch</a>.
 			</p>
 			<p>
 				Not a member yet? Join us! WJTB is always looking for new members to help out at live shows, help around the studio, and
