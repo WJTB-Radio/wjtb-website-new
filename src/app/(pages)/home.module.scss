@@ -25,6 +25,12 @@
 	}
 }
 
+@media (min-width: 1000px) {
+	.carousel button {
+		display: none;
+	}
+}
+
 .image {
 	width: calc(100%);
 	height: calc(100%);
