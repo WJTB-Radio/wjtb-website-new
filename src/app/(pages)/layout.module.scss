@@ -4,7 +4,7 @@
 	flex-direction: row;
 	// video sizing
 	//--player-width: 60vw;
-	--player-width: 40vw;
+	--player-width: calc(max(40vw, 40rem));
 	--aspect-ratio: calc(1/2);
 	height: min(calc(var(--aspect-ratio) * var(--player-width)), 100svh);
 }

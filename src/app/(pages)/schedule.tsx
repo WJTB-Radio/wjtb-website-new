@@ -7,6 +7,7 @@ import useSWR from "swr";
 import { jsonFetcher } from "../utils/fetchers";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useWidth } from "../utils/use_width";
 
 type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, is_running: number};
 type DaySchedule = {day: DayOfWeek, shows: Array<Show>};
@@ -96,6 +97,12 @@ export default function Schedule() {
 
 	const path = usePathname();
 	let hide_on_mobile = !["/", "/shows/"].includes(path);
+
+	const width = useWidth().width;
+
+	if(computed.length == 0 && width < 1000) {
+		return <></>;
+	}
 
 	return (
 		<div className={`${styles.container} ${hide_on_mobile?styles.hide_on_mobile:undefined}`} tabIndex={-1}>

@@ -47,7 +47,7 @@
 }
 
 .main_content {
-	max-width: 80rem;
+	width: calc(min(80rem, 100vw));
 	background: var(--bg2-color);
 	padding-top: 0rem;
 	padding-bottom: 16rem;
@@ -68,6 +68,8 @@
 	border-right-style: solid;
 	border-left-style: solid;
 	border-bottom-style: none;
+
+	flex: 1;
 }
 
 .main_content_minimal {

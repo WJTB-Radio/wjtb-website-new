@@ -3,11 +3,15 @@
 .carousel {
 	margin: auto;
 	margin-top: 1rem;
-	min-width: 25rem;
+	min-width: calc(min(70rem, 100%));
 	padding: 1rem;
 	border: var(--accent-color) solid 0.25rem;
 }
 
+.carousel :first-child>* {
+	position: relative;
+	flex: 0 0 33.33%;
+}
 
 @media (max-width: 1000px) {
 	.carousel {
@@ -16,6 +20,15 @@
 		max-width: 20rem;
 		padding: 0.5rem;
 	}
+	.carousel :first-child>* {
+		flex: 0 0 100%;
+	}
+}
+
+.image {
+	width: calc(100%);
+	height: calc(100%);
+	object-fit: contain;
 }
 
 .carousel_content {
