@@ -38,7 +38,6 @@ export function applyDelayCorrection(media: HTMLMediaElement | null) {
 		happy = false;
 	}
 	media.playbackRate = correction_speed;
-	console.log(media.playbackRate);
 }
 
 export function teleportDelayCorrection(media: HTMLMediaElement | null) {

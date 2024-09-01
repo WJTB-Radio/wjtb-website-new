@@ -16,9 +16,8 @@ export function Events(props: {events: EventType[]}) {
 		<div className={styles.main_content_minimal}>
 			<h1 className={styles.title}>Past Events</h1>
 			<div className={styles.container}>
-				{events.map((event) => {
-					console.log(event.name+event.date);
-					return <div className={styles.event} key={event.name+event.date}>
+				{events.map((event) =>
+					<div className={styles.event} key={event.name+event.date}>
 						<h2 className={styles.name}>
 							{event.name}
 						</h2>
@@ -49,7 +48,7 @@ export function Events(props: {events: EventType[]}) {
 						<p className={styles.desc}>
 							{addLineBreaks(event.desc)}
 						</p>
-					</div>}
+					</div>
 				)}
 			</div>
 		</div>
