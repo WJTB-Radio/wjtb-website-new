@@ -1,13 +1,8 @@
-"use client";
+import { Photo } from "@/app/utils/types";
+import { Gallery } from "./gallery";
+import { galleryEndpoint } from "@/app/utils/endpoints";
 
-import useSWR from "swr";
-import { jsonFetcher } from "../../utils/fetchers";
-import StaticGallery, { Photo, endpoint, renderGallery } from "./static";
-
-export default function Gallery() {
-	const {data, error}: {data: {photos: Photo[]}, error: boolean | undefined} = useSWR(endpoint, jsonFetcher);
-	if(!data || error) {
-		return <StaticGallery />
-	}
-	return renderGallery(data.photos);
+export default async function GalleryPage() {
+	const data: {photos: Photo[]} = await (await fetch(galleryEndpoint)).json();
+	return <Gallery photos={data.photos} />;
 }

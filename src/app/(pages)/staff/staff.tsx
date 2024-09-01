@@ -1,18 +1,15 @@
+"use client";
+
+import useSWR from "swr";
+import { StaffType } from "./page";
 import styles from "./staff.module.scss";
+import { jsonFetcher } from "@/app/utils/fetchers";
+import { staffEndpoint } from "@/app/utils/endpoints";
 
-export type StaffType = {name: string, flavor: string, position: string, image: string};
+export function Staff(props: {staff: StaffType[]}) {
+	const {data, error}: {data: {staff: StaffType[]}, error: boolean | undefined} = useSWR(staffEndpoint, jsonFetcher);
+	let staff: StaffType[] = error || !data ? props.staff : data.staff;
 
-export const endpoint = "https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/staff.json";
-
-export default async function StaticStaff() {
-	const data: {staff: StaffType[]} = await (await fetch(endpoint)).json();
-	let staff = data.staff;
-	// curro shouldn't appear in static version of site
-	staff = staff.filter((s) => !s.name.includes('Gera'));
-	return renderStaff(staff);
-}
-
-export function renderStaff(staff: StaffType[]) {
 	return (
 		<div className={styles.main_content_minimal}>
 			<h1 className={styles.title}>Staff</h1>

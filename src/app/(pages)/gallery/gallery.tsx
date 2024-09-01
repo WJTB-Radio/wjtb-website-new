@@ -1,15 +1,14 @@
+"use client";
+
+import { Photo } from "@/app/utils/types";
 import styles from "./gallery.module.scss";
+import { jsonFetcher } from "@/app/utils/fetchers";
+import useSWR from "swr";
+import { galleryEndpoint } from "@/app/utils/endpoints";
 
-export type Photo = {image: string, date_taken: string, caption: string};
-
-export const endpoint = "https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/gallery.json";
-
-export default async function StaticGallery() {
-	const data: {photos: Photo[]} = await (await fetch(endpoint)).json();
-	return renderGallery(data.photos);
-}
-
-export function renderGallery(photos: Photo[]) {
+export function Gallery(props: {photos: Photo[]}) {
+	const {data, error}: {data: {photos: Photo[]}, error: boolean | undefined} = useSWR(galleryEndpoint, jsonFetcher);
+	let photos: Photo[] = !data || error ? props.photos : data.photos;
 	return (
 		<div className={styles.main_content_minimal}>
 			<h1 className={styles.title}>Gallery</h1>

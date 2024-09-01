@@ -1,24 +1,14 @@
-"use client";
-
 import { getWeekdayString } from "@/app/utils/time";
-import StaticShows, { Day, Show, renderShows } from "./static";
-import { jsonFetcher } from "@/app/utils/fetchers";
-import useSWR from "swr";
-import { MutableRefObject, useRef } from "react";
+import { Shows } from "./shows";
 
-export default function Shows() {
+export type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, day: number, is_running: number};
+export type Day = {day: number, dayName: string, shows: Show[]};
+
+export default async function ShowsPage() {
 	let days: Day[] = [];
-	let fetched = true;
 	for(let i = 0; i < 5; i++) {
 		const dayName = getWeekdayString(i);
-		// this for loop always runs the same number of times, so we can disable the linter rule
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const {data, error}: {data: {day: string, shows: Show[]}, error: boolean | undefined} = useSWR(`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`, jsonFetcher);
-		if(!data || error || !fetched) {
-			fetched = false;
-			// we cant early return because we must call useSWR the same number of times each render
-			continue;
-		}
+		const data: {day: string, shows: Show[]} = await (await fetch(`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`)).json();
 		const day: Day = {
 			day: i,
 			dayName: data.day,
@@ -26,15 +16,5 @@ export default function Shows() {
 		};
 		days.push(day);
 	}
-	let dayStarts: MutableRefObject<HTMLDivElement | null>[] = [];
-	for(let i = 0; i < 5; i++) {
-		// this for loop always runs the same number of times, so we can disable the linter rule
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		dayStarts.push(useRef<HTMLDivElement>(null));
-	}
-	const top = useRef(null);
-	if(!fetched) {
-		return <StaticShows />;
-	}
-	return renderShows(days, dayStarts, top);
+	return <Shows days={days} />;
 }

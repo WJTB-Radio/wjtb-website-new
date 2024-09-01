@@ -101,10 +101,10 @@ export default function Schedule() {
 		<div className={`${styles.container} ${hide_on_mobile?styles.hide_on_mobile:undefined}`} tabIndex={-1}>
 			{computed.length == 0 ?
 				<div className={styles.no_shows}>
-					<p>There aren't any radio shows scheduled right now. Stay tuned for our show schedule.</p>
+					<p>There aren&apos;t any radio shows scheduled right now. Stay tuned for our show schedule.</p>
 					<p>If you would like to host a show, you can <Link href="/join">become a member</Link>.</p>
 				</div>
-			:
+				:
 				<table className={styles.table}>
 					{computed}
 				</table>

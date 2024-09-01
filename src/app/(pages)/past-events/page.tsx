@@ -1,19 +1,10 @@
-"use client";
+import { pastEventsEndpoint } from "@/app/utils/endpoints";
+import { Events } from "./past_events";
 
-import useSWR from "swr";
-import { jsonFetcher } from "../../utils/fetchers";
-import StaticEvents, { renderEvents, EventType, endpoint } from "./static";
+export type EventType = {name: string, desc: string, date: string, images: string[]};
 
-export default function Event() {
+export default async function EventPage() {
 	let events: EventType[] = [];
-
-	const {data, error}: {data: {events: EventType[]}, error: boolean | undefined} = useSWR(endpoint, jsonFetcher);
-	if(error || !data) {
-		return (
-			<StaticEvents />
-		);
-	}
-	events = data.events;
-
-	return renderEvents(events);
+	const data: {events: EventType[]} = await (await fetch(pastEventsEndpoint)).json();
+	return <Events events={data.events} />;
 }

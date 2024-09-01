@@ -1,19 +1,12 @@
-"use client";
+import { staffEndpoint } from "@/app/utils/endpoints";
+import { Staff } from "./staff";
 
-import useSWR from "swr";
-import { jsonFetcher } from "../../utils/fetchers";
-import StaticStaff, { renderStaff, StaffType, endpoint } from "./static";
+export type StaffType = {name: string, flavor: string, position: string, image: string};
 
-export default function Staff() {
-	let staff: StaffType[];
-	
-	const {data, error}: {data: {staff: StaffType[]}, error: boolean | undefined} = useSWR(endpoint, jsonFetcher);
-	if(error || !data) {
-		return (
-			<StaticStaff />
-		);
-	}
-	staff = data.staff;
-
-	return renderStaff(staff);
+export default async function StaffPage() {
+	const data: {staff: StaffType[]} = await (await fetch(staffEndpoint)).json();
+	let staff = data.staff;
+	// curro shouldn't appear in static version of site
+	staff = staff.filter((s) => !s.name.includes('Gera'));
+	return <Staff staff={staff} />;
 }

@@ -1,17 +1,35 @@
+"use client";
+
 import { formatTime, formatTimes, getWeekdayString } from "@/app/utils/time";
 import styles from "./shows.module.scss";
-import { MutableRefObject, useEffect, useRef } from "react";
-import Script from "next/script";
+import { MutableRefObject, useRef } from "react";
 import Link from "next/link";
+import useSWR from "swr";
+import { jsonFetcher } from "@/app/utils/fetchers";
+import { Day, Show } from "./page";
 
-export type Show = {name: string, desc: string, hosts: string, poster: string, start_time: number, end_time: number, day: number, is_running: number};
-export type Day = {day: number, dayName: string, shows: Show[]};
+export function Shows(props: {days: Day[]}) {
+	const top = useRef<HTMLDivElement>(null);
 
-export default async function StaticShows() {
+	let dayStarts: MutableRefObject<HTMLDivElement | null>[] = [];
+	for(let i = 0; i < 5; i++) {
+		// this for loop always runs the same number of times, so we can disable the linter rule
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		dayStarts.push(useRef<HTMLDivElement>(null));
+	}
+
 	let days: Day[] = [];
+	let fetched = true;
 	for(let i = 0; i < 5; i++) {
 		const dayName = getWeekdayString(i);
-		const data: {day: string, shows: Show[]} = await (await fetch(`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`)).json();
+		// this for loop always runs the same number of times, so we can disable the linter rule
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const {data, error}: {data: {day: string, shows: Show[]}, error: boolean | undefined} = useSWR(`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`, jsonFetcher);
+		if(!data || error || !fetched) {
+			fetched = false;
+			// we cant break because we must call useSWR the same number of times each render
+			continue;
+		}
 		const day: Day = {
 			day: i,
 			dayName: data.day,
@@ -19,10 +37,11 @@ export default async function StaticShows() {
 		};
 		days.push(day);
 	}
-	return renderShows(days, [], null);
-}
 
-export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElement | null>[], top: MutableRefObject<HTMLDivElement | null> | null) {
+	if(!fetched) {
+		days = props.days;
+	}
+
 	let min_time = 60*60*24;
 	let max_time = 0;
 	let show_count = 0;
@@ -67,7 +86,7 @@ export function renderShows(days: Day[], dayStarts: MutableRefObject<HTMLDivElem
 
 	if(show_count <= 0) {
 		return <div className={styles.main_content}>
-			<h1>There aren't any shows scheduled right now.</h1>
+			<h1>There aren&apos;t any shows scheduled right now.</h1>
 			<p>If you would like to host a show, you can <Link href="/join">become a member</Link>.</p>
 		</div>
 	}

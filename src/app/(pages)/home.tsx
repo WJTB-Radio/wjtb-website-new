@@ -1,18 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./home.module.scss";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { jsonFetcher } from "../utils/fetchers";
+import useSWR from "swr";
+import { Photo } from "../utils/types";
+import { galleryTopEndpoint } from "../utils/endpoints";
 
-export type Photo = {image: string, date_taken: string, caption: string};
-
-export const galleryEndpoint = "https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/gallery_top.json";
-
-export default async function StaticHome() {
-	const data: {photos: Photo[]} = await (await fetch(galleryEndpoint)).json();
-	return renderHome(data.photos);
-}
-
-export function renderHome(photos: Photo[]) {
+export function Home(props: {photos: Photo[]}) {
+	const {data, error}: {data: {photos: Photo[]}, error: boolean | undefined} = useSWR(galleryTopEndpoint, jsonFetcher);
+	let photos: Photo[] = !data || error ? props.photos : data.photos;
 	return (
 		<div className={styles.main_content}>
 			<h1>Streaming online since the 1990s!</h1>
