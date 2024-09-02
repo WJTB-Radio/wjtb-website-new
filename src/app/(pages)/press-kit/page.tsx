@@ -43,7 +43,7 @@ export default function PressKit() {
 function Logo(props: {svgLink: string, pngLink: string, name: string, theme: keyof typeof themes}) {
 	return <div className={styles.logo_container} style={themes[props.theme].style}>
 		<h2>{props.name}</h2>
-		<img src={props.svgLink} />
+		<img src={props.svgLink} alt="" />
 		<a href={props.svgLink} download>Download SVG</a>
 		<a href={props.pngLink} download>Download PNG</a>
 	</div>;
