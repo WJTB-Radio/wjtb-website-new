@@ -5,7 +5,7 @@ type Theme = {name: string, desc: string, style: CSSProperties};
 
 export const defaultTheme = "dark";
 
-export const themes: {[id: string]: Theme}  = {
+export const themes = {
 	"dark": {
 		name: "Dark",
 		desc: "For dimly lit rooms",
@@ -151,7 +151,7 @@ function cssPropToString(prop: CSSProperties) {
 	}).join("\n");
 }
 
-export function setTheme(id: string, setThemeCookie: updateItem | null) {
+export function setTheme(id: keyof typeof themes, setThemeCookie: updateItem | null) {
 	if(!Object.hasOwn(themes, id)) {
 		return;
 	}

@@ -25,6 +25,7 @@ const pathNames: {[id: string]: string} = {
 	"/gallery/": "Gallery",
 	"/staff/": "Staff",
 	"/contact/": "Contact Us",
+	"/press-kit/": "Press Kit",
 	"/themes/": "Themes",
 };
 
