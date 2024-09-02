@@ -96,6 +96,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
   release:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
