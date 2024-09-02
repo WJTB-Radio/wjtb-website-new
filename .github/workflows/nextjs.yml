@@ -142,8 +142,6 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Configure next.js
-        run: echo -e 'NEXT_PUBLIC_BASE_PATH="/"\n' > .env.local
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} npm run build; touch ./out/.nojekyll; tar -czf release.tar.gz -C out .
       - name: Create release
