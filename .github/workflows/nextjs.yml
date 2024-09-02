@@ -145,10 +145,15 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} npm run build; touch ./out/.nojekyll; tar -czf release.tar.gz -C out .
+      - name: Get release metadata
+        run: |
+          echo "BODY=\"`git log | head -n 5 | tail -n 1`\"" >> "$GITHUB_ENV"; tag=`git log | head -n 1`
+          echo "TAG=\"`git log | head -n 1`\"" >> "$GITHUB_ENV"
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          tag: "automatic-release"
+          tag: ${{ env.TAG }}
+          body: ${{ env.BODY }}
           artifacts: "release.tar.gz"
           generateReleaseNotes: true
           makeLatest: "latest"
