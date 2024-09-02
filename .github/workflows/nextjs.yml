@@ -148,7 +148,7 @@ jobs:
       - name: Get release metadata
         run: |
           echo "BODY=`git log | head -n 5 | tail -n 1`" >> "$GITHUB_ENV"
-          echo "TAG=`git log | head -n 1 | cut -d " " -f 2`" >> "$GITHUB_ENV"
+          echo "TAG=release-`git log | head -n 1 | cut -d " " -f 2`" >> "$GITHUB_ENV"
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
