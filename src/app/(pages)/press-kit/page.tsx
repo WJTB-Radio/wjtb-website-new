@@ -36,6 +36,10 @@ export default function PressKit() {
 				pngLink={`${basePath}img/wjtb_radio_red.png`}
 				name="Radio Logo (NJIT Red)"
 				theme="dark" />
+			<Logo svgLink={`${basePath}img/wjtb_qr.svg`}
+				pngLink={`${basePath}img/wjtb_qr.png`}
+				name="QR Code"
+				theme="dark" />
 		</div>
 	</div>;
 }
