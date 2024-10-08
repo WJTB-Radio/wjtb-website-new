@@ -1,8 +1,6 @@
 import { CSSProperties } from "react";
 import { updateItem } from "react-use-cookie";
 
-type Theme = {name: string, desc: string, style: CSSProperties};
-
 export const defaultTheme = "dark";
 
 export const themes = {
