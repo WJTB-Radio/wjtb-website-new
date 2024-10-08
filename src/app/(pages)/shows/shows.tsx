@@ -110,6 +110,13 @@ export function Shows(props: {days: Day[]}) {
 				</div>
 				<button className={styles.scroll_to_top} onClick={scrollToTop}>Scroll to top</button>
 				<div className={styles.shows_container}>
+					<div className={styles.time_markers} aria-hidden="true">
+						{marker_times.map((time) =>
+							<div className={styles.time_marker} key={"time-marker"+time} style={{
+								'--time': `${100*getTimeFraction(time)}%`,
+							} as React.CSSProperties}>{formatTime(time)}</div>
+						)}
+					</div>
 					<div className={styles.shows}>
 						{days.map((day) =>
 							<div className={styles.day_shows} key={"day"+day.dayName}>
@@ -129,13 +136,6 @@ export function Shows(props: {days: Day[]}) {
 									</div>
 								)}
 							</div>
-						)}
-					</div>
-					<div className={styles.time_markers} aria-hidden="true">
-						{marker_times.map((time) =>
-							<div className={styles.time_marker} key={"time-marker"+time} style={{
-								'--time': `${100*getTimeFraction(time)}%`,
-							} as React.CSSProperties}>{formatTime(time)}</div>
 						)}
 					</div>
 				</div>
