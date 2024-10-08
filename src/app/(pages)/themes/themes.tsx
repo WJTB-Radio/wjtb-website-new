@@ -167,5 +167,7 @@ export function setTheme(id: keyof typeof themes, setThemeCookie: updateItem | n
 	setThemeCookie(id, {
 		// we need this so the browser doesn't delete the theme cookie when the session ends
 		days: 999999999999999,
+		SameSite: 'Strict',
+		domain: '',
 	});
 }
