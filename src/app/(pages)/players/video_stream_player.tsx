@@ -22,6 +22,7 @@ import {
 	onTouchMove,
 	onTouchStart,
 } from "../../utils/touch_detection";
+import { getSnowflake } from "@/app/utils/snowflake";
 
 export type VideoStreamPlayerHandle = {
 	reloadVideo: () => void;
@@ -176,7 +177,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 			}
 			if (Hls.isSupported()) {
 				let hls = new Hls();
-				hls.loadSource(videoSrc);
+				hls.loadSource(videoSrc + `?${getSnowflake()}`);
 				hls.attachMedia(video.current);
 				hls.on(Hls.Events.ERROR, (event, data) => {
 					console.error(event, data);
