@@ -5,6 +5,10 @@
 	text-align: center;
 	height: 100%;
 	overflow: hidden;
+
+	--button-color: var(--video-text-color);
+	--button-color-hover: var(--video-text-highlight-color);
+	--button-color-active: var(--video-text-highlight-color);
 }
 
 .video {
@@ -55,9 +59,9 @@
 .fullscreen_button {
 	--button-size: calc(min(5rem, 5vw));
 
-	--button-color: var(--text-color);
-	--button-color-hover: var(--text-highlight-color);
-	--button-color-active: var(--text-highlight-color);
+	--button-color: var(--video-text-color);
+	--button-color-hover: var(--video-text-highlight-color);
+	--button-color-active: var(--video-text-highlight-color);
 
 	position: absolute;
 	right: 1rem;

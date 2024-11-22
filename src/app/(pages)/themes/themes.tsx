@@ -4,7 +4,7 @@ import { updateItem } from "react-use-cookie";
 export const defaultTheme = "dark";
 
 export const themes = {
-	"dark": {
+	dark: {
 		name: "Dark",
 		desc: "For dimly lit rooms",
 		style: {
@@ -12,8 +12,11 @@ export const themes = {
 			"--bg2-color": "#181818",
 			"--bg3-color": "#242424",
 			"--text-color": "#cfcfcf",
+			"--text-highlight-color": "#ffffff",
 			"--text-shadow-color": "#696969",
 			"--text-light-color": "#888888",
+			"--video-text-color": "#cfcfcf",
+			"--video-text-highlight-color": "#ffffff",
 			"--accent-color": "#ce2328",
 			"--accent-shadow-color": "#721114",
 			"--accent2-color": "#eded50",
@@ -22,7 +25,7 @@ export const themes = {
 			"font-weight": "300",
 		} as CSSProperties,
 	},
-	"paper": {
+	paper: {
 		name: "Paper",
 		desc: "It's strictly business.",
 		style: {
@@ -33,15 +36,18 @@ export const themes = {
 			"--text-highlight-color": "#624848",
 			"--text-shadow-color": "#18181878",
 			"--text-light-color": "#444444",
+			"--video-text-color": "#cfcfcf",
+			"--video-text-highlight-color": "#ffffff",
 			"--accent-color": "#9b7c7c",
 			"--accent-shadow-color": "#4d3233",
 			"--accent2-color": "#236ece",
 			"--iframe-bg-color": "#eeeeee00",
-			"font-family": "'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif",
+			"font-family":
+				"'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif",
 			"font-weight": "300",
 		} as CSSProperties,
 	},
-	"trees": {
+	trees: {
 		name: "trees and sun",
 		desc: "love from the theme",
 		style: {
@@ -52,6 +58,8 @@ export const themes = {
 			"--text-highlight-color": "#e6f3ff",
 			"--text-shadow-color": "#ffe5ba",
 			"--text-light-color": "#ddd",
+			"--video-text-color": "#ffffff",
+			"--video-text-highlight-color": "#e6f3ff",
 			"--accent-color": "#ffe5ba",
 			"--accent-shadow-color": "#ffb446",
 			"--accent2-color": "#ffbe59",
@@ -60,7 +68,7 @@ export const themes = {
 			"font-weight": "300",
 		} as CSSProperties,
 	},
-	"strawberry": {
+	strawberry: {
 		name: "Strawberry Ice Cream",
 		desc: "strawberry ice cream :D",
 		style: {
@@ -68,9 +76,11 @@ export const themes = {
 			"--bg2-color": "#ffcadd",
 			"--bg3-color": "#ff9dcf",
 			"--text-color": "#000",
-			"--text-highlight-color":"#754f5c",
+			"--text-highlight-color": "#754f5c",
 			"--text-shadow-color": "#18181878",
 			"--text-light-color": "#444444",
+			"--video-text-color": "#cfcfcf",
+			"--video-text-highlight-color": "#ffffff",
 			"--accent-color": "#d32153",
 			"--accent-shadow-color": "#721611",
 			"--accent2-color": "#d32153",
@@ -79,7 +89,7 @@ export const themes = {
 			"font-weight": "300",
 		} as CSSProperties,
 	},
-	"autumn": {
+	autumn: {
 		name: "Autumn",
 		desc: "pumpkin spice 🍂 🎃",
 		style: {
@@ -90,6 +100,8 @@ export const themes = {
 			"--text-highlight-color": "#f2f2da",
 			"--text-shadow-color": "#493615",
 			"--text-light-color": "#efad26",
+			"--video-text-color": "#f0efb9",
+			"--video-text-highlight-color": "#f2f2da",
 			"--accent-color": "#86b26b",
 			"--accent-shadow-color": "#493615",
 			"--accent2-color": "#eded50",
@@ -98,7 +110,7 @@ export const themes = {
 			"font-weight": "300",
 		} as CSSProperties,
 	},
-	"spooky": {
+	spooky: {
 		name: "Spooky",
 		desc: "OooOoooOooooOooO!",
 		style: {
@@ -109,6 +121,8 @@ export const themes = {
 			"--text-highlight-color": "#eaa44b",
 			"--text-shadow-color": "#696969",
 			"--text-light-color": "#888888",
+			"--video-text-color": "#ea8e19",
+			"--video-text-highlight-color": "#eaa44b",
 			"--accent-color": "#9731eb",
 			"--accent-shadow-color": "#348c28",
 			"--accent2-color": "#3bee22",
@@ -117,7 +131,7 @@ export const themes = {
 			"font-weight": "300",
 		} as CSSProperties,
 	},
-	"winter": {
+	winter: {
 		name: "Winter",
 		desc: "tastes like snow.",
 		style: {
@@ -128,46 +142,55 @@ export const themes = {
 			"--text-highlight-color": "#9f9fe6",
 			"--text-shadow-color": "#717171",
 			"--text-light-color": "#d993e3",
+			"--video-text-color": "#cfceff",
+			"--video-text-highlight-color": "#9f9fe6",
 			"--accent-color": "#f2ecb9",
 			"--accent-shadow-color": "#5b5730",
 			"--accent2-color": "#ef8af2",
 			"--iframe-bg-color": "#eeeeee",
-			"font-family": "Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif",
+			"font-family":
+				"Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif",
 			"font-weight": "500",
 		} as CSSProperties,
 	},
 };
 
 const extraStyles: CSSProperties = {
-	"transition": "background-color 0.15s ease-out",
+	transition: "background-color 0.15s ease-out",
 };
 
 function cssPropToString(prop: CSSProperties) {
-	return Object.keys(prop).map((key) => {
-		const val = (prop as {[k: string]: string})[key];
-		return `${key}:${val};`;
-	}).join("\n");
+	return Object.keys(prop)
+		.map((key) => {
+			const val = (prop as { [k: string]: string })[key];
+			return `${key}:${val};`;
+		})
+		.join("\n");
 }
 
-export function setTheme(id: keyof typeof themes, setThemeCookie: updateItem | null) {
-	if(!Object.hasOwn(themes, id)) {
+export function setTheme(
+	id: keyof typeof themes,
+	setThemeCookie: updateItem | null
+) {
+	if (!Object.hasOwn(themes, id)) {
 		return;
 	}
 	let body;
-	if(document) {
+	if (document) {
 		body = document.getElementsByTagName("body").item(0);
 	}
-	if(body) {
+	if (body) {
 		// typescript doesn't know about this feature?
-		(body.style as unknown as string) = cssPropToString(extraStyles)+cssPropToString(themes[id].style);
+		(body.style as unknown as string) =
+			cssPropToString(extraStyles) + cssPropToString(themes[id].style);
 	}
-	if(!setThemeCookie) {
+	if (!setThemeCookie) {
 		return;
 	}
 	setThemeCookie(id, {
 		// we need this so the browser doesn't delete the theme cookie when the session ends
 		days: 999999999999999,
-		SameSite: 'Strict',
-		domain: '',
+		SameSite: "Strict",
+		domain: "",
 	});
 }

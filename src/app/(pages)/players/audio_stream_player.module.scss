@@ -8,6 +8,10 @@
 	align-items: center;
 	justify-content: center;
 	column-gap: 5rem;
+
+	--button-color: var(--text-color);
+	--button-color-hover: var(--text-highlight-color);
+	--button-color-active: var(--text-highlight-color);
 }
 
 @media (max-width: 1000px) {

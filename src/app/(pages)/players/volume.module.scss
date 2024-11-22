@@ -29,10 +29,6 @@
 }
 
 .volume_icon {
-	--button-color: var(--text-color);
-	--button-color-hover: var(--text-highlight-color);
-	--button-color-active: var(--text-highlight-color);
-
 	mask-size: contain;
 	mask-position: center;
 	mask-repeat: no-repeat;

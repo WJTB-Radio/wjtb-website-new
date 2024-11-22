@@ -3,9 +3,6 @@
 .play_button, .pause_button {
 	--transition-time: 0.15s;
 	--transition-easing-func: ease-out;
-	--button-color: var(--text-color);
-	--button-color-hover: var(--text-highlight-color);
-	--button-color-active: var(--text-highlight-color);
 
 	--button-width: 10rem;
 	--button-height: 10rem;
