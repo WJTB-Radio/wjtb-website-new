@@ -286,25 +286,18 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 						media={video}
 					/>
 				</div>
-				{/*
-					// fullscreen crashes playback on firefox for some reason
-					globalThis?.navigator?.userAgent?.includes("Firefox") ? (
-						<></>
-					) : (
-						<button
-							onClick={toggleFullscreen}
-							onFocus={interact}
-							className={`${styles.fullscreen_button} ${
-								fullscreen ? styles.enabled : styles.disabled
-							} ${!hovering && styles.hidden}`}
-						>
-							{fullscreen
-								? "Disable Fullscreen Video"
-								: "Enable Fullscreen Video"}
-							<div className={styles.fullscreen_icon}></div>
-						</button>
-					)
-				*/}
+				<button
+					onClick={toggleFullscreen}
+					onFocus={interact}
+					className={`${styles.fullscreen_button} ${
+						fullscreen ? styles.enabled : styles.disabled
+					} ${!hovering && styles.hidden}`}
+				>
+					{fullscreen
+						? "Disable Fullscreen Video"
+						: "Enable Fullscreen Video"}
+					<div className={styles.fullscreen_icon}></div>
+				</button>
 			</div>
 		);
 	}
