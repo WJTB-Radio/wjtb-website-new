@@ -281,7 +281,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 						media={video}
 					/>
 				</div>
-				{
+				{/*
 					// fullscreen crashes playback on firefox for some reason
 					globalThis?.navigator?.userAgent?.includes("Firefox") ? (
 						<></>
@@ -299,7 +299,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 							<div className={styles.fullscreen_icon}></div>
 						</button>
 					)
-				}
+				*/}
 			</div>
 		);
 	}
