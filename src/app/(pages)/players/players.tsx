@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import styles from "./players.module.scss";
 import VideoStreamPlayer, {
 	VideoStreamPlayerHandle,
@@ -12,11 +12,11 @@ export default function Players() {
 	const videoPlayer = useRef<null | VideoStreamPlayerHandle>(null);
 	const unloadVideo = useRef<undefined | (() => void)>();
 
-	function onVideoError() {
+	const onVideoError = useCallback(() => {
 		setVideoEnabled(false);
-	}
+	}, [setVideoEnabled]);
 
-	function reloadVideo() {
+	const reloadVideo = useCallback(() => {
 		if (videoPlayer.current == null) {
 			return;
 		}
@@ -25,7 +25,7 @@ export default function Players() {
 		}
 		unloadVideo.current = videoPlayer.current.reloadVideo();
 		setVideoEnabled(true);
-	}
+	}, [setVideoEnabled]);
 
 	return (
 		<div className={styles.players}>
