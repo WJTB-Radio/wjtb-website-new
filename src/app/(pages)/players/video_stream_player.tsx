@@ -24,9 +24,9 @@ import {
 } from "../../utils/touch_detection";
 import { getSnowflake } from "@/app/utils/snowflake";
 
-export type VideoStreamPlayerHandle = {
-	reloadVideo: () => void;
-};
+export interface VideoStreamPlayerHandle {
+	reloadVideo: () => () => void;
+}
 
 type Props = {
 	videoErrorEvent: () => void;
@@ -173,7 +173,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 
 		const loadVideo = useCallback(() => {
 			if (video.current == null) {
-				return;
+				return () => {};
 			}
 			if (Hls.isSupported()) {
 				let hls = new Hls();
@@ -193,6 +193,9 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 						onVideoError();
 					});
 				});
+				return () => {
+					hls.detachMedia();
+				};
 			} else if (
 				video.current.canPlayType("application/vnd.apple.mpegurl")
 			) {
@@ -200,10 +203,11 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 			} else {
 				videoErrorEvent();
 			}
+			return () => {};
 		}, [onVideoError, videoErrorEvent]);
 
 		useEffect(() => {
-			loadVideo();
+			return loadVideo();
 		}, [loadVideo]);
 
 		useEffect(() => {
@@ -219,8 +223,8 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 			ref,
 			() => {
 				return {
-					reloadVideo() {
-						loadVideo();
+					reloadVideo: () => {
+						return loadVideo();
 					},
 				};
 			},

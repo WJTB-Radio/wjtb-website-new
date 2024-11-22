@@ -10,6 +10,7 @@ import AudioStreamPlayer from "./audio_stream_player";
 export default function Players() {
 	const [videoEnabled, setVideoEnabled] = useState(true);
 	const videoPlayer = useRef<null | VideoStreamPlayerHandle>(null);
+	const unloadVideo = useRef<undefined | (() => void)>();
 
 	function onVideoError() {
 		setVideoEnabled(false);
@@ -19,7 +20,10 @@ export default function Players() {
 		if (videoPlayer.current == null) {
 			return;
 		}
-		videoPlayer.current.reloadVideo();
+		if (unloadVideo.current) {
+			unloadVideo.current();
+		}
+		unloadVideo.current = videoPlayer.current.reloadVideo();
 		setVideoEnabled(true);
 	}
 
