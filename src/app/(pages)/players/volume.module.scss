@@ -112,16 +112,16 @@
 
 .slider {
 	--shadow-size: 0.125rem;
-	--thumb-color: var(--text-color);
-	--track-color: var(--text-light-color);
+	--thumb-color: var(--button-color);
+	--track-color: var(--button-light-color);
 	-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
 	background: transparent; /* Otherwise white in Chrome */
 }
 
 @media(hover: hover) {
 	.slider:hover {
-		--thumb-color: var(--text-highlight-color);
-		--track-color: var(--text-shadow-color);
+		--thumb-color: var(--button-color-hover);
+		--track-color: var(--button-shadow-color);
 	}
 }
 
@@ -147,7 +147,7 @@
 	translate: 0 -25%;
 	border-radius: 10rem;
 	background: var(--thumb-color);
-	box-shadow: inset 0 0 var(--shadow-size) var(--text-shadow-color);
+	box-shadow: inset 0 0 var(--shadow-size) var(--button-shadow-color);
 	transition: background-color 0.15s ease-out;
 	cursor: pointer;
 }
@@ -159,7 +159,7 @@
 	width: var(--thumb-width);
 	border-radius: 10rem;
 	background: var(--thumb-color);
-	box-shadow: inset 0 0 var(--shadow-size) var(--text-shadow-color);
+	box-shadow: inset 0 0 var(--shadow-size) var(--button-shadow-color);
 	transition: background-color 0.15s ease-out;
 	cursor: pointer;
 }
@@ -171,7 +171,7 @@
 	width: var(--thumb-width);
 	border-radius: 10rem;
 	background: var(--thumb-color);
-	box-shadow: inset 0 0 var(--shadow-size) var(--text-shadow-color);
+	box-shadow: inset 0 0 var(--shadow-size) var(--button-shadow-color);
 	transition: background-color 0.15s ease-out;
 	cursor: pointer;
 }
