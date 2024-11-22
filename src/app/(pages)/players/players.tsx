@@ -51,6 +51,7 @@ export default function Players() {
 						Video couldn&apos;t load. Here is a fallback audio
 						stream.
 					</p>
+					<div className={styles.logo}></div>
 					<AudioStreamPlayer hidden={videoEnabled} />
 					<button
 						onClick={reloadVideo}

@@ -165,7 +165,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 		}
 
 		const videoSrc =
-			"https://stream.alarabread.fun:8888/stream2/index.m3u8";
+			"https://stream.alarabread.fun:8888/stream2/index.m3u88";
 
 		const onVideoError = useCallback(() => {
 			videoErrorEvent();

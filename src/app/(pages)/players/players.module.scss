@@ -7,9 +7,22 @@
 }
 
 .audio_player {
-	padding: 2rem;
-	padding-top: 0;
+	padding: 0 2rem;
 	height: 100%;
+	margin-bottom: 1rem;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.audio_player>* {
+	min-width: calc(min(100%, 20rem));
+}
+
+.audio_player>p {
+	margin: 0;
 }
 
 @media (max-width: 1000px) {
@@ -56,6 +69,7 @@
 	height: 75%;
 	max-height: 20rem;
 	min-height: 5rem;
+	max-width: 80rem;
 
 	aspect-ratio: 1.5;
 }
@@ -63,9 +77,6 @@
 @media (max-width: 1000px) {
 	.players {
 		border: unset;
-	}
-	.audio_player {
-		padding: 0;
 	}
 	.logo {
 		max-height: 7rem;
