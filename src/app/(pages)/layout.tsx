@@ -11,18 +11,18 @@ export const metadata: Metadata = {
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: ReactNode
+	children: ReactNode;
 }>) {
 	let basePath = "/";
-	if(process.env.NEXT_PUBLIC_BASE_PATH != null) {
-		basePath = process.env.NEXT_PUBLIC_BASE_PATH.endsWith("/")?process.env.NEXT_PUBLIC_BASE_PATH:process.env.NEXT_PUBLIC_BASE_PATH+"/";
+	if (process.env.NEXT_PUBLIC_BASE_PATH != null) {
+		basePath = process.env.NEXT_PUBLIC_BASE_PATH.endsWith("/")
+			? process.env.NEXT_PUBLIC_BASE_PATH
+			: process.env.NEXT_PUBLIC_BASE_PATH + "/";
 	}
 	return (
 		<html lang="en">
 			<body>
-				<Layout>
-					{children}
-				</Layout>
+				<Layout>{children}</Layout>
 			</body>
 		</html>
 	);

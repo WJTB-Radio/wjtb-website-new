@@ -9,6 +9,7 @@ import Players from "./players/players";
 import Schedule from "./schedule";
 import Navigation from "./navigation";
 import styles from "./layout.module.scss";
+import { Clock } from "./clock/clock";
 
 export default function Layout({
 	children,
@@ -33,10 +34,12 @@ export default function Layout({
 					),
 					[]
 				)}
+				{width < 1000 ? <Clock /> : undefined}
 				{width < 1000 ? <Navigation /> : undefined}
 				<Schedule />
 			</div>
 			{width >= 1000 ? <Navigation /> : undefined}
+			{width >= 1000 ? <Clock /> : undefined}
 			{children}
 		</>
 	);
