@@ -37,7 +37,7 @@ export function Shows(props: { days: Day[] }) {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 		} = useSWR(
 			`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`,
-			jsonFetcher
+			jsonFetcher,
 		);
 		if (!data || error || !fetched) {
 			fetched = false;
@@ -174,13 +174,13 @@ export function Shows(props: { days: Day[] }) {
 												"--start-time": `${
 													100 *
 													getTimeFraction(
-														show.start_time
+														show.start_time,
 													)
 												}%`,
 												"--end-time": `${
 													100 *
 													getTimeFraction(
-														show.end_time
+														show.end_time,
 													)
 												}%`,
 											} as React.CSSProperties
@@ -205,9 +205,9 @@ export function Shows(props: { days: Day[] }) {
 											<p className={styles.times}>
 												{formatTimes(
 													dateFromTime(
-														show.start_time
+														show.start_time,
 													),
-													dateFromTime(show.end_time)
+													dateFromTime(show.end_time),
 												) +
 													" every " +
 													day.dayName}

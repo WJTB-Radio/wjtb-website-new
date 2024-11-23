@@ -219,17 +219,13 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 			}
 		}, [hidden]);
 
-		useImperativeHandle(
-			ref,
-			() => {
-				return {
-					reloadVideo: () => {
-						return loadVideo();
-					},
-				};
-			},
-			[loadVideo]
-		);
+		useImperativeHandle(ref, () => {
+			return {
+				reloadVideo: () => {
+					return loadVideo();
+				},
+			};
+		}, [loadVideo]);
 
 		return (
 			<div
@@ -240,7 +236,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 					null,
 					touches,
 					touchTimeout,
-					setTouch
+					setTouch,
 				)}
 				onTouchEnd={onTouchEnd.bind(
 					null,
@@ -248,7 +244,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 					touchTimeout,
 					onTap,
 					setTouch,
-					player
+					player,
 				)}
 				onTouchMove={onTouchMove.bind(null, touches)}
 				ref={player}
@@ -300,7 +296,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 				</button>
 			</div>
 		);
-	}
+	},
 );
 
 export default VideoStreamPlayer;

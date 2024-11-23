@@ -1,1 +1,1 @@
-export type Photo = {image: string, date_taken: string, caption: string};
+export type Photo = { image: string; date_taken: string; caption: string };

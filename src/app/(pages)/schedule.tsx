@@ -49,9 +49,9 @@ export default function Schedule() {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 			useSWR(
 				`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${getWeekdayString(
-					d
+					d,
 				)}.json`,
-				jsonFetcher
+				jsonFetcher,
 			);
 		if (!data || error) {
 			continue;
@@ -70,7 +70,7 @@ export default function Schedule() {
 					<tr className={styles.day}>
 						<th>{formatDay(data.day)}</th>
 					</tr>
-				</tbody>
+				</tbody>,
 			);
 		}
 		if (i == 0 && currentDay >= 0) {
@@ -104,13 +104,13 @@ export default function Schedule() {
 						<td className={styles.times}>
 							{formatTimes(
 								dateFromTime(show.start_time),
-								dateFromTime(show.end_time)
+								dateFromTime(show.end_time),
 							)}
 						</td>
 						<td>{show.name}</td>
 					</tr>
 				</tbody>
-			))
+			)),
 		);
 	}
 

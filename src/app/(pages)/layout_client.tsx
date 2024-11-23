@@ -32,7 +32,7 @@ export default function Layout({
 					() => (
 						<Players />
 					),
-					[]
+					[],
 				)}
 				{width < 1000 ? <Clock /> : undefined}
 				{width < 1000 ? <Navigation /> : undefined}

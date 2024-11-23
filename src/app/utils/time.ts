@@ -72,7 +72,7 @@ export function dateFromTime(time: number): Date {
 		Math.floor(time / (60 * 60)),
 		Math.floor((time % 60) / 60),
 		Math.floor(time % (60 * 60)),
-		(time - Math.floor(time)) * 1000
+		(time - Math.floor(time)) * 1000,
 	);
 	return d;
 }

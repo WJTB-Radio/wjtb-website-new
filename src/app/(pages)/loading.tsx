@@ -1,9 +1,7 @@
 import styles from "./loading.module.scss";
 
 export function Spinner() {
-	return (
-		<div className={styles.spinner}></div>
-	);
+	return <div className={styles.spinner}></div>;
 }
 
 export default function Loading() {

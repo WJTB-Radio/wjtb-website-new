@@ -1,4 +1,4 @@
-@use './play_button.module.scss';
+@use "./play_button.module.scss";
 
 .player {
 	position: relative;
@@ -29,7 +29,7 @@
 	width: 5rem;
 }
 
-.volume_container>* {
+.volume_container > * {
 	--slider-width: 200% !important;
 }
 

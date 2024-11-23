@@ -23,7 +23,7 @@
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
 	width: 20rem;
-	transform: scale(1.0);
+	transform: scale(1);
 	border: var(--accent-color) solid 0.25rem;
 }
 
@@ -59,7 +59,7 @@
 
 .name {
 	color: var(--accent-color);
-	font-family: 'Fortzilla', sans-serif;
+	font-family: "Fortzilla", sans-serif;
 	text-shadow: 0.07em 0.07em var(--accent-shadow-color);
 	font-size: 1.7rem;
 	text-align: center;
@@ -68,7 +68,7 @@
 }
 
 .position {
-	font-family: 'Pixel', sans-serif;
+	font-family: "Pixel", sans-serif;
 	text-shadow: 0.07em 0.07em var(--text-shadow-color);
 	font-size: 1.3rem;
 	text-align: center;
@@ -77,7 +77,7 @@
 .flavor {
 	color: var(--text-color);
 	font-size: 1.3rem;
-	padding-bottom: 0.0rem;
+	padding-bottom: 0rem;
 	text-align: center;
 	margin-top: 0.5rem;
 }

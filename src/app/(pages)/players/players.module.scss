@@ -17,11 +17,11 @@
 	align-items: center;
 }
 
-.audio_player>* {
+.audio_player > * {
 	min-width: calc(min(100%, 20rem));
 }
 
-.audio_player>p {
+.audio_player > p {
 	margin: 0;
 }
 
@@ -29,7 +29,7 @@
 	.audio_player {
 		display: flex;
 	}
-	.audio_player>* {
+	.audio_player > * {
 		flex: 1;
 		margin: 0.5rem;
 		margin-bottom: 0;
@@ -86,7 +86,7 @@
 }
 
 .logo:after {
-	content: '';
+	content: "";
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -100,17 +100,20 @@
 }
 
 .logo:before {
-	content: '';
+	content: "";
 	position: absolute;
 	width: var(--table-width);
 	height: 100%;
 	border-radius: 25%;
 	background-color: var(--table-color-1);
-	background-image: linear-gradient(90deg, transparent 50%,
-		var(--table-color-2) 50%);
+	background-image: linear-gradient(
+		90deg,
+		transparent 50%,
+		var(--table-color-2) 50%
+	);
 	background-size: var(--table-pattern-size) var(--table-pattern-size);
 	animation: 3s linear infinite both paused spin-table;
-	transform-origin: calc(0.0 - var(--table-width) / 2) 0;
+	transform-origin: calc(0 - var(--table-width) / 2) 0;
 	opacity: 0;
 	transition: opacity 0.15s ease-out;
 }
@@ -129,30 +132,42 @@
 
 @keyframes spin-logo {
 	0% {
-		transform: perspective(var(--perspective)) rotateY(0deg) rotateX(var(--logo-tilt));
+		transform: perspective(var(--perspective)) rotateY(0deg)
+			rotateX(var(--logo-tilt));
 	}
 	10% {
-		transform: perspective(var(--perspective)) rotateY(20deg) rotateX(var(--logo-tilt));
+		transform: perspective(var(--perspective)) rotateY(20deg)
+			rotateX(var(--logo-tilt));
 	}
 	90% {
-		transform: perspective(var(--perspective)) rotateY(340deg) rotateX(var(--logo-tilt));
+		transform: perspective(var(--perspective)) rotateY(340deg)
+			rotateX(var(--logo-tilt));
 	}
 	100% {
-		transform: perspective(var(--perspective)) rotateY(360deg) rotateX(var(--logo-tilt));
+		transform: perspective(var(--perspective)) rotateY(360deg)
+			rotateX(var(--logo-tilt));
 	}
 }
 
 @keyframes spin-table {
 	0% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(0deg + var(--table-rotation))) rotateX(90deg);
+		transform: perspective(var(--perspective))
+			translateX(var(--table-x-offset)) translateY(var(--table-y-offset))
+			rotateY(calc(0deg + var(--table-rotation))) rotateX(90deg);
 	}
 	10% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(20deg + var(--table-rotation))) rotateX(90deg);
+		transform: perspective(var(--perspective))
+			translateX(var(--table-x-offset)) translateY(var(--table-y-offset))
+			rotateY(calc(20deg + var(--table-rotation))) rotateX(90deg);
 	}
 	90% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(340deg + var(--table-rotation))) rotateX(90deg);
+		transform: perspective(var(--perspective))
+			translateX(var(--table-x-offset)) translateY(var(--table-y-offset))
+			rotateY(calc(340deg + var(--table-rotation))) rotateX(90deg);
 	}
 	100% {
-		transform: perspective(var(--perspective)) translateX(var(--table-x-offset)) translateY(var(--table-y-offset)) rotateY(calc(360deg + var(--table-rotation))) rotateX(90deg);
+		transform: perspective(var(--perspective))
+			translateX(var(--table-x-offset)) translateY(var(--table-y-offset))
+			rotateY(calc(360deg + var(--table-rotation))) rotateX(90deg);
 	}
-}	
+}

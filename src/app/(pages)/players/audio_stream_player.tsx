@@ -1,19 +1,28 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { applyDelayCorrection, delay_correction_interval, teleportDelayCorrection} from "../../utils/delay_correction";
+import {
+	applyDelayCorrection,
+	delay_correction_interval,
+	teleportDelayCorrection,
+} from "../../utils/delay_correction";
 import styles from "./audio_stream_player.module.scss";
 import { getSnowflake } from "../../utils/snowflake";
 import Volume, { VolumeHandle } from "./volume";
-import { TouchRef, onTouchEnd, onTouchMove, onTouchStart } from "../../utils/touch_detection";
+import {
+	TouchRef,
+	onTouchEnd,
+	onTouchMove,
+	onTouchStart,
+} from "../../utils/touch_detection";
 
-export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
+export default function AudioStreamPlayer({ hidden }: { hidden: boolean }) {
 	// snowflake ensures we do not cache a previously served stream
 	const snowflake = useRef(getSnowflake());
 
 	const audio = useRef<HTMLAudioElement | null>(null);
 	const [playing, setPlaying] = useState(false);
-	const volume = useRef<VolumeHandle | null> (null);
+	const volume = useRef<VolumeHandle | null>(null);
 
 	const [touch, setTouch] = useState(false);
 	const touches = useRef<Array<TouchRef>>([]);
@@ -29,14 +38,14 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 	});
 
 	function onAudioPause() {
-		if(audio.current == null) {
+		if (audio.current == null) {
 			return;
 		}
 		setPlaying(false);
 	}
 
 	function onAudioPlaying() {
-		if(audio.current == null) {
+		if (audio.current == null) {
 			return;
 		}
 		teleportDelayCorrection(audio.current);
@@ -44,10 +53,10 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 	}
 
 	function togglePlaying() {
-		if(audio.current == null) {
+		if (audio.current == null) {
 			return;
 		}
-		if(playing) {
+		if (playing) {
 			audio.current.pause();
 			onAudioPause(); // needed for chrome
 		} else {
@@ -57,30 +66,30 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 	}
 
 	function onVolumeChange(volume: number) {
-		if(audio.current == null) {
+		if (audio.current == null) {
 			return;
 		}
 		audio.current.volume = volume;
 	}
 
 	function onMuteChange(muted: boolean) {
-		if(audio.current == null) {
+		if (audio.current == null) {
 			return;
 		}
 		audio.current.muted = muted;
 	}
 
 	useEffect(() => {
-		if(hidden) {
+		if (hidden) {
 			setPlaying(false);
-			if(audio.current != null) {
+			if (audio.current != null) {
 				audio.current.pause();
 			}
 		}
 	}, [hidden]);
 
 	useEffect(() => {
-		if(volume.current == null) {
+		if (volume.current == null) {
 			return;
 		}
 		volume.current.setMuted(false);
@@ -88,18 +97,46 @@ export default function AudioStreamPlayer({hidden}: {hidden: boolean}) {
 	}, []);
 
 	return (
-		<div className={styles.player}
-			onTouchStart={onTouchStart.bind(null, touches, touchTimeout, setTouch)}
-			onTouchEnd={onTouchEnd.bind(null, touches, touchTimeout, () => {}, setTouch, null)}
-			onTouchMove={onTouchMove.bind(null, touches)}>
-			<audio src={`https://stream.njit.edu:8000/stream1.mp3`}
-				ref={audio} onPause={onAudioPause} onPlaying={onAudioPlaying}></audio>
-			<button onClick={togglePlaying} className={playing?styles.pause_button:styles.play_button}>
-				{playing?"Pause":"Play"}
+		<div
+			className={styles.player}
+			onTouchStart={onTouchStart.bind(
+				null,
+				touches,
+				touchTimeout,
+				setTouch,
+			)}
+			onTouchEnd={onTouchEnd.bind(
+				null,
+				touches,
+				touchTimeout,
+				() => {},
+				setTouch,
+				null,
+			)}
+			onTouchMove={onTouchMove.bind(null, touches)}
+		>
+			<audio
+				src={`https://stream.njit.edu:8000/stream1.mp3`}
+				ref={audio}
+				onPause={onAudioPause}
+				onPlaying={onAudioPlaying}
+			></audio>
+			<button
+				onClick={togglePlaying}
+				className={playing ? styles.pause_button : styles.play_button}
+			>
+				{playing ? "Pause" : "Play"}
 				<div className={styles.pause_icon}></div>
 			</button>
 			<div className={styles.volume_container}>
-				<Volume ref={volume} hidden={false} touch={touch} media={audio} volumeChangeEvent={onVolumeChange} muteChangeEvent={onMuteChange}/>
+				<Volume
+					ref={volume}
+					hidden={false}
+					touch={touch}
+					media={audio}
+					volumeChangeEvent={onVolumeChange}
+					muteChangeEvent={onMuteChange}
+				/>
 			</div>
 		</div>
 	);

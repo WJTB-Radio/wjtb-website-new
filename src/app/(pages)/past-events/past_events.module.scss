@@ -1,14 +1,14 @@
 @use "../global.module.scss";
 
 .name {
-	font-family: 'Pixel', sans-serif;
+	font-family: "Pixel", sans-serif;
 	text-shadow: 0.07em 0.07em var(--text-shadow-color);
 	font-size: 3rem;
 	text-align: center;
 }
 
 .date {
-	font-family: 'Pixel', sans-serif;
+	font-family: "Pixel", sans-serif;
 	text-shadow: 0.07em 0.07em var(--text-shadow-color);
 }
 
@@ -17,7 +17,7 @@
 	min-width: 50%;
 }
 
-.carousel :first-child>* {
+.carousel :first-child > * {
 	position: relative;
 	flex: 0 0 33.33%;
 }
@@ -29,7 +29,7 @@
 }
 
 @media (max-width: 1000px) {
-	.carousel :first-child>* {
+	.carousel :first-child > * {
 		flex: 0 0 100%;
 	}
 	.carousel {

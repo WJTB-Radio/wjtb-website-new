@@ -1,10 +1,10 @@
 .styled_button {
 	background-color: var(--bg-color);
-	border-radius: 1.0em;
+	border-radius: 1em;
 	font-size: 2rem;
 	padding: 0.3em 1em 0.3em 1em;
 	text-decoration: none;
-	cursor:pointer;
+	cursor: pointer;
 	font-family: Fortzilla;
 	color: var(--accent-color);
 	border: solid var(--text-color) 0.1em;
@@ -27,7 +27,7 @@
 	transform: translateY(-0.25em);
 	background-color: var(--accent-color);
 	color: var(--bg2-color);
-	box-shadow: 0 0.25em 0.0em 0.0em var(--text-color);
+	box-shadow: 0 0.25em 0em 0em var(--text-color);
 }
 
 @media (hover: hover) {
@@ -35,7 +35,7 @@
 		transform: translateY(-0.25em);
 		background-color: var(--accent-color);
 		color: var(--bg2-color);
-		box-shadow: 0 0.25em 0.0em 0.0em var(--text-color);
+		box-shadow: 0 0.25em 0em 0em var(--text-color);
 	}
 }
 
@@ -99,7 +99,7 @@
 
 .title:after {
 	pointer-events: none;
-	content: '';
+	content: "";
 	position: absolute;
 	top: 0%;
 	left: 0%;

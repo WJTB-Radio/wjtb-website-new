@@ -8,7 +8,7 @@
 	border: var(--accent-color) solid 0.25rem;
 }
 
-.carousel :first-child>* {
+.carousel :first-child > * {
 	position: relative;
 	flex: 0 0 33.33%;
 }
@@ -20,7 +20,7 @@
 		max-width: 20rem;
 		padding: 0.5rem;
 	}
-	.carousel :first-child>* {
+	.carousel :first-child > * {
 		flex: 0 0 100%;
 	}
 }
@@ -51,7 +51,7 @@
 }
 
 .date {
-	font-family: 'Pixel', sans-serif;
+	font-family: "Pixel", sans-serif;
 	text-shadow: 0.07em 0.07em var(--text-shadow-color);
 	font-size: 1.3rem;
 	text-align: center;

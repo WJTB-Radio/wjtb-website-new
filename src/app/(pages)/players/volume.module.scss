@@ -62,13 +62,13 @@
 	mask-image: url("svg/volume3.svg");
 }
 
-@media(hover: hover) {
-	.volume_button:hover>.volume_icon {
+@media (hover: hover) {
+	.volume_button:hover > .volume_icon {
 		background-color: var(--button-color-hover);
 	}
 }
 
-.volume_button:active>.volume_icon {
+.volume_button:active > .volume_icon {
 	background-color: var(--button-color-active);
 }
 
@@ -79,13 +79,13 @@
 	position: absolute;
 	--h: 1rem;
 	height: var(--h);
-	top: calc(50% - var(--h)/2);
+	top: calc(50% - var(--h) / 2);
 	left: 105%;
 	transform-origin: 0% 0%;
 	transition: transform 0.15s ease-out;
 }
 
-@media(hover: hover) {
+@media (hover: hover) {
 	.slider:hover {
 		--h: 1.1rem;
 	}
@@ -96,13 +96,13 @@
 }
 
 .slider.hidden {
-	transform: scale(0.0, 1.0);
+	transform: scale(0, 1);
 	pointer-events: none;
 }
 
-@media(hover: none) {
+@media (hover: none) {
 	.slider {
-		transform: scale(0.0, 1.0);
+		transform: scale(0, 1);
 		pointer-events: none;
 	}
 }
@@ -118,7 +118,7 @@
 	background: transparent; /* Otherwise white in Chrome */
 }
 
-@media(hover: hover) {
+@media (hover: hover) {
 	.slider:hover {
 		--thumb-color: var(--button-color-hover);
 		--track-color: var(--button-shadow-color);
@@ -133,12 +133,12 @@
 	width: 100%;
 	cursor: pointer;
 	/* Hides the slider so custom styles can be added */
-	background: transparent; 
+	background: transparent;
 	border-color: transparent;
 	color: transparent;
 }
 
-  /* Special styling for WebKit/Blink */
+/* Special styling for WebKit/Blink */
 .slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	/* border: 0.5rem solid var(--text-color); */
@@ -163,7 +163,7 @@
 	transition: background-color 0.15s ease-out;
 	cursor: pointer;
 }
-  
+
 /* All the same stuff for IE */
 .slider::-ms-thumb {
 	/* border: 0.5rem solid var(--text-color); */
@@ -181,7 +181,9 @@
 	height: var(--h);
 	cursor: pointer;
 	background: var(--track-color);
-	transition: background-color 0.15s ease-out, height 0.15s ease-out;
+	transition:
+		background-color 0.15s ease-out,
+		height 0.15s ease-out;
 	border-radius: 10rem;
 }
 
@@ -195,24 +197,30 @@
 	height: var(--h);
 	cursor: pointer;
 	background: var(--track-color);
-	transition: background-color 0.15s ease-out, height 0.15s ease-out;
+	transition:
+		background-color 0.15s ease-out,
+		height 0.15s ease-out;
 	border-radius: 10rem;
 }
-  
+
 .slider::-ms-track {
 	width: 100%;
 	height: var(--h);
 	cursor: pointer;
 	background: var(--track-color);
-	transition: background-color 0.15s ease-out, height 0.15s ease-out;
+	transition:
+		background-color 0.15s ease-out,
+		height 0.15s ease-out;
 	border-color: transparent;
 	border-width: 0 0;
 	color: transparent;
 }
-  
+
 .slider::-ms-fill-lower {
 	background: var(--track-color);
-	transition: background-color 0.15s ease-out, height 0.15s ease-out;
+	transition:
+		background-color 0.15s ease-out,
+		height 0.15s ease-out;
 	border: transparent;
 	border-radius: 10rem;
 	box-shadow: none;
@@ -220,12 +228,16 @@
 
 .slider:focus::-ms-fill-lower {
 	background: var(--track-color);
-	transition: background-color 0.15s ease-out, height 0.15s ease-out;
+	transition:
+		background-color 0.15s ease-out,
+		height 0.15s ease-out;
 }
 
 .slider::-ms-fill-upper {
 	background: var(--track-color);
-	transition: background-color 0.15s ease-out, height 0.15s ease-out;
+	transition:
+		background-color 0.15s ease-out,
+		height 0.15s ease-out;
 	border: transparent;
 	border-radius: 10rem;
 	box-shadow: none;
@@ -233,5 +245,7 @@
 
 .slider:focus::-ms-fill-upper {
 	background: var(--track-color);
-	transition: background-color 0.15s ease-out, height 0.15s ease-out;
+	transition:
+		background-color 0.15s ease-out,
+		height 0.15s ease-out;
 }
