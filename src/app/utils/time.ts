@@ -67,7 +67,14 @@ export function getNYCWeekdayString(): DayOfWeek {
 }
 
 export function dateFromTime(time: number): Date {
-	return new Date(time * 1000 - 3600000 * getNYCOffset());
+	const d = new Date();
+	d.setHours(
+		Math.floor(time / (60 * 60)),
+		Math.floor((time % 60) / 60),
+		Math.floor(time % (60 * 60)),
+		(time - Math.floor(time)) * 1000
+	);
+	return d;
 }
 
 export function formatTime(date: Date) {

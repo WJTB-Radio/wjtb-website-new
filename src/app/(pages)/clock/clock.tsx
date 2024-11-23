@@ -21,11 +21,11 @@ export function Clock() {
 		};
 	});
 	return isLocalTime() ? (
-		<></>
+		<div suppressHydrationWarning></div>
 	) : (
-		<p suppressHydrationWarning className={styles.clock}>
+		<div suppressHydrationWarning className={styles.clock}>
 			It&apos;s {weekday} at {formatTime(date) + " "}
 			in Newark, NJ
-		</p>
+		</div>
 	);
 }
