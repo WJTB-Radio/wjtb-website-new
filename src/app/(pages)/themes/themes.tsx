@@ -184,7 +184,7 @@ function cssPropToString(prop: CSSProperties) {
 
 export function setTheme(
 	id: keyof typeof themes,
-	setThemeCookie: updateItem | null,
+	setThemeCookie: updateItem | null
 ) {
 	if (!Object.hasOwn(themes, id)) {
 		return;
