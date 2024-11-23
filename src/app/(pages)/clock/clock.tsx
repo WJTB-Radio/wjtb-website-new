@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	formatTime,
 	getNYCDate,
@@ -5,27 +7,29 @@ import {
 	getWeekdayString,
 	isLocalTime,
 } from "@/app/utils/time";
-import { useEffect, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import styles from "./clock.module.scss";
 
-export function Clock() {
-	const [, forceUpdate] = useReducer((x: number) => x + 1, 0);
-	const date = getNYCDate();
-	const weekday = getWeekdayString(getNYCWeekday());
+export default function Clock() {
+	const [, forceUpdate] = useReducer((x) => x + 1, 0);
 	useEffect(() => {
-		const t = setTimeout(() => {
+		const t = window.setTimeout(() => {
 			forceUpdate();
 		}, 1000);
 		return () => {
-			clearTimeout(t);
+			window.clearTimeout(t);
 		};
 	});
-	return isLocalTime() ? (
-		<div suppressHydrationWarning></div>
-	) : (
-		<div suppressHydrationWarning className={styles.clock}>
-			It&apos;s {weekday} at {formatTime(date) + " "}
-			in Newark, NJ
-		</div>
+	const date = isLocalTime() ? undefined : getNYCDate();
+	const weekday = getWeekdayString(getNYCWeekday());
+	return useMemo(
+		() => (
+			<div className={styles.clock}>
+				{date != undefined
+					? `It's ${weekday} at ${formatTime(date)} in Newark, NJ`
+					: ""}
+			</div>
+		),
+		[date, weekday]
 	);
 }

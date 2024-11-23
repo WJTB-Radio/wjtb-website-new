@@ -9,7 +9,9 @@ import Players from "./players/players";
 import Schedule from "./schedule";
 import Navigation from "./navigation";
 import styles from "./layout.module.scss";
-import { Clock } from "./clock/clock";
+import dynamic from "next/dynamic";
+
+const Clock = dynamic(() => import("./clock/clock"), { ssr: false });
 
 export default function Layout({
 	children,
@@ -32,7 +34,7 @@ export default function Layout({
 					() => (
 						<Players />
 					),
-					[],
+					[]
 				)}
 				{width < 1000 ? <Clock /> : undefined}
 				{width < 1000 ? <Navigation /> : undefined}
