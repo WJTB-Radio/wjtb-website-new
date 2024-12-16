@@ -164,8 +164,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 			interact();
 		}
 
-		const videoSrc =
-			"https://stream.alarabread.fun:8888/stream2/index.m3u8";
+		const videoSrc = "https://wjtbradio.com:8888/stream2/index.m3u8";
 
 		const onVideoError = useCallback(() => {
 			videoErrorEvent();
