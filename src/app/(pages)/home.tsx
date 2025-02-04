@@ -10,74 +10,12 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { jsonFetcher } from "../utils/fetchers";
-import useSWR from "swr";
-import { Photo } from "../utils/types";
-import { galleryTopEndpoint } from "../utils/endpoints";
 
-export function Home(props: { photos: Photo[] }) {
-	const {
-		data,
-		error,
-	}: { data: { photos: Photo[] }; error: boolean | undefined } = useSWR(
-		galleryTopEndpoint,
-		jsonFetcher,
-	);
-	let photos: Photo[] = !data || error ? props.photos : data.photos;
+export function Home() {
 	return (
 		<div className={styles.main_content}>
 			<h1>Streaming online since the 1990s!</h1>
 			<p>WJTB is NJIT&apos;s official college radio station.</p>
-			<Carousel
-				className={`w-full max-w-xs ${styles.carousel}`}
-				opts={{
-					align: "start",
-					loop: true,
-				}}
-				plugins={[
-					Autoplay({
-						delay: 5000,
-						stopOnInteraction: true,
-					}),
-				]}
-			>
-				<CarouselContent className={styles.carousel_content}>
-					{photos.map((photo, index) => (
-						<CarouselItem key={index}>
-							<div className={styles.item}>
-								<img
-									className={styles.image}
-									src={photo.image}
-									alt={
-										photo.caption != ""
-											? photo.caption
-											: "Photo has no caption."
-									}
-								></img>
-								<p className={styles.caption}>
-									{photo.caption}
-								</p>
-								<p className={styles.date}>
-									{photo.date_taken}
-								</p>
-							</div>
-						</CarouselItem>
-					))}
-				</CarouselContent>
-				<CarouselPrevious />
-				<CarouselNext />
-			</Carousel>
-			<Link
-				href="/gallery"
-				style={
-					{
-						display: "block",
-						textAlign: "center",
-					} as React.CSSProperties
-				}
-			>
-				See more pictures
-			</Link>
 			<h1>Get heard</h1>
 			<p>
 				Want to get involved? Connect with us on{" "}

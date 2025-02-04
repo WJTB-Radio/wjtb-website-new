@@ -33,7 +33,6 @@ const pathNames: { [id: string]: string } = {
 	"/join/": "Become a DJ",
 	"/variety/": "Variety Hours",
 	"/past-events/": "Past Events",
-	"/gallery/": "Gallery",
 	"/staff/": "Staff",
 	"/contact/": "Contact Us",
 	"/press-kit/": "Press Kit",
