@@ -19,7 +19,7 @@ export default async function ShowsPage() {
 		const dayName = getWeekdayString(i);
 		const data: { day: string; shows: Show[] } = await (
 			await fetch(
-				`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`,
+				`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`
 			)
 		).json();
 		const day: Day = {
