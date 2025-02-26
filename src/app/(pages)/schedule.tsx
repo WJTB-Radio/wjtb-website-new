@@ -130,7 +130,7 @@ export default function Schedule() {
 			}`}
 			tabIndex={-1}
 		>
-			{computed.length == 0 ? (
+			{computed.length == 0 && shows.data ? (
 				<div className={styles.no_shows}>
 					<p>
 						There aren&apos;t any radio shows scheduled right now.

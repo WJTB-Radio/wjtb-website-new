@@ -44,7 +44,10 @@ export function Events(props: { events: StrapiResponse<"past-events"> }) {
 										<img
 											className={styles.image}
 											src={strapiImageUrl(image.url)}
-											alt={image.alternativeText}
+											alt={
+												image.alternativeText ??
+												undefined
+											}
 										/>
 									</CarouselItem>
 								))}
