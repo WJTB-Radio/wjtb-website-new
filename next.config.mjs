@@ -18,7 +18,6 @@ const nextConfig = {
 		"node-sass",
 		"react",
 		"react-dom",
-		"react-use-cookie",
 		"sass",
 		"swr",
 		"tailwind-merge",

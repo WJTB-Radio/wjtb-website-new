@@ -1,5 +1,4 @@
 import { CSSProperties } from "react";
-import { updateItem } from "react-use-cookie";
 
 export const defaultTheme = "dark";
 
@@ -182,10 +181,7 @@ function cssPropToString(prop: CSSProperties) {
 		.join("\n");
 }
 
-export function setTheme(
-	id: keyof typeof themes,
-	setThemeCookie: updateItem | null
-) {
+export function setTheme(id: keyof typeof themes) {
 	if (!Object.hasOwn(themes, id)) {
 		return;
 	}
@@ -198,13 +194,4 @@ export function setTheme(
 		(body.style as unknown as string) =
 			cssPropToString(extraStyles) + cssPropToString(themes[id].style);
 	}
-	if (!setThemeCookie) {
-		return;
-	}
-	setThemeCookie(id, {
-		// we need this so the browser doesn't delete the theme cookie when the session ends
-		days: 999999999999999,
-		SameSite: "Strict",
-		domain: "",
-	});
 }
