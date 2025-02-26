@@ -17,17 +17,7 @@ import { jsonFetcher } from "../utils/fetchers";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useWidth } from "../utils/use_width";
-
-type Show = {
-	name: string;
-	desc: string;
-	hosts: string;
-	poster: string;
-	start_time: number;
-	end_time: number;
-	is_running: number;
-};
-type DaySchedule = { day: DayOfWeek; shows: Array<Show> };
+import { Show, showsToDays, useShows } from "../utils/shows";
 
 export default function Schedule() {
 	const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -39,47 +29,34 @@ export default function Schedule() {
 	let computed: Array<React.JSX.Element> = [];
 	const currentDay = getNYCWeekday();
 	const time = getNYCTimeSeconds();
+	const shows = useShows();
+	const days = showsToDays(shows.data ?? []);
 	for (let i = 0; i < 7; i++) {
 		let d = (currentDay + i) % 5;
-		// this for loop always runs the same number of times, so we can disable the linter rule
-		let {
-			data,
-			error,
-		}: { data: DaySchedule | undefined; error: boolean | undefined } =
-			// eslint-disable-next-line react-hooks/rules-of-hooks
-			useSWR(
-				`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${getWeekdayString(
-					d,
-				)}.json`,
-				jsonFetcher,
-			);
-		if (!data || error) {
-			continue;
-		}
 		if (d < 0) {
 			continue; // weekend
 		}
+		let data = days[d];
 		if (i == 0) {
-			data = structuredClone(data);
-			data.shows = data.shows.filter((show) => show.end_time > time);
+			data = data.filter((show) => show.end_time > time);
 		}
-		const dayString = data.day;
-		if (data.shows.length != 0) {
+		const dayString = getWeekdayString(d);
+		if (data.length != 0) {
 			computed.push(
 				<tbody key={i + "day"}>
 					<tr className={styles.day}>
-						<th>{formatDay(data.day)}</th>
+						<th>{formatDay(dayString)}</th>
 					</tr>
-				</tbody>,
+				</tbody>
 			);
 		}
 		if (i == 0 && currentDay >= 0) {
-			playingShow = data.shows.find((show) => {
+			playingShow = data.find((show) => {
 				return show.start_time <= time && show.end_time > time;
 			});
 		}
 		if (!nextShow) {
-			nextShow = data.shows.find((show) => {
+			nextShow = data.find((show) => {
 				return show.start_time >= time || d > currentDay;
 			});
 			if (nextShow) {
@@ -87,7 +64,7 @@ export default function Schedule() {
 			}
 		}
 		computed = computed.concat(
-			data.shows.map((show) => (
+			data.map((show) => (
 				<tbody
 					key={show.name + i}
 					className={`${styles.show_container} 
@@ -95,22 +72,22 @@ export default function Schedule() {
 						show.start_time <= time &&
 						show.end_time > time &&
 						i == 0 &&
-						show.is_running &&
+						!show.cancelled &&
 						styles.playing
 					}
-					${!show.is_running && styles.cancelled}`}
+					${show.cancelled && styles.cancelled}`}
 				>
 					<tr className={`${styles.show}`}>
 						<td className={styles.times}>
 							{formatTimes(
 								dateFromTime(show.start_time),
-								dateFromTime(show.end_time),
+								dateFromTime(show.end_time)
 							)}
 						</td>
 						<td>{show.name}</td>
 					</tr>
 				</tbody>
-			)),
+			))
 		);
 	}
 

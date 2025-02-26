@@ -1,3 +1,5 @@
+import { StrapiTime } from "./strapi";
+
 export type DayOfWeek =
 	| "monday"
 	| "tuesday"
@@ -57,9 +59,24 @@ export function getNYCWeekday() {
 }
 
 export function getWeekdayString(day: number): DayOfWeek {
-	return ["monday", "tuesday", "wednesday", "thursday", "friday"][
+	return (["monday", "tuesday", "wednesday", "thursday", "friday"] as const)[
 		Math.abs(day % 5)
-	] as DayOfWeek;
+	];
+}
+
+export function parseWeekday(day: DayOfWeek): number {
+	switch (day) {
+		case "monday":
+			return 0;
+		case "tuesday":
+			return 1;
+		case "wednesday":
+			return 2;
+		case "thursday":
+			return 3;
+		case "friday":
+			return 4;
+	}
 }
 
 export function getNYCWeekdayString(): DayOfWeek {
@@ -72,9 +89,17 @@ export function dateFromTime(time: number): Date {
 		Math.floor(time / (60 * 60)),
 		Math.floor((time % 60) / 60),
 		Math.floor(time % (60 * 60)),
-		(time - Math.floor(time)) * 1000,
+		(time - Math.floor(time)) * 1000
 	);
 	return d;
+}
+
+export function parseStrapiTime(t: StrapiTime) {
+	const s1 = t.split(":");
+	const hours = parseInt(s1[0]);
+	const minutes = parseInt(s1[1]);
+	const seconds = parseFloat(s1[2]);
+	return hours * 60 * 60 + minutes * 60 + seconds;
 }
 
 export function formatTime(date: Date) {

@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import { DayOfWeek } from "./time";
 
 export function strapiImageUrl(path: string) {
 	return "https://wjtbradio.com/strapi" + path;
@@ -8,7 +9,7 @@ export interface StrapiImage {
 	id: number;
 	documentId: string;
 	name: string;
-	alternativeText: string;
+	alternativeText: string | null;
 	caption: string | null;
 	width: number;
 	height: number;
@@ -31,6 +32,8 @@ export interface StrapiImage {
 	};
 }
 
+export type StrapiTime = `${number}:${number}:${number}.${number}`;
+
 export interface StrapiCollection {
 	"past-events": {
 		name: string;
@@ -38,6 +41,7 @@ export interface StrapiCollection {
 		date: string;
 		pictures: StrapiImage[];
 	};
+	shows: StrapiShow;
 	staffs: {
 		name: string;
 		title: string;
@@ -45,6 +49,17 @@ export interface StrapiCollection {
 		order: number;
 		image: StrapiImage;
 	};
+}
+
+export interface StrapiShow {
+	name: string;
+	description: string;
+	hosts: string;
+	cancelled: boolean;
+	start_time: StrapiTime;
+	end_time: StrapiTime;
+	day: { id: number; day: DayOfWeek };
+	poster: StrapiImage;
 }
 
 export interface StrapiResponse<Collection extends keyof StrapiCollection> {
@@ -89,6 +104,8 @@ function sortParam(collection: keyof StrapiCollection) {
 			return "&sort=date:DESC";
 		case "staffs":
 			return "&sort=order:ASC";
+		case "shows":
+			return "&sort[0]=day.id&sort[1]=start_time";
 		default:
 			return "";
 	}

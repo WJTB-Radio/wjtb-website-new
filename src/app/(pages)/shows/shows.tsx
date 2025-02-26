@@ -9,11 +9,10 @@ import {
 import styles from "./shows.module.scss";
 import { MutableRefObject, useRef } from "react";
 import Link from "next/link";
-import useSWR from "swr";
-import { jsonFetcher } from "@/app/utils/fetchers";
-import { Day, Show } from "./page";
+import { Show, showsToDays, useShows } from "@/app/utils/shows";
+import { strapiImageUrl } from "@/app/utils/strapi";
 
-export function Shows(props: { days: Day[] }) {
+export function Shows(props: { days: Show[][] }) {
 	const top = useRef<HTMLDivElement>(null);
 
 	let dayStarts: MutableRefObject<HTMLDivElement | null>[] = [];
@@ -23,44 +22,14 @@ export function Shows(props: { days: Day[] }) {
 		dayStarts.push(useRef<HTMLDivElement>(null));
 	}
 
-	let days: Day[] = [];
-	let fetched = true;
-	for (let i = 0; i < 5; i++) {
-		const dayName = getWeekdayString(i);
-		const {
-			data,
-			error,
-		}: {
-			data: { day: string; shows: Show[] };
-			error: boolean | undefined;
-			// this for loop always runs the same number of times, so we can disable the linter rule
-			// eslint-disable-next-line react-hooks/rules-of-hooks
-		} = useSWR(
-			`https://raw.githubusercontent.com/WJTB-Radio/ShowData/master/${dayName}.json`,
-			jsonFetcher,
-		);
-		if (!data || error || !fetched) {
-			fetched = false;
-			// we cant break because we must call useSWR the same number of times each render
-			continue;
-		}
-		const day: Day = {
-			day: i,
-			dayName: data.day,
-			shows: data.shows,
-		};
-		days.push(day);
-	}
-
-	if (!fetched) {
-		days = props.days;
-	}
+	const shows = useShows();
+	const days = shows.data == undefined ? props.days : showsToDays(shows.data);
 
 	let min_time = 60 * 60 * 24;
 	let max_time = 0;
 	let show_count = 0;
 	days.forEach((day) => {
-		day.shows.forEach((show) => {
+		day.forEach((show) => {
 			if (show.start_time < min_time) {
 				min_time = show.start_time;
 			}
@@ -122,9 +91,11 @@ export function Shows(props: { days: Day[] }) {
 		<div className={styles.container}>
 			<div className={styles.calendar}>
 				<div className={styles.days}>
-					{days.map((day) => (
-						<div key={day.day} className={styles.day}>
-							<h1 className={styles.title}>{day.dayName}</h1>
+					{days.map((_day, idx) => (
+						<div key={idx} className={styles.day}>
+							<h1 className={styles.title}>
+								{getWeekdayString(idx)}
+							</h1>
 						</div>
 					))}
 				</div>
@@ -161,26 +132,23 @@ export function Shows(props: { days: Day[] }) {
 						))}
 					</div>
 					<div className={styles.shows}>
-						{days.map((day) => (
-							<div
-								className={styles.day_shows}
-								key={"day" + day.dayName}
-							>
-								{day.shows.map((show, i) => (
+						{days.map((day, day_idx) => (
+							<div className={styles.day_shows} key={day_idx}>
+								{day.map((show, i) => (
 									<div
-										key={show.name + day.dayName}
+										key={i}
 										style={
 											{
 												"--start-time": `${
 													100 *
 													getTimeFraction(
-														show.start_time,
+														show.start_time
 													)
 												}%`,
 												"--end-time": `${
 													100 *
 													getTimeFraction(
-														show.end_time,
+														show.end_time
 													)
 												}%`,
 											} as React.CSSProperties
@@ -188,7 +156,7 @@ export function Shows(props: { days: Day[] }) {
 										className={styles.show}
 										ref={
 											i == 0
-												? dayStarts[day.day]
+												? dayStarts[day_idx]
 												: undefined
 										}
 									>
@@ -196,8 +164,14 @@ export function Shows(props: { days: Day[] }) {
 										<div className={styles.hover_card}>
 											<h2>{show.name}</h2>
 											<img
-												src={show.poster}
-												alt={"Poster for " + show.name}
+												src={strapiImageUrl(
+													show.poster.url
+												)}
+												alt={
+													show.poster
+														.alternativeText ??
+													"Poster for " + show.name
+												}
 											/>
 											<p className={styles.hosts}>
 												Hosted by {show.hosts}
@@ -205,15 +179,15 @@ export function Shows(props: { days: Day[] }) {
 											<p className={styles.times}>
 												{formatTimes(
 													dateFromTime(
-														show.start_time,
+														show.start_time
 													),
-													dateFromTime(show.end_time),
+													dateFromTime(show.end_time)
 												) +
 													" every " +
-													day.dayName}
+													getWeekdayString(day_idx)}
 											</p>
 											<p className={styles.desc}>
-												{show.desc}
+												{show.description}
 											</p>
 										</div>
 									</div>
