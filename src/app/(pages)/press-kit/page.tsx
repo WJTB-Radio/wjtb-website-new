@@ -53,10 +53,16 @@ export default function PressKit() {
 					theme="dark"
 				/>
 				<Logo
-					svgLink={`${basePath}img/wjtb_qr.svg`}
-					pngLink={`${basePath}img/wjtb_qr.png`}
-					name="QR Code"
+					svgLink={`${basePath}img/qr_dark.svg`}
+					pngLink={`${basePath}img/qr_dark.png`}
+					name="QR Code (Dark)"
 					theme="dark"
+				/>
+				<Logo
+					svgLink={`${basePath}img/qr_light.svg`}
+					pngLink={`${basePath}img/qr_light.png`}
+					name="QR Code (Light)"
+					theme="paper"
 				/>
 			</div>
 		</div>
