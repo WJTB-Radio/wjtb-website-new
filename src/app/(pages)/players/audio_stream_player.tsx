@@ -103,7 +103,7 @@ export default function AudioStreamPlayer({ hidden }: { hidden: boolean }) {
 				null,
 				touches,
 				touchTimeout,
-				setTouch,
+				setTouch
 			)}
 			onTouchEnd={onTouchEnd.bind(
 				null,
@@ -111,12 +111,12 @@ export default function AudioStreamPlayer({ hidden }: { hidden: boolean }) {
 				touchTimeout,
 				() => {},
 				setTouch,
-				null,
+				null
 			)}
 			onTouchMove={onTouchMove.bind(null, touches)}
 		>
 			<audio
-				src={`https://stream.njit.edu:8000/stream1.mp3`}
+				src={`https://wjtbradio.com:8000/stream1.mp3`}
 				ref={audio}
 				onPause={onAudioPause}
 				onPlaying={onAudioPlaying}
