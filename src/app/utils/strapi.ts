@@ -105,7 +105,7 @@ function sortParam(collection: keyof StrapiCollection) {
 		case "staffs":
 			return "&sort=order:ASC";
 		case "shows":
-			return "&sort[0]=day.id&sort[1]=start_time&pagination[pageSize]=100";
+			return "&sort[0]=day.day&sort[1]=start_time&pagination[pageSize]=100";
 		default:
 			return "";
 	}
