@@ -1,5 +1,3 @@
-import { Home } from "./home";
+import { TextPage } from "../utils/text_page";
 
-export default async function HomePage() {
-	return <Home />;
-}
+export default await TextPage("home-page");

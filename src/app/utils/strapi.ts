@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { DayOfWeek } from "./time";
+import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 export function strapiImageUrl(path: string) {
 	return "https://wjtbradio.com/strapi" + path;
@@ -51,6 +52,16 @@ export interface StrapiCollection {
 	};
 }
 
+export interface StrapiSingle {
+	"home-page": { content: BlocksContent };
+	"variety-page": { content: BlocksContent };
+	"history-page": { content: BlocksContent };
+	"join-page": { content: BlocksContent };
+	"contact-page": { content: BlocksContent };
+}
+
+type StrapiTypeName = keyof StrapiCollection | keyof StrapiSingle;
+
 export interface StrapiShow {
 	name: string;
 	description: string;
@@ -62,32 +73,34 @@ export interface StrapiShow {
 	poster: StrapiImage;
 }
 
-export interface StrapiResponse<Collection extends keyof StrapiCollection> {
-	data: (StrapiCollection[Collection] & {
-		id: number;
-		documentId: string;
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-	})[];
+interface StrapiDefaults {
+	id: number;
+	documentId: string;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
 }
 
-export function useStrapi<Collection extends keyof StrapiCollection>(
-	collection: Collection
-) {
-	return useSWR(collection as string, (collection: string) =>
-		fetchStrapi(collection as Collection)
+export interface StrapiResponse<TypeName extends StrapiTypeName> {
+	data: TypeName extends keyof StrapiCollection
+		? (StrapiCollection[TypeName] & StrapiDefaults)[]
+		: TypeName extends keyof StrapiSingle
+		? StrapiSingle[TypeName] & StrapiDefaults
+		: never;
+}
+
+export function useStrapi<Type extends StrapiTypeName>(type: Type) {
+	return useSWR(type as string, (collection: string) =>
+		fetchStrapi(collection as Type)
 	);
 }
 
-export async function fetchStrapi<Collection extends keyof StrapiCollection>(
-	collection: Collection
-) {
+export async function fetchStrapi<Type extends StrapiTypeName>(type: Type) {
 	const r = await fetch(
 		"https://wjtbradio.com/strapi/api/" +
-			collection +
+			type +
 			"?populate=*" +
-			sortParam(collection),
+			sortParam(type),
 		{
 			headers: {
 				Authorization:
@@ -95,10 +108,10 @@ export async function fetchStrapi<Collection extends keyof StrapiCollection>(
 			},
 		}
 	);
-	return await (r.json() as Promise<StrapiResponse<Collection>>);
+	return await (r.json() as Promise<StrapiResponse<Type>>);
 }
 
-function sortParam(collection: keyof StrapiCollection) {
+function sortParam(collection: StrapiTypeName) {
 	switch (collection) {
 		case "past-events":
 			return "&sort=date:DESC";
