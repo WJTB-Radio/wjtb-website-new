@@ -1,7 +1,7 @@
 "use client";
 
 import "./globals.scss";
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useMemo, useRef } from "react";
 import { useWidth } from "../utils/use_width";
 import Script from "next/script";
 import RememberTheme from "./remember_theme";
@@ -27,6 +27,7 @@ export default function Layout({
 			: process.env.NEXT_PUBLIC_BASE_PATH + "/";
 	}
 	let width = useWidth().width;
+	const panels = useRef<HTMLElement>(null);
 	return (
 		<>
 			<Script src={basePath + "js/smoothscroll.min.js"} />
@@ -38,14 +39,20 @@ export default function Layout({
 					),
 					[]
 				)}
-				{width < 1000 ? <Clock /> : undefined}
-				{width < 1000 ? <Navigation /> : undefined}
-				<TabGroup className={styles.tabGroup}>
+				<TabGroup
+					className={styles.tabGroup}
+					onChange={(idx) => {
+						if (!panels.current) return;
+						if (idx == 1) {
+							panels.current.scrollTop = 0;
+						}
+					}}
+				>
 					<TabList className={styles.tabList}>
 						<Tab className={styles.tab}>chat</Tab>
 						<Tab className={styles.tab}>up next</Tab>
 					</TabList>
-					<TabPanels className={styles.tabPanels}>
+					<TabPanels className={styles.tabPanels} ref={panels}>
 						<TabPanel>
 							<Chat />
 						</TabPanel>
@@ -54,6 +61,8 @@ export default function Layout({
 						</TabPanel>
 					</TabPanels>
 				</TabGroup>
+				{width < 1000 ? <Clock /> : undefined}
+				{width < 1000 ? <Navigation /> : undefined}
 			</div>
 			{width >= 1000 ? <Navigation /> : undefined}
 			{width >= 1000 ? <Clock /> : undefined}

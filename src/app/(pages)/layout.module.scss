@@ -3,14 +3,14 @@
 	display: flex;
 	flex-direction: row;
 	// video sizing
-	--player-width: 60vw;
-	//--player-width: calc(max(40vw, 40rem));
+	--player-width: 60svw;
+	//--player-width: calc(max(40svw, 40rem));
 	--aspect-ratio: calc(9 / 16);
 	height: min(calc(var(--aspect-ratio) * var(--player-width)), 100svh);
 }
 
 .tabGroup {
-	width: calc(100vw - var(--player-width));
+	width: calc(100svw - var(--player-width));
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -46,7 +46,7 @@
 	}
 }
 
-.tab[data-active] {
+.tab[data-active], .tab[data-selected] {
 	background: var(--bg3-color);
 }
 
@@ -57,7 +57,11 @@
 @media (max-width: 1000px) {
 	.players {
 		height: unset;
-		--player-width: 100vw;
+		--player-width: 100svw;
 		flex-direction: column;
+	}
+	.tabGroup {
+		width: 100svw;
+		max-height: 20rem;
 	}
 }

@@ -10,14 +10,13 @@
 @media (min-width: 1000px) {
 	.container {
 		height: 100%;
-		max-width: calc(100vw - var(--player-width));
-		width: calc(100vw - var(--player-width));
+		max-width: calc(100svw - var(--player-width));
+		width: calc(100svw - var(--player-width));
 	}
 }
 
 @media (max-width: 1000px) {
 	.container {
-		max-height: 20rem;
 		border: unset;
 		font-size: 1.25rem;
 	}

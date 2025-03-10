@@ -22,7 +22,7 @@
 
 .play_button,
 .pause_button {
-	--button-width: calc(min(5rem, 5vw));
+	--button-width: 4rem;
 	--button-height: var(--button-width);
 
 	position: absolute;
@@ -35,7 +35,7 @@
 @media (max-width: 1000px) {
 	.play_button,
 	.pause_button {
-		--button-width: calc(min(10rem, 15vw));
+		--button-width: 4rem;
 		--button-height: var(--button-width);
 	}
 }
@@ -62,7 +62,7 @@
 }
 
 .fullscreen_button {
-	--button-size: calc(min(5rem, 5vw));
+	--button-size: 4rem;
 
 	--button-color: var(--video-text-color);
 	--button-color-hover: var(--video-text-highlight-color);
@@ -81,7 +81,7 @@
 
 @media (max-width: 1000px) {
 	.fullscreen_button {
-		--button-size: calc(min(10rem, 15vw));
+		--button-size: 4rem;
 	}
 }
 
@@ -122,7 +122,7 @@
 }
 
 .volume {
-	--button-size: calc(min(5rem, 5vw));
+	--button-size: 4rem;
 
 	position: absolute;
 	left: 1rem;
@@ -134,6 +134,6 @@
 
 @media (max-width: 1000px) {
 	.volume {
-		--button-size: calc(min(10rem, 15vw));
+		--button-size: 4rem;
 	}
 }

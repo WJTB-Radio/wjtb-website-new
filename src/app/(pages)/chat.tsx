@@ -80,7 +80,7 @@ export function Chat() {
 			)}
 			<div className={styles.join}>
 				join our{" "}
-				<Link href="/discord" target="_blank">
+				<Link href="/discord-chat" target="_blank">
 					discord
 				</Link>{" "}
 				to chat
