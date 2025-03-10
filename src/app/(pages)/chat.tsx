@@ -37,6 +37,7 @@ export function Chat() {
 		});
 	}
 	useWebsocket("https://wjtbradio.com/chat/", {
+		retryOnError: true,
 		onMessage: (message) => {
 			const m = JSON.parse(message.data) as SocketMessage;
 			switch (m.type) {
