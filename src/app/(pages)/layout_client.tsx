@@ -10,6 +10,8 @@ import Schedule from "./schedule";
 import Navigation from "./navigation";
 import styles from "./layout.module.scss";
 import dynamic from "next/dynamic";
+import { Chat } from "./chat";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
 const Clock = dynamic(() => import("./clock/clock"), { ssr: false });
 
@@ -38,7 +40,20 @@ export default function Layout({
 				)}
 				{width < 1000 ? <Clock /> : undefined}
 				{width < 1000 ? <Navigation /> : undefined}
-				<Schedule />
+				<TabGroup className={styles.tabGroup}>
+					<TabList className={styles.tabList}>
+						<Tab className={styles.tab}>chat</Tab>
+						<Tab className={styles.tab}>up next</Tab>
+					</TabList>
+					<TabPanels className={styles.tabPanels}>
+						<TabPanel>
+							<Chat />
+						</TabPanel>
+						<TabPanel>
+							<Schedule />
+						</TabPanel>
+					</TabPanels>
+				</TabGroup>
 			</div>
 			{width >= 1000 ? <Navigation /> : undefined}
 			{width >= 1000 ? <Clock /> : undefined}

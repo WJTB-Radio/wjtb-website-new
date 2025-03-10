@@ -3,17 +3,13 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import {
 	dateFromTime,
-	DayOfWeek,
 	formatDay,
 	formatTimes,
 	getNYCTimeSeconds,
 	getNYCWeekday,
-	getNYCWeekdayString,
 	getWeekdayString,
 } from "../utils/time";
 import styles from "./schedule.module.scss";
-import useSWR from "swr";
-import { jsonFetcher } from "../utils/fetchers";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useWidth } from "../utils/use_width";
@@ -21,6 +17,17 @@ import { Show, showsToDays, useShows } from "../utils/shows";
 
 export default function Schedule() {
 	const [, forceUpdate] = useReducer((x) => x + 1, 0);
+	const container = useRef<HTMLDivElement>(null);
+	function scrollToTop() {
+		if (!container.current) return;
+		const clientRect = container.current.getBoundingClientRect();
+		container.current.firstElementChild?.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest",
+			inline: "nearest",
+		});
+	}
+	useEffect(scrollToTop, []);
 
 	let playingShow: Show | undefined;
 	let nextShow: Show | undefined;
@@ -129,6 +136,7 @@ export default function Schedule() {
 				hide_on_mobile ? styles.hide_on_mobile : undefined
 			}`}
 			tabIndex={-1}
+			ref={container}
 		>
 			{computed.length == 0 && shows.data ? (
 				<div className={styles.no_shows}>

@@ -4,7 +4,6 @@
 	overflow-y: scroll;
 	overflow-x: hidden;
 	width: 100%;
-	border: 0.25rem solid var(--accent-color);
 	border-left: unset;
 }
 
@@ -20,7 +19,6 @@
 	.container {
 		max-height: 20rem;
 		border: unset;
-		border-top: 0.25rem solid var(--accent-color);
 		font-size: 1.25rem;
 	}
 	.hide_on_mobile {

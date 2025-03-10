@@ -9,6 +9,47 @@
 	height: min(calc(var(--aspect-ratio) * var(--player-width)), 100svh);
 }
 
+.tabGroup {
+	width: calc(100vw - var(--player-width));
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border: solid var(--accent-color) 0.25rem;
+	border-left: none;
+	padding-top: 4px;
+	box-sizing: content-box;
+}
+
+.tabPanels {
+	overflow-y: scroll;
+}
+
+.tabList {
+	display: flex;
+	gap: 16px;
+	padding-left: 16px;
+	border-bottom: solid var(--accent-color) 0.25rem;
+}
+
+.tab {
+	border: solid var(--accent-color) 0.25rem;
+	border-bottom: none;
+	border-radius: 1rem 1rem 0 0;
+	padding: 0 1em;
+	transition: background 0.05s ease-out;
+	background: var(--bg1-color);
+}
+
+@media (hover: hover) {
+	.tab:hover {
+		background: var(--bg2-color);
+	}
+}
+
+.tab[data-active] {
+	background: var(--bg3-color);
+}
+
 .players > * {
 	flex-grow: 1;
 }
