@@ -36,12 +36,7 @@ export function Chat() {
 			inline: "end",
 		});
 	}
-	/*
-	useLayoutEffect(() => {
-		console.log(messages);
-		scrollToBottom();
-	}, [messages]);*/
-	useWebsocket("http://wjtbradio.com/chat/", {
+	useWebsocket("https://wjtbradio.com/chat/", {
 		onMessage: (message) => {
 			const m = JSON.parse(message.data) as SocketMessage;
 			switch (m.type) {
