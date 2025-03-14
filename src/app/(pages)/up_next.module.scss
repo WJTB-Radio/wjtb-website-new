@@ -5,6 +5,10 @@
 	padding: 0 8px;
 }
 
+.container::-webkit-scrollbar {
+    display: none;
+}
+
 .show {
 	min-width: fit-content;
 }
