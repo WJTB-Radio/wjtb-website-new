@@ -1,14 +1,14 @@
 import useSWR from "swr";
-import { fetchStrapi, StrapiShow } from "./strapi";
+import { fetchStrapi, StrapiDefaults, StrapiShow } from "./strapi";
 import { parseStrapiTime } from "./time";
 
-export type Show = {
-	[K in keyof StrapiShow]: K extends "start_time"
-		? number
-		: K extends "end_time"
-		? number
-		: StrapiShow[K];
-};
+export type Show =
+	& {
+		[K in keyof StrapiShow]: K extends "start_time" ? number
+			: K extends "end_time" ? number
+			: StrapiShow[K];
+	}
+	& StrapiDefaults;
 
 // strapi enums aren't great ......
 type StrapiWeekday =

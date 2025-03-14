@@ -23,13 +23,14 @@ export default function Clock() {
 	const date = isLocalTime() ? undefined : getNYCDate();
 	const weekday = getWeekdayString(getNYCWeekday());
 	return useMemo(
-		() => (
-			<div className={styles.clock}>
-				{date != undefined
-					? `It's ${weekday} at ${formatTime(date)} in Newark, NJ`
-					: ""}
-			</div>
-		),
+		() =>
+			date != undefined ? (
+				<div className={styles.clock}>
+					{`It's ${weekday} at ${formatTime(date)} in Newark, NJ`}
+				</div>
+			) : (
+				<></>
+			),
 		[date, weekday]
 	);
 }

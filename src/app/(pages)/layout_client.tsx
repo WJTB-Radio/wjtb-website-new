@@ -6,7 +6,7 @@ import { useWidth } from "../utils/use_width";
 import Script from "next/script";
 import RememberTheme from "./remember_theme";
 import Players from "./players/players";
-import Schedule from "./schedule";
+import UpNext from "./up_next";
 import Navigation from "./navigation";
 import styles from "./layout.module.scss";
 import dynamic from "next/dynamic";
@@ -39,32 +39,11 @@ export default function Layout({
 					),
 					[]
 				)}
-				<TabGroup
-					className={styles.tabGroup}
-					onChange={(idx) => {
-						if (!panels.current) return;
-						if (idx == 1) {
-							panels.current.scrollTop = 0;
-						}
-					}}
-				>
-					<TabList className={styles.tabList}>
-						<Tab className={styles.tab}>chat</Tab>
-						<Tab className={styles.tab}>up next</Tab>
-					</TabList>
-					<TabPanels className={styles.tabPanels} ref={panels}>
-						<TabPanel>
-							<Chat />
-						</TabPanel>
-						<TabPanel>
-							<Schedule />
-						</TabPanel>
-					</TabPanels>
-				</TabGroup>
+				<Chat />
 				{width < 1000 ? <Clock /> : undefined}
-				{width < 1000 ? <Navigation /> : undefined}
 			</div>
-			{width >= 1000 ? <Navigation /> : undefined}
+			<UpNext />
+			<Navigation />
 			{width >= 1000 ? <Clock /> : undefined}
 			{children}
 		</>

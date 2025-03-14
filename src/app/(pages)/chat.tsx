@@ -67,7 +67,8 @@ export function Chat() {
 					<div key={message.id} className={styles.message}>
 						<span className={styles.messageUser}>
 							{message.user}
-						</span>{" "}
+						</span>
+						:{" "}
 						<span className={styles.messageContent}>
 							{message.content}
 						</span>
