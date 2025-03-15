@@ -1,7 +1,7 @@
 "use client";
 
 import "./globals.scss";
-import { ReactNode, useMemo, useRef } from "react";
+import { ReactNode, useMemo } from "react";
 import { useWidth } from "../utils/use_width";
 import Script from "next/script";
 import RememberTheme from "./remember_theme";
@@ -11,7 +11,6 @@ import Navigation from "./navigation";
 import styles from "./layout.module.scss";
 import dynamic from "next/dynamic";
 import { Chat } from "./chat";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
 const Clock = dynamic(() => import("./clock/clock"), { ssr: false });
 
@@ -27,7 +26,6 @@ export default function Layout({
 			: process.env.NEXT_PUBLIC_BASE_PATH + "/";
 	}
 	let width = useWidth().width;
-	const panels = useRef<HTMLElement>(null);
 	return (
 		<>
 			<Script src={basePath + "js/smoothscroll.min.js"} />
@@ -42,9 +40,9 @@ export default function Layout({
 				<Chat />
 				{width < 1000 ? <Clock /> : undefined}
 			</div>
+			{width >= 1000 ? <Clock /> : undefined}
 			<UpNext />
 			<Navigation />
-			{width >= 1000 ? <Clock /> : undefined}
 			{children}
 		</>
 	);

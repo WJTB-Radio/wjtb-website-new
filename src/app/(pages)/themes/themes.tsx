@@ -24,6 +24,7 @@ export const themes = {
 			"--iframe-bg-color": "#eeeeee",
 			"font-family": "system-ui, sans-serif",
 			"font-weight": "300",
+			"color-scheme": "dark",
 		} as CSSProperties,
 	},
 	paper: {
@@ -48,6 +49,7 @@ export const themes = {
 			"font-family":
 				"'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif",
 			"font-weight": "300",
+			"color-scheme": "light",
 		} as CSSProperties,
 	},
 	trees: {
@@ -71,6 +73,7 @@ export const themes = {
 			"--iframe-bg-color": "#eeeeee00",
 			"font-family": "system-ui, sans-serif",
 			"font-weight": "300",
+			"color-scheme": "light",
 		} as CSSProperties,
 	},
 	strawberry: {
@@ -94,6 +97,7 @@ export const themes = {
 			"--iframe-bg-color": "#eeeeee00",
 			"font-family": "system-ui, sans-serif",
 			"font-weight": "300",
+			"color-scheme": "light",
 		} as CSSProperties,
 	},
 	autumn: {
@@ -117,6 +121,7 @@ export const themes = {
 			"--iframe-bg-color": "#efad26",
 			"font-family": "'garamond', serif",
 			"font-weight": "300",
+			"color-scheme": "dark",
 		} as CSSProperties,
 	},
 	spooky: {
@@ -140,6 +145,7 @@ export const themes = {
 			"--iframe-bg-color": "#eeeeee",
 			"font-family": "'modern antiqua', cursive",
 			"font-weight": "300",
+			"color-scheme": "dark",
 		} as CSSProperties,
 	},
 	winter: {
@@ -164,6 +170,7 @@ export const themes = {
 			"font-family":
 				"Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif",
 			"font-weight": "500",
+			"color-scheme": "dark",
 		} as CSSProperties,
 	},
 };
@@ -185,13 +192,13 @@ export function setTheme(id: keyof typeof themes) {
 	if (!Object.hasOwn(themes, id)) {
 		return;
 	}
-	let body;
+	let html;
 	if (document) {
-		body = document.getElementsByTagName("body").item(0);
+		html = document.getElementsByTagName("html").item(0);
 	}
-	if (body) {
+	if (html) {
 		// typescript doesn't know about this feature?
-		(body.style as unknown as string) =
+		(html.style as unknown as string) =
 			cssPropToString(extraStyles) + cssPropToString(themes[id].style);
 	}
 }
