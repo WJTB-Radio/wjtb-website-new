@@ -29,7 +29,6 @@ export function Chat() {
 		if (clientRect.right < 0) return;
 		if (clientRect.top > document.documentElement.clientHeight) return;
 		if (clientRect.left > document.documentElement.clientWidth) return;
-		console.log(smooth ? "smooth" : "instant");
 		container.current.lastElementChild?.scrollIntoView({
 			behavior: smooth ? "smooth" : "instant",
 			block: "end",

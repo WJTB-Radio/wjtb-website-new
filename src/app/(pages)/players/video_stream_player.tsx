@@ -237,7 +237,6 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 			},
 			[loadVideo]
 		);
-		console.log(hovering);
 
 		return (
 			<div

@@ -77,6 +77,9 @@
 	border: transparent;
 	font-size: 0;
 	background-color: transparent;
+	transition:
+		opacity 0.15s ease-out,
+		background-color 0.15s ease-out;
 }
 
 .audio_button {
@@ -95,6 +98,9 @@
 	border: transparent;
 	font-size: 0;
 	background-color: transparent;
+	transition:
+		opacity 0.15s ease-out,
+		background-color 0.15s ease-out;
 }
 
 .fullscreen_icon, .audio_icon {
@@ -135,7 +141,7 @@
 	mask-image: url("svg/headphones.svg");
 }
 
-.hidden * {
+.hidden {
 	opacity: 0;
 	pointer-events: none;
 }
