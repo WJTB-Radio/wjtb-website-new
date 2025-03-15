@@ -135,7 +135,7 @@
 	mask-image: url("svg/headphones.svg");
 }
 
-.hidden, .hidden * {
+.hidden * {
 	opacity: 0;
 	pointer-events: none;
 }
