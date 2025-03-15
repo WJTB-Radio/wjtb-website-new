@@ -290,6 +290,16 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 					/>
 				</div>
 				<button
+					onClick={videoErrorEvent}
+					onFocus={interact}
+					className={`${styles.audio_button} ${
+						!hovering && styles.hidden
+					}`}
+				>
+					Switch to audio only stream
+					<div className={styles.audio_icon}></div>
+				</button>
+				<button
 					onClick={toggleFullscreen}
 					onFocus={interact}
 					className={`${styles.fullscreen_button} ${

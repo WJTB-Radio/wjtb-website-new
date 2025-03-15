@@ -47,17 +47,13 @@ export default function Players() {
 						videoEnabled && styles.hidden
 					}`}
 				>
-					<p>
-						Video couldn&apos;t load. Here is a fallback audio
-						stream.
-					</p>
 					<div className={styles.logo}></div>
 					<AudioStreamPlayer hidden={videoEnabled} />
 					<button
 						onClick={reloadVideo}
 						className={`${styles.styled_button} ${styles.reload_button}`}
 					>
-						Try Reloading Video
+						Switch to Video
 					</button>
 				</div>
 			</>
