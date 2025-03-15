@@ -135,7 +135,7 @@
 	mask-image: url("svg/headphones.svg");
 }
 
-.hidden .fullscreen_icon, .hidden .audio_icon {
+.hidden, .hidden * {
 	opacity: 0;
 	pointer-events: none;
 }

@@ -55,8 +55,10 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 		});
 
 		function interact() {
-			setHovering(true);
-			startHoverTimer();
+			setTimeout(() => {
+				setHovering(true);
+				startHoverTimer();
+			}, 10);
 		}
 
 		function startHoverTimer() {
@@ -108,10 +110,12 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 		}
 
 		function onTap() {
-			if (!hovering) {
-				startHoverTimer();
-			}
-			setHovering(!hovering);
+			setTimeout(() => {
+				if (!hovering) {
+					startHoverTimer();
+				}
+				setHovering(!hovering);
+			}, 10);
 		}
 
 		function onMouseLeave() {
@@ -233,6 +237,7 @@ const VideoStreamPlayer = forwardRef<VideoStreamPlayerHandle, Props>(
 			},
 			[loadVideo]
 		);
+		console.log(hovering);
 
 		return (
 			<div
