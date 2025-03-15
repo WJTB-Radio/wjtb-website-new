@@ -1,6 +1,12 @@
 "use client";
 
-import { CSSProperties, ReactNode, useEffect, useReducer } from "react";
+import {
+	CSSProperties,
+	Fragment,
+	ReactNode,
+	useEffect,
+	useReducer,
+} from "react";
 import {
 	dateFromTime,
 	formatDay,
@@ -52,9 +58,10 @@ export default function UpNext() {
 		const dayString = getWeekdayString(d);
 		if (data.length != 0 && i != 0) {
 			computed.push(
-				<div key={"day" + i} className={styles.day}>
-					{formatDay(dayString)}
-				</div>
+				<Fragment key={"day" + i}>
+					<hr />
+					<div className={styles.day}>{formatDay(dayString)}</div>
+				</Fragment>
 			);
 		}
 		computed = computed.concat(

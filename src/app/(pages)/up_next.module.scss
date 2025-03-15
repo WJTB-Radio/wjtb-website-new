@@ -3,6 +3,7 @@
 	overflow-x: scroll;
 	align-items: center;
 	padding: 0 8px;
+	padding-right: 16px;
 }
 
 .container::-webkit-scrollbar {
@@ -43,10 +44,19 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 0 16px;
+	margin-left: 8px;
+	margin-right: 8px;
 	font-size: 1.25rem;
+	font-weight: 500;
+	display: block;
+}
+
+.container hr {
+	height: 4rem;
+	border-left: 0.25rem solid var(--accent-color);
+	margin-left: 8px;
 }
 
 .gapBefore {
-	margin-left: 32px;
+	margin-left: 16px;
 }
