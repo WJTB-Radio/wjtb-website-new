@@ -17,7 +17,8 @@ type SocketMessage =
 			type: "message";
 			message: ChatMessage;
 	  }
-	| { type: "delete"; id: string };
+	| { type: "delete"; id: string }
+	| { type: "edit"; id: string; content: string };
 
 export function Chat() {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -52,6 +53,16 @@ export function Chat() {
 				case "delete":
 					setMessages(
 						messages.filter((message) => message.id != m.id)
+					);
+					break;
+				case "edit":
+					setMessages(
+						messages.map((message) => {
+							if (message.id == m.id) {
+								message.content = m.content;
+							}
+							return message;
+						})
 					);
 					break;
 			}
