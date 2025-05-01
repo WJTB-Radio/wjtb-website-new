@@ -1,14 +1,18 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useWebsocket from "react-use-websocket";
 import styles from "./chat.module.scss";
 import Link from "next/link";
+import { useLocalStorage } from "usehooks-ts";
+import { defaultTheme, themes } from "./themes/themes";
+import { getReadableForegroundColor } from "../utils/readable_colors";
 
 interface ChatMessage {
 	content: string;
 	user: string;
 	id: string;
+	color: string | undefined;
 }
 
 type SocketMessage =
@@ -68,6 +72,12 @@ export function Chat() {
 			}
 		},
 	});
+	const [themeCookie] = useLocalStorage("theme", defaultTheme, {
+		initializeWithValue: false,
+	});
+	const bgColor = (themes[themeCookie as keyof typeof themes] as any).style[
+		"--bg2-color"
+	] as string;
 	return (
 		<div className={styles.container} ref={container}>
 			{messages.length == 0 ? (
@@ -75,7 +85,20 @@ export function Chat() {
 			) : (
 				messages.map((message) => (
 					<div key={message.id} className={styles.message}>
-						<span className={styles.messageUser}>
+						<span
+							className={styles.messageUser}
+							style={
+								message.color
+									? {
+											color: getReadableForegroundColor(
+												"#" + message.color,
+												bgColor,
+												0.5
+											),
+									  }
+									: {}
+							}
+						>
 							{message.user}
 						</span>
 						:{" "}

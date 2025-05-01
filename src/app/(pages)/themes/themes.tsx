@@ -56,8 +56,8 @@ export const themes = {
 		name: "trees and sun",
 		desc: "love from the theme",
 		style: {
-			"--bg-color": "#a2c9ea",
-			"--bg2-color": "#8bb6de",
+			"--bg-color": "#70a5d7",
+			"--bg2-color": "#5c9bd7",
 			"--bg3-color": "#beba71",
 			"--text-color": "#ffffff",
 			"--text-highlight-color": "#e6f3ff",
