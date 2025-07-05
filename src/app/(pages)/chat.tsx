@@ -93,7 +93,7 @@ export function Chat() {
 											color: getReadableForegroundColor(
 												"#" + message.color,
 												bgColor,
-												0.5
+												0.35
 											),
 									  }
 									: {}

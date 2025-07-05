@@ -1,33 +1,27 @@
-function cube(x: number) {
-	return x * x * x;
-}
-
-function sign(a: number, b: number) {
-	return a > 0 ? 1 : a < 0 ? -1 : b;
-}
-
+// from https://alarabread.fun/experiments
 export function getReadableForegroundColor(
 	fgHex: string,
 	bgHex: string,
 	minContrast: number,
 ) {
-	const fgOklab = rgbToOklab(hexToRGB(fgHex));
-	const bgOklab = rgbToOklab(hexToRGB(bgHex));
-	const fgL3 = cube(fgOklab.L);
-	const distance3 = cube(fgOklab.L - bgOklab.L);
-	const clampedDistance3 = sign(distance3, bgOklab.L < 0.5 ? 1 : -1) *
-		Math.max(
-			Math.abs(distance3),
-			Math.abs(cube(minContrast)),
-		);
-	const newL = Math.cbrt(fgL3 + clampedDistance3);
-	const newFgOklab = {
-		L: newL,
-		a: fgOklab.a,
-		b: fgOklab.b,
-	};
-	console.log(newFgOklab);
-	return rgbToHex(oklabToSRGB(newFgOklab));
+	const fg = rgbToOklab(hexToRGB(fgHex));
+	const bg = rgbToOklab(hexToRGB(bgHex));
+	// if we are already within minContrast, we dont need to do anything
+	if (Math.abs(bg.L - fg.L) > minContrast) return fgHex;
+	const defaultOffset = bg.L < 0.5 ? minContrast : -minContrast;
+	const offset = fg.L > bg.L
+		? bg.L + minContrast > 1 ? defaultOffset : minContrast
+		: bg.L - minContrast < 0
+		? defaultOffset
+		: -minContrast;
+	const L = clamp(bg.L + offset, 0.0, 1.0);
+	return rgbToHex(
+		oklabToSRGB({
+			L,
+			a: fg.a,
+			b: fg.b,
+		}),
+	);
 }
 
 // from https://gist.github.com/earthbound19/e7fe15fdf8ca3ef814750a61bc75b5ce
