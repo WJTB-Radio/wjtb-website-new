@@ -10,7 +10,6 @@ import UpNext from "./up_next";
 import Navigation from "./navigation";
 import styles from "./layout.module.scss";
 import dynamic from "next/dynamic";
-import { Chat } from "./chat";
 
 const Clock = dynamic(() => import("./clock/clock"), { ssr: false });
 
@@ -37,7 +36,6 @@ export default function Layout({
 					),
 					[]
 				)}
-				<Chat />
 				{width < 1000 ? <Clock /> : undefined}
 			</div>
 			{width >= 1000 ? <Clock /> : undefined}
