@@ -1,7 +1,7 @@
 .players {
 	position: relative;
 	display: flex;
-	flex-direction: row;
+	margin: auto;
 	// video sizing
 	--player-width: 70svw;
 	//--player-width: calc(max(40svw, 40rem));
@@ -17,10 +17,6 @@
 
 .tab[data-active], .tab[data-selected] {
 	background: var(--bg3-color);
-}
-
-.players > * {
-	flex-grow: 1;
 }
 
 @media (max-width: 1000px) {

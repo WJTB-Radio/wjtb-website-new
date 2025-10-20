@@ -4,7 +4,6 @@
 	position: relative;
 	text-align: center;
 	height: 100%;
-	overflow: hidden;
 
 	--button-color: var(--video-text-color);
 	--button-color-hover: var(--video-text-highlight-color);
@@ -15,6 +14,7 @@
 
 .video {
 	display: inline-block;
+	margin: auto;
 	width: 100%;
 	height: 100%;
 	pointer-events: none;
