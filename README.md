@@ -1,6 +1,6 @@
 # WJTB's Website
 
-Rewritten WJTB Radio site. Started by Julia, and now mainted by Jon.
+Rewritten WJTB Radio site. Started by Julia, and now maintained by Jon.
 
 If you are looking to take my job, please let me know and I'll walk you through this codebase (and the rest of our stack).
 
